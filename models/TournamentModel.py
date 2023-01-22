@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 from datetime import datetime
 
-from models.Model import Model
 from models.PlayerModel import PlayerModel
 
 
