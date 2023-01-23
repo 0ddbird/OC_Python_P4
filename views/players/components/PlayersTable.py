@@ -1,6 +1,5 @@
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QTableWidget, QTableWidgetItem
-from tinydb import TinyDB
 
 
 class PlayersTable(QTableWidget):
@@ -13,7 +12,6 @@ class PlayersTable(QTableWidget):
 
         headers = list(players[0].keys())
         self.setHorizontalHeaderLabels(headers)
-
         self.verticalHeader().setVisible(False)
 
         for i, player in enumerate(players):
@@ -22,7 +20,6 @@ class PlayersTable(QTableWidget):
                 self.setItem(i, j, QTableWidgetItem(str(value)))
 
         self.resizeColumnsToContents()
-
         self.horizontalHeader().sectionClicked.connect(self.sort_by_column)
         self.sort_order = Qt.DescendingOrder
 
@@ -32,4 +29,4 @@ class PlayersTable(QTableWidget):
             if self.sort_order == Qt.DescendingOrder
             else Qt.DescendingOrder
         )
-        self.sortItems(column,self.sort_order)
+        self.sortItems(column, self.sort_order)

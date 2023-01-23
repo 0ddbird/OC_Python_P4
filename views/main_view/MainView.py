@@ -25,7 +25,7 @@ class MainView(QMainWindow):
         self.views = {
             "tournaments": Tournaments,
             "players": Players,
-            "reports": Reports
+            "reports": Reports,
         }
 
     def switch_view(self, view_name):

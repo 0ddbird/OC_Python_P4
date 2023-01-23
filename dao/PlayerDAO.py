@@ -1,13 +1,14 @@
-from dataclasses import asdict
 from tinydb import TinyDB, Query
 from models.PlayerModel import PlayerModel
+import os
 
 
 class PlayerDAO:
-    db = TinyDB("./db/players.json")
+
+    db = TinyDB(os.path.join(os.getcwd(), "db", "players.json"))
 
     def create_player(self, player: PlayerModel):
-        player_dict = asdict(player)
+        player_dict = player.to_dict()
         self.db.insert(player_dict)
 
     def get_players(self):

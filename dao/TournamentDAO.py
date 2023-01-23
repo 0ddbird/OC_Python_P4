@@ -1,10 +1,12 @@
+import os
+
 from tinydb import TinyDB
 
 from models.TournamentModel import TournamentModel
 
 
 class TournamentDAO:
-    db = TinyDB("./db/tournaments.json")
+    db = TinyDB(os.path.join(os.getcwd(), "db", "tournaments.json"))
 
     def create_player(self, player: TournamentModel):
         pass

@@ -1,10 +1,12 @@
+import os
+
 from tinydb import TinyDB
 
 from models.RoundModel import RoundModel
 
 
 class RoundDAO:
-    db = TinyDB("./db/games.json")
+    db = TinyDB(os.path.join(os.getcwd(), "db", "rounds.json"))
 
     def create_player(self, player: RoundModel):
         pass

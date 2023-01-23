@@ -9,8 +9,6 @@ from PySide6.QtWidgets import (
     QToolButton,
 )
 
-from views.Routes import Routes
-
 
 class MainMenu(QWidget):
     def __init__(self, parent, switch_view):
@@ -36,14 +34,17 @@ class MainMenu(QWidget):
         # Buttons
         buttons_content = [
             {
+                "label": "Tournaments",
                 "view": "tournaments",
                 "icon": "./assets/tournaments_icon.png",
             },
             {
+                "label": "Players",
                 "view": "players",
                 "icon": "./assets/players_icon.png",
             },
             {
+                "label": "Reports",
                 "view": "reports",
                 "icon": "./assets/reports_icon.png",
             },
@@ -54,7 +55,7 @@ class MainMenu(QWidget):
             button.setMinimumWidth(200)
             icon = QIcon(content["icon"])
             button.setIcon(icon)
-            button.setText(content["view"])
+            button.setText(content["label"])
             button.setToolButtonStyle(
                 Qt.ToolButtonStyle.ToolButtonTextUnderIcon
             )

@@ -1,5 +1,5 @@
 from enum import Enum
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from models.PlayerModel import PlayerModel
 
 
@@ -15,3 +15,6 @@ class GameModel:
     p_2: PlayerModel
     p_1_score: PlayerScore
     p_2_score: PlayerScore
+
+    def to_dict(self):
+        return asdict(self)

@@ -16,7 +16,7 @@ class Tournaments(QWidget):
         self.controller = controller
 
         # Welcome label
-        title = QLabel("tournaments")
+        title = QLabel("Tournaments")
         title.setFixedHeight(50)
         title_font = title.font()
         title_font.setPointSize(20)

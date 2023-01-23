@@ -16,7 +16,7 @@ class Reports(QWidget):
         self.controller = controller
 
         # Welcome label
-        title = QLabel("reports")
+        title = QLabel("Reports")
         title.setFixedHeight(50)
         title_font = title.font()
         title_font.setPointSize(20)
