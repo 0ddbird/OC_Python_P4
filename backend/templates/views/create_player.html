@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Create New Player</title>
+</head>
+<body>
+    <h1>Create New Player</h1>
+    <form method="POST" action="{{ url_for('create_player') }}">
+        <label for="chess_id">Chess ID:</label>
+        <input type="text" id="chess_id" name="chess_id" required><br>
+
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" name="first_name" required><br>
+
+        <label for="last_name">Last Name:</label>
+        <input type="text" id="last_name" name="last_name" required><br>
+
+        <label for="birthdate">Birthdate:</label>
+        <input type="date" id="birthdate" name="birthdate" required><br>
+
+        <label for="elo">ELO Rating:</label>
+        <input type="number" id="elo" name="elo" required><br>
+
+        <input type="submit" value="Create Player">
+    </form>
+</body>
+</html>
