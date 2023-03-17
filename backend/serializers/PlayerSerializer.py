@@ -13,6 +13,7 @@ class PlayerSerializer:
         last_name = json_data["last_name"]
         birthdate = datetime.strptime(json_data["birthdate"], "%Y-%m-%d").date()
         elo = int(json_data["elo"])
+        print(birthdate)
 
         if chess_id is None:
             raise ValueError("Chess ID is None")
@@ -29,7 +30,17 @@ class PlayerSerializer:
 
     @staticmethod
     def serialize(player):
-        serialized_player = {
+        # Serialization from Model to TinyDB json
+        if player.id is None:
+            return {
+                "chess_id": player.chess_id,
+                "first_name": player.first_name,
+                "last_name": player.last_name,
+                "birthdate": player.birthdate.strftime("%Y-%m-%d"),
+                "elo": player.elo
+            }
+        # Serialization from Model to View
+        return {
             "id": player.id,
             "chess_id": player.chess_id,
             "first_name": player.first_name,
@@ -37,4 +48,4 @@ class PlayerSerializer:
             "birthdate": player.birthdate,
             "elo": player.elo
         }
-        return serialized_player
+

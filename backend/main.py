@@ -1,12 +1,13 @@
 import sys
 from flask import Flask, request, jsonify, render_template, redirect, url_for
 from backend.controllers.PlayerController import PlayerController
+from backend.controllers.TournamentController import TournamentController
 
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def home():
-    return {"message": "Hello World!", "test": "hello"}
+    return render_template('views/index.html')
 
 @app.route('/players', methods=['GET'])
 def get_players():
@@ -38,8 +39,20 @@ def create_player():
                 "code": 400,
                 "message": f"Error in playerController: {e}"
             }
-    else:
-        return render_template('views/create_player.html')
+    return render_template('views/create_player.html')
+
+@app.route('/tournament/create', methods=['GET','POST'])
+def create_tournament():
+
+    if request.method == 'GET':
+        player_controller = PlayerController()
+        players = player_controller.get_all_players()
+
+        return render_template('views/create_tournament.html', players=players)
+    if request.method == 'POST':
+        players_ids = request.form["players"]
+        tournament_controller = TournamentController()
+        tournament_controller.create_tournament(players_ids)
 
 @app.route('/player/<player_id>', methods=['GET'])
 def get_player(player_id):
@@ -80,9 +93,7 @@ def get_tournament(tournament_id):
         "description": "Description 1"
     }
 
-@app.route('/tournament/create', methods=['POST'])
-def create_tournament():
-    pass
+
 
 @app.route('/reports', methods=['GET'])
 def get_reports():

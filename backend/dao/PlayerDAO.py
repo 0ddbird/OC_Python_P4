@@ -11,10 +11,12 @@ class PlayerDAO:
 
     def create_player(self, player_model: PlayerModel):
         try:
+            # Propre à TinyDB
             player = self.serializer.serialize(player_model)
             record_id = self.db.insert(player)
             return record_id
-        except Exception:
+        except Exception as e:
+            print(e)
             raise
 
     def get_all_players(self) -> List[PlayerModel]:
@@ -25,7 +27,14 @@ class PlayerDAO:
         return player_models
 
     def get_player(self, player_id):
-        return self.db.search(Query().doc_id == player_id)
+        # Renvoyer PlayerModel(result)
+        # Vérifier le type d'erreur TinyDB si player n'existe pas
+        try:
+            result = self.db.search(Query().doc_id == player_id)
+            return PlayerModel(result)
+        except Error as e:
+            print(e)
+            return None
 
     def update_player(self, player_id, updated_player):
         user = Query()

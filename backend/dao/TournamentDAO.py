@@ -1,6 +1,6 @@
 import os
 from tinydb import TinyDB, Query
-from models.TournamentModel import TournamentModel
+from backend.models.TournamentModel import TournamentModel
 
 
 class TournamentDAO:
@@ -8,8 +8,7 @@ class TournamentDAO:
         self.db = TinyDB(os.path.join(os.getcwd(), "db", "tournaments.json"))
 
     def create_tournament(self, tournament: TournamentModel):
-        tournament_dict = tournament.to_dict()
-        self.db.insert(tournament_dict)
+        pass
 
     def get_tournaments(self):
         return self.db.all()

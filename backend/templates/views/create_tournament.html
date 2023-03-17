@@ -1,12 +1,16 @@
 {% extends "./views/base.html" %}
 
-{% block title %}Players List{% endblock %}
+{% block title %}Create Tournament{% endblock %}
 
 {% block content %}
-<h1>Player List</h1>
+<script>
+    var data =
+</script>
+<h1>Create tournament</h1>
     <table>
     <thead>
         <tr>
+            <th>Add</th>
             <th>ID</th>
             <th>Chess ID</th>
             <th>First Name</th>
@@ -18,6 +22,7 @@
     <tbody>
         {% for player in players %}
             <tr>
+                <td><input type="checkbox"/></td>
                 <td>{{ player.id }}</td>
                 <td>{{ player.chess_id }}</td>
                 <td>{{ player.first_name }}</td>
