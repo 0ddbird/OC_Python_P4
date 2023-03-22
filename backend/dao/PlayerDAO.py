@@ -1,8 +1,15 @@
 import os
+from datetime import date
+
 from tinydb import TinyDB, Query
 from backend.models.PlayerModel import PlayerModel
 from backend.serializers.PlayerSerializer import PlayerSerializer
 from typing import List
+
+
+class PlayerNotFoundException(Exception):
+    pass
+
 
 class PlayerDAO:
     def __init__(self):
@@ -21,24 +28,34 @@ class PlayerDAO:
 
     def get_all_players(self) -> List[PlayerModel]:
         players = self.db.all()
-        player_models = [
-            PlayerModel(**player, id=player.doc_id) for player in players
-                         ]
+        player_models = [PlayerModel(**player, id=player.doc_id) for player in
+                         players]
         return player_models
 
     def get_player(self, player_id):
-        # Renvoyer PlayerModel(result)
-        # Vérifier le type d'erreur TinyDB si player n'existe pas
         try:
-            result = self.db.search(Query().doc_id == player_id)
-            return PlayerModel(result)
-        except Error as e:
-            print(e)
+            result = self.db.get(doc_id=player_id)
+            if result:
+                player = PlayerModel(
+                    chess_id=result['chess_id'],
+                    first_name=result['first_name'],
+                    last_name=result['last_name'],
+                    birthdate=date.fromisoformat(result['birthdate']),
+                    elo=result['elo'],
+                    id=result.doc_id
+                )
+                return player
+            else:
+                raise PlayerNotFoundException(f"Player with id {player_id} "
+                                              f"not found")
+        except KeyError:
             return None
 
     def update_player(self, player_id, updated_player):
         user = Query()
-        self.db.update(updated_player, user.doc_id == player_id)
+        result = self.db.update(updated_player, user.doc_id == player_id)
+        print(result)
+        return result
 
     def delete_player(self, player_id):
         user = Query()

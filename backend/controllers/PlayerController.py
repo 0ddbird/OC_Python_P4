@@ -22,10 +22,16 @@ class PlayerController:
         return [self.serializer.serialize(player) for player in players]
 
     def get_player(self, player_id):
-        return self.dao.get_player(player_id)
+        player = self.dao.get_player(player_id)
+        serialized_player = self.serializer.serialize(player)
+        return serialized_player
 
-    def update_player(self, player_id, updated_player):
-        self.model.update_player(player_id, updated_player)
+    def update_player(self, player_data, player_id):
+        try:
+            player = self.serializer.deserialize(player_data)
+            return self.dao.update_player(player, player_id)
+        except Exception as e:
+            return {"error": str(e)}
 
     def delete_player(self, player_id):
         self.model.delete_player(player_id)

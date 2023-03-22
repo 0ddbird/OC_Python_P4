@@ -6,11 +6,13 @@ from ..controllers.PlayerController import PlayerController
 from ..models.PlayerModel import PlayerModel
 
 
-class MissingPlayerError:
+class MissingPlayerException(Exception):
     pass
 
-class PlayerCountError:
+
+class PlayerCountException(Exception):
     pass
+
 
 class TournamentController:
 
@@ -24,7 +26,7 @@ class TournamentController:
         for player_id in players_ids:
             player = self.player_dao.get_player(player_id)
             if player is None:
-                raise MissingPlayerError
+                raise MissingPlayerException(f"Player not found")
             players.append(player)
 
         creation_date = datetime.now()
@@ -34,7 +36,6 @@ class TournamentController:
         # creation_date_str =
         tournament = TournamentModel(players, creation_date)
         self.tournament_dao.create_tournament(tournament)
-
 
     def get_tournaments(self):
         raise NotImplementedError

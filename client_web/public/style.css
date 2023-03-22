@@ -1,0 +1,9 @@
+.player_row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.player_form {
+    display: flex;
+    flex-direction: column;
+}
