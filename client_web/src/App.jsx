@@ -24,8 +24,7 @@ function App () {
               <Route path="/reports" element={<Reports/>}></Route>
               <Route path="/player/:id" element={<PlayerProfile/>}></Route>
               <Route path="/player/create" element={<CreatePlayer/>}></Route>
-              <Route path="/tournament/create"
-                     element={<CreateTournament/>}></Route>
+              <Route path="/tournament/create" element={<CreateTournament/>}></Route>
             </Routes>
           </BrowserRouter>
         </AppContext.Provider>

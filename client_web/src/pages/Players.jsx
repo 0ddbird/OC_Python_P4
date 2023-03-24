@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Nav from '../components/Nav.jsx'
 import PlayersTable from '../components/PlayersTable.jsx'
 import { NavLink } from 'react-router-dom'
@@ -18,21 +18,17 @@ export async function getPlayers () {
 const Players = () => {
   const { players, setPlayers } = useContext(AppContext)
 
-  const [isLoading, setIsLoading] = useState(false)
   useEffect(() => {
-    if (!players) {
-      getPlayers().then(players => {
-        setPlayers(players)
-        setIsLoading(false)
-      }
-      )
+    getPlayers().then(players => {
+      setPlayers(players)
     }
+    )
   }, [])
 
   return (
       <>
         <Nav/>
-        {isLoading ? <div>Loading</div> : <PlayersTable players={players}/>}
+        {players && <PlayersTable players={players}/>}
         <NavLink to="/player/create">Add new player</NavLink>
       </>
   )

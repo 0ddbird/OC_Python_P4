@@ -14,7 +14,7 @@ async function getPlayer (id) {
 }
 
 const PlayerProfile = () => {
-  const [playerID, setPlayerID] = useState('')
+  // const [playerID, setPlayerID] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [birthdate, setBirthdate] = useState('')
@@ -25,27 +25,26 @@ const PlayerProfile = () => {
 
   useEffect(() => {
     getPlayer(id).then(player => {
-      setPlayerID(player.id)
+      // setPlayerID(player.id)
       setFirstName(player.first_name)
       setLastName(player.last_name)
       const birthdate = new Date(player.birthdate).toISOString().slice(0, 10)
       setBirthdate(birthdate)
       setChessID(player.chess_id)
       setELO(player.elo)
-      console.log(player.birthdate, birthdate)
     })
   }, [])
 
-  async function handleFormSubmit () {
+  async function handleFormSubmit (e) {
+    e.preventDefault()
     const res = await fetch(`http://127.0.0.1:5000/player/${id}/update`, {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json'
       },
-      method: 'POST',
+      method: 'PUT',
       body: JSON.stringify(
         {
-          id: playerID,
           chess_id: chessID,
           first_name: firstName,
           last_name: lastName,
@@ -60,7 +59,7 @@ const PlayerProfile = () => {
   return (
       <>
         <Nav/>
-        <form className="player_form" onSubmit={handleFormSubmit}>
+        <form className="player_form" onSubmit={(e) => handleFormSubmit(e)}>
           <label htmlFor="first_name"></label>
           <input id="first_name" type="text" value={firstName}
                  onChange={(e) => setFirstName(e.target.value)}/>

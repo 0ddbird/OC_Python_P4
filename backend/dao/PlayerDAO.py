@@ -2,13 +2,11 @@ import os
 from datetime import date
 
 from tinydb import TinyDB, Query
+
+from backend.exceptions.dao import PlayerNotFoundException
 from backend.models.PlayerModel import PlayerModel
 from backend.serializers.PlayerSerializer import PlayerSerializer
 from typing import List
-
-
-class PlayerNotFoundException(Exception):
-    pass
 
 
 class PlayerDAO:
@@ -16,21 +14,15 @@ class PlayerDAO:
         self.db = TinyDB(os.path.join(os.getcwd(), "db", "players.json"))
         self.serializer = PlayerSerializer()
 
-    def create_player(self, player_model: PlayerModel):
+    def create_player(self, player: PlayerModel):
+        print(player)
         try:
-            # Propre à TinyDB
-            player = self.serializer.serialize(player_model)
+
+            player = self.serializer.serialize(player)
             record_id = self.db.insert(player)
             return record_id
         except Exception as e:
             print(e)
-            raise
-
-    def get_all_players(self) -> List[PlayerModel]:
-        players = self.db.all()
-        player_models = [PlayerModel(**player, id=player.doc_id) for player in
-                         players]
-        return player_models
 
     def get_player(self, player_id):
         try:
@@ -42,7 +34,7 @@ class PlayerDAO:
                     last_name=result['last_name'],
                     birthdate=date.fromisoformat(result['birthdate']),
                     elo=result['elo'],
-                    id=result.doc_id
+                    player_id=result.doc_id
                 )
                 return player
             else:
@@ -51,11 +43,22 @@ class PlayerDAO:
         except KeyError:
             return None
 
-    def update_player(self, player_id, updated_player):
+    def get_all_players(self) -> List[PlayerModel]:
+        players = self.db.all()
+        player_models = [
+            PlayerModel(**player, player_id=player.doc_id) for player in players
+        ]
+        return player_models
+
+    def update_player(self, player: PlayerModel):
         user = Query()
-        result = self.db.update(updated_player, user.doc_id == player_id)
-        print(result)
-        return result
+        player_id = player.player_id
+        serialized_player = self.serializer.serialize(player)
+        serialized_player.pop("player_id")
+        print(f"serialized_player: {serialized_player}")
+        self.db.update(serialized_player, user.doc_id == player_id)
+        updated_player = self.get_player(player_id)
+        return updated_player
 
     def delete_player(self, player_id):
         user = Query()

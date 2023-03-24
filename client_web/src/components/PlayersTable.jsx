@@ -3,11 +3,10 @@ import PropTypes from 'prop-types'
 import PlayerRow from './PlayerRow.jsx'
 
 const PlayersTable = ({ players }) => {
-  console.log(players)
   return (
       <div>
         {
-          players.map(player => <PlayerRow player={player} key={player.id}/>)
+          players.map(player => <PlayerRow player={player} key={player.player_id}/>)
         }
       </div>
   )

@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify, render_template, redirect, url_for, \
 from flask_cors import CORS
 from backend.controllers.PlayerController import PlayerController
 from backend.controllers.TournamentController import TournamentController
+from backend.exceptions.dao import PlayerCreationException
 
 app = Flask(__name__)
 CORS(app)
@@ -16,54 +17,27 @@ def handle_preflight_request():
     return response
 
 
-@app.route('/players', methods=['GET'])
-def get_players():
-    controller = PlayerController()
-    players = controller.get_all_players()
-    return players
-
-
 @app.route('/player/create', methods=['POST', 'OPTIONS'])
 def create_player():
     if request.method == 'OPTIONS':
         return handle_preflight_request()
 
     controller = PlayerController()
-
-    chess_id = request.json.get('chess_id')
-    first_name = request.json.get('first_name')
-    last_name = request.json.get('last_name')
-    birthdate = request.json.get('birthdate')
-    elo = request.json.get('elo')
+    player = {
+        "chess_id": request.json.get('chess_id'),
+        "first_name": request.json.get('first_name'),
+        "last_name": request.json.get('last_name'),
+        "birthdate": request.json.get('birthdate'),
+        "elo": request.json.get('elo')
+    }
     try:
-        controller.create_player({
-            "chess_id": chess_id,
-            "first_name": first_name,
-            "last_name": last_name,
-            "birthdate": birthdate,
-            "elo": elo
-        })
+        controller.create_player(player)
         return {"status": "OK"}
-    except Exception as e:
+    except PlayerCreationException as e:
         return {
-            "status": "Not OK",
+            "status": "Error",
             "code": 400,
             "message": f"Error in playerController: {e}"
-        }
-
-
-@app.route('/tournament/create', methods=['POST', 'OPTIONS'])
-def create_tournament():
-    if request.method == 'OPTIONS':
-        return handle_preflight_request()
-
-    if request.method == 'POST':
-        tournament_name = request.json.get('tournament_name')
-        controller = TournamentController()
-        controller.create_tournament(tournament_name)
-        return {
-            "status_code": 200,
-            "message": tournament_name
         }
 
 
@@ -74,40 +48,54 @@ def get_player(player_id):
     return player
 
 
-@app.route('/player/<player_id>/update', methods=['POST'])
+@app.route('/players', methods=['GET'])
+def get_players():
+    controller = PlayerController()
+    players = controller.get_all_players()
+    return players
+
+
+@app.route('/player/<player_id>/update', methods=['PUT'])
 def update_player(player_id):
+    if request.method == 'OPTIONS':
+        return handle_preflight_request()
+
     player_controller = PlayerController()
-    player = player_controller.get_player(player_id)
-    if player:
-        try:
-            chess_id = request.form['chess_id']
-            first_name = request.form['first_name']
-            last_name = request.form['last_name']
-            birthdate = request.form['birthdate']
-            elo = request.form['elo']
-
-            player_id = player.id
-            player_data = {
-                "chess_id": chess_id,
-                "first_name": first_name,
-                "last_name": last_name,
-                "birthdate": birthdate,
-                "elo": elo
-            }
-
-            player_controller.update_player(player_data, player_id)
-            return {"status": "OK"}
-        except Exception as e:
-            return {
-                "status": "Not OK",
-                "code": 400,
-                "message": f"Error in playerController: {e}"
-            }
+    player_data = {
+        "player_id": player_id,
+        "chess_id": request.json.get('chess_id'),
+        "first_name": request.json.get('first_name'),
+        "last_name": request.json.get('last_name'),
+        "birthdate": request.json.get('birthdate'),
+        "elo": request.json.get('elo')
+    }
+    try:
+        updated_player = player_controller.update_player(player_data)
+        return {
+            "status": "OK",
+            "player": updated_player
+        }
+    except Exception as e:
+        return {
+            "status": "Not OK",
+            "code": 400,
+            "message": f"Error in PlayerController: {e}"
+        }
 
 
-@app.route('/tournaments', methods=['GET'])
-def get_tournaments():
-    pass
+@app.route('/tournament/create', methods=['POST', 'OPTIONS'])
+def create_tournament():
+    if request.method == 'OPTIONS':
+        return handle_preflight_request()
+
+    if request.method == 'POST':
+        tournament_name = request.json.get('tournament_name')
+        # controller = TournamentController()
+        # controller.create_tournament(tournament_name)
+        return {
+            "status_code": 200,
+            "message": tournament_name
+        }
 
 
 @app.route('/tournament/<tournament_id>', methods=['GET'])

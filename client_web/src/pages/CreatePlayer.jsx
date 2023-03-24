@@ -16,13 +16,13 @@ const CreatePlayer = () => {
         Accept: 'application/json'
       },
       method: 'POST',
-      body: {
+      body: JSON.stringify({
         chess_id: chessID,
         first_name: firstName,
         last_name: lastName,
         birthdate,
         elo: ELO
-      }
+      })
     })
     return await res.json()
   }

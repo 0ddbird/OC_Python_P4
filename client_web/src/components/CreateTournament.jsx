@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
-import Nav from '../components/Nav.jsx'
 import { AppContext } from '../App.jsx'
-import { getPlayers } from '../pages/Players.jsx'
+import Nav from '../components/Nav.jsx'
 import PlayerRow from './PlayerRow.jsx'
+import { getPlayers } from '../pages/Players.jsx'
 
 const CreateTournament = () => {
   const [tournamentName, setTournamentName] = useState('')
   const { players, setPlayers } = useContext(AppContext)
   const [selectedPlayerIDs, setSelectedPlayerIDs] = useState([])
+
   useEffect(() => {
     if (!players) {
       getPlayers().then(players => {
@@ -17,7 +18,8 @@ const CreateTournament = () => {
     }
   }, [])
 
-  async function handleCreateTournament (id) {
+  async function handleCreateTournament (e) {
+    e.preventDefault()
     const res = await fetch('http://127.0.0.1:5000/tournament/create', {
       headers: {
         'Content-Type': 'application/json',
@@ -32,11 +34,15 @@ const CreateTournament = () => {
     return await res.json()
   }
 
-  function handlePlayerSelection (e, player) {
+  function handlePlayerSelection (e, playerID) {
     const currentSelectedIDs = [...selectedPlayerIDs]
-    currentSelectedIDs.push(player.id)
+    if (currentSelectedIDs.includes(playerID)) {
+      currentSelectedIDs.splice(currentSelectedIDs.indexOf(playerID), 1)
+    } else {
+      currentSelectedIDs.push(playerID)
+    }
     setSelectedPlayerIDs(currentSelectedIDs)
-    console.log(setSelectedPlayerIDs())
+    console.log(setSelectedPlayerIDs)
   }
 
   return (
@@ -44,7 +50,7 @@ const CreateTournament = () => {
         <Nav/>
         <h1>Create Tournament</h1>
         <form className="create_tournament_form"
-              onSubmit={handleCreateTournament}>
+              onSubmit={(e) => handleCreateTournament(e)}>
           <label htmlFor="tournament_name">Tournament name</label>
           <input type="text" value={tournamentName}
                  onChange={(e) => setTournamentName(e.target.value)}/>
@@ -54,7 +60,7 @@ const CreateTournament = () => {
                   return (
                       <div className="player" key={`player_${player.id}`}>
                         <input type="checkbox"
-                               onChange={(e, player) => handlePlayerSelection(e, player)}/>
+                               onChange={(e) => handlePlayerSelection(player.id)}/>
                         <PlayerRow player={player} key={player.id}/>
                       </div>
 
