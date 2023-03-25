@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from ..exceptions.dao import PlayerNotFoundException
 from ..exceptions.serializer_exceptions import SerializationException
 from ..models.PlayerModel import PlayerModel
@@ -12,9 +14,6 @@ class PlayerController:
         self.serializer = PlayerSerializer()
 
     def create_player(self, player_data):
-        print(player_data)
-        player = self.serializer.deserialize(player_data)
-        print(player)
         try:
             player = self.serializer.deserialize(player_data)
             record_id = self.dao.create_player(player)
@@ -37,13 +36,15 @@ class PlayerController:
             raise SerializationException("Player not serializable") from e
 
     def update_player(self, player_data):
+        player = self.serializer.deserialize(player_data)
         try:
-            player = self.serializer.deserialize(player_data)
             return self.dao.update_player(player)
-        except PlayerNotFoundException as e:
-            raise PlayerNotFoundException("Player not found") from e
-        except SerializationException as e:
-            raise SerializationException("Player not serializable") from e
+        except Exception as e:
+            return {"error": str(e)}
 
     def delete_player(self, player_id):
-        pass
+        try:
+            self.dao.delete_player(player_id)
+            return {"status": "OK"}
+        except Exception as e:
+            return {"error": str(e)}

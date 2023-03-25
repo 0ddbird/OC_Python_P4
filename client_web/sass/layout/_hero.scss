@@ -1,0 +1,101 @@
+@use '../abstract' as a;
+
+#hero {
+  position: relative;
+  top: -70px;
+}
+
+#hero_cover_container {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+
+  @include a.mq-961 {
+    margin-bottom: -70px;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 50%);
+  }
+}
+
+#hero_cover {
+  object-fit: cover;
+  width: 80%;
+  max-height: 950px;
+}
+
+#hero_panel {
+  @include a.flex;
+  flex-direction: column;
+  width: 100%;
+
+  @include a.mq-961 {
+    width: 30%;
+    position: absolute;
+    left: 3em;
+    bottom: 20%;
+    align-items: flex-start;
+  }
+
+  @include a.mq-1025 {
+    width: 25%;
+    bottom: 30%;
+  }
+  @include a.mq-1800 {
+    bottom: 30%;
+  }
+}
+
+#hero_description {
+  display: none;
+  @include a.mq-961 {
+    font-size: 1.5em;
+    display: block;
+    margin-bottom: 1em;
+  }
+  @include a.mq-1800 {
+    font-size: 2em;
+  }
+}
+
+#hero_controls {
+  @include a.flex;
+}
+
+.hero_btn {
+  margin: 0 .25em;
+  @include a.mq-1025 {
+    font-size: 1.5em;
+  }
+
+  & .btn_icon {
+    height: 1em;
+    width: 1em;
+    margin-right: .5em;
+    @include a.mq-1025 {
+      height: 1.5em;
+      width: 1.5em;
+    }
+  }
+}
+
+#hero_play_btn {
+  color: black;
+  font-weight: 700;
+
+}
+
+#hero_info_btn {
+  background-color: a.$clr-agrey;
+  transition: background-color .25s ease-out;
+
+  &:hover {
+    background-color: a.$clr-lagrey;
+    transition: background-color .25s ease-out;
+  }
+}
+

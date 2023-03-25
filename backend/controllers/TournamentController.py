@@ -15,7 +15,6 @@ class PlayerCountException(Exception):
 
 
 class TournamentController:
-
     def __init__(self):
         self.player_controller = PlayerController()
         self.tournament_dao = TournamentDAO()

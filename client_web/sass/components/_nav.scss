@@ -1,0 +1,12 @@
+@use '../abstract' as a;
+nav {
+  background-color: a.$clr-dgrey;
+  padding: 1em;
+}
+
+nav a {
+  padding: 0.5em;
+  background-color: a.$clr-agrey;
+  margin-left: .25em;
+  margin-right: .25em;
+}

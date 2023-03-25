@@ -14,7 +14,7 @@ function App () {
   const [players, setPlayers] = useState(null)
 
   return (
-      <div className="App">
+      <>
         <AppContext.Provider value={{ players, setPlayers }}>
           <BrowserRouter>
             <Routes>
@@ -28,7 +28,7 @@ function App () {
             </Routes>
           </BrowserRouter>
         </AppContext.Provider>
-      </div>
+      </>
   )
 }
 

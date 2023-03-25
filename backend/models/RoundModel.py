@@ -2,6 +2,7 @@ from models.PlayerModel import PlayerModel
 from dao.RoundDAO import RoundDAO
 from dataclasses import asdict
 
+
 class RoundModel:
     def __init__(self):
         self.r_id = None

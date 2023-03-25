@@ -1,0 +1,30 @@
+@use '../abstract' as a;
+
+.hero_content {
+  padding: 2em 0;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ flex-direction: column;
+ font-size: 3em;
+}
+
+.home_heading {
+  color: white;
+}
+
+.home_subheading {
+ color: white;
+}
+
+
+.home_description {
+ color: white;
+ font-size: .5em;
+}
+
+#hero_section {
+ height: 100vh;
+ background-image: url("./hero_background_2.jpg");
+
+}

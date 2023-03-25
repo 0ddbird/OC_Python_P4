@@ -1,5 +1,6 @@
 from models.GameModel import GameModel
 
+
 class GameController:
     def __init__(self):
         self.game = Game()

@@ -1,14 +1,598 @@
-.player_row {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
+/*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
+html, body, p, ol, ul, li, dl, dt, dd, blockquote, figure, fieldset, legend, textarea, pre, iframe, hr, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
 }
 
-.player_form {
-    display: flex;
-    flex-direction: column;
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+  font-weight: normal;
 }
 
+ul {
+  list-style: none;
+}
+
+button, input, select {
+  margin: 0;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+iframe {
+  border: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td, th {
+  padding: 0;
+}
+
+/* smartphones, iPhone, portrait 480x320 phones */
+/* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+/* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+/* tablet, landscape iPad, lo-res laptops ands desktops */
+/* big landscape tablets, laptops, and desktops */
+/* hi-res laptops and desktops */
 * {
-    background: black;
-    color: white;
+  font-family: "Nunito Sans", sans-serif;
 }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1 {
+  font-size: 2em;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 1.8em;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1.6em;
+  font-weight: 700;
+}
+
+h4 {
+  font-size: 1.4em;
+  font-weight: 700;
+}
+
+h5 {
+  font-size: 1.2em;
+  font-weight: 700;
+}
+
+h6 {
+  font-size: 1.4em;
+  font-weight: 700;
+}
+
+#observer_anchor {
+  position: absolute;
+  top: 0;
+  height: 200px;
+}
+
+header {
+  position: sticky;
+  height: 3em;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gradient {
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 0.5s ease-in-out;
+}
+.gradient::after {
+  position: absolute;
+  z-index: -1;
+  content: "";
+  inset: 0;
+  background: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+.plain {
+  transition: background-color 0.5s ease-in-out;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+.plain::after {
+  position: absolute;
+  z-index: -1;
+  content: "";
+  inset: 0;
+  background: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+#logo_container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#logo_container h1 {
+  font-size: 1.1em;
+  margin-left: 4em;
+  font-family: "Fugaz One", sans-serif;
+}
+@media (min-width: 641px) {
+  #logo_container h1 {
+    font-size: 1.5em;
+    margin-left: 3.25em;
+  }
+}
+
+#logo_elements {
+  height: 3em;
+  position: relative;
+  top: 0;
+  left: 1em;
+}
+#logo_elements img {
+  position: absolute;
+  inset: 0;
+  height: 3em;
+}
+
+#logo_el_1 {
+  animation: rotateLeft 27s linear infinite;
+}
+
+#logo_el_3 {
+  animation: rotateRight 18s linear infinite;
+}
+
+#logo_el_4 {
+  animation: rotateLeft 25s linear infinite;
+}
+
+@keyframes rotateRight {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotateLeft {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+#hero {
+  position: relative;
+  top: -70px;
+}
+
+#hero_cover_container {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+}
+@media (min-width: 961px) {
+  #hero_cover_container {
+    margin-bottom: -70px;
+  }
+}
+#hero_cover_container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0) 50%);
+}
+
+#hero_cover {
+  object-fit: cover;
+  width: 80%;
+  max-height: 950px;
+}
+
+#hero_panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+@media (min-width: 961px) {
+  #hero_panel {
+    width: 30%;
+    position: absolute;
+    left: 3em;
+    bottom: 20%;
+    align-items: flex-start;
+  }
+}
+@media (min-width: 1025px) {
+  #hero_panel {
+    width: 25%;
+    bottom: 30%;
+  }
+}
+@media (min-width: 1800px) {
+  #hero_panel {
+    bottom: 30%;
+  }
+}
+
+#hero_description {
+  display: none;
+}
+@media (min-width: 961px) {
+  #hero_description {
+    font-size: 1.5em;
+    display: block;
+    margin-bottom: 1em;
+  }
+}
+@media (min-width: 1800px) {
+  #hero_description {
+    font-size: 2em;
+  }
+}
+
+#hero_controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero_btn {
+  margin: 0 0.25em;
+}
+@media (min-width: 1025px) {
+  .hero_btn {
+    font-size: 1.5em;
+  }
+}
+.hero_btn .btn_icon {
+  height: 1em;
+  width: 1em;
+  margin-right: 0.5em;
+}
+@media (min-width: 1025px) {
+  .hero_btn .btn_icon {
+    height: 1.5em;
+    width: 1.5em;
+  }
+}
+
+#hero_play_btn {
+  color: black;
+  font-weight: 700;
+}
+
+#hero_info_btn {
+  background-color: rgba(154, 154, 154, 0.5);
+  transition: background-color 0.25s ease-out;
+}
+#hero_info_btn:hover {
+  background-color: rgba(154, 154, 154, 0.2);
+  transition: background-color 0.25s ease-out;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(50, 50, 50);
+  padding: 2em 0;
+  gap: 1em;
+}
+@media (min-width: 961px) {
+  footer {
+    align-items: flex-start;
+    padding: 2em;
+  }
+}
+
+.social_links {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1em;
+  cursor: pointer;
+}
+
+.social_icon_container {
+  height: 25px;
+  width: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#seo_tag_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1em;
+}
+@media (min-width: 641px) {
+  #seo_tag_container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2em;
+  }
+}
+@media (min-width: 961px) {
+  #seo_tag_container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.seo_tags a {
+  color: #515151;
+}
+.seo_tags a:hover {
+  color: #717171;
+}
+
+nav {
+  background-color: #2d3436;
+  padding: 1em;
+}
+
+nav a {
+  padding: 0.5em;
+  background-color: rgba(154, 154, 154, 0.5);
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+}
+
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 0.5em 1em;
+  border-radius: 0.5ch;
+  cursor: pointer;
+  transition: transform 0.25s ease-in-out;
+}
+
+.icon {
+  height: 1em;
+  width: 1em;
+}
+
+#modal-background {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.displayed {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: Blur 0.25s ease-in-out forwards;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes Blur {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(10px);
+  }
+}
+#modal_wrapper {
+  position: relative;
+  max-width: 1024px;
+  border-radius: 5px;
+  width: 100%;
+  padding: 3em 1em;
+}
+
+#modal_close-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: none;
+}
+#modal_close-btn img {
+  height: 2em;
+  width: 2em;
+  opacity: 0.5;
+}
+
+#modal_content {
+  display: grid;
+  position: relative;
+  gap: 0.25em;
+  grid-template-areas: "cover        heading     heading" "cover        genre       genre" "cover        release     release" "cover        rating      rating" "cover        imdb        imdb" "cover        director    director" "cover        duration    duration" "cover        country     country" "cover        boxoffice   boxoffice" "casting      casting     casting" "synopsis     synopsis    synopsis";
+}
+@media (min-width: 641px) {
+  #modal_content {
+    display: grid;
+    grid-template-areas: "cover        heading     heading" "cover        genre       genre" "cover        release     release" "cover        rating      rating" "cover        imdb        imdb" "cover        director    director" "cover        duration    duration" "cover        country     country" "cover        boxoffice   boxoffice" "casting      casting     casting" "synopsis     synopsis    synopsis";
+    gap: 0.25em 1em;
+  }
+}
+@media (min-width: 961px) {
+  #modal_content {
+    display: grid;
+    grid-template-areas: "cover        heading     heading" "cover        genre       genre" "cover        release     release" "cover        rating      rating" "cover        imdb        imdb" "cover        director    director" "cover        duration    duration" "cover        country     country" "cover        boxoffice   boxoffice" "cover        casting     casting" "synopsis     synopsis    synopsis";
+  }
+}
+@media (min-width: 1025px) {
+  #modal_content {
+    display: grid;
+    grid-template-areas: "cover        heading     heading" "cover        genre       genre" "cover        release     release" "cover        rating      rating" "cover        imdb        imdb" "cover        director    director" "cover        duration    duration" "cover        country     country" "cover        boxoffice   boxoffice" "cover        casting     casting" "cover        synopsis    synopsis";
+  }
+}
+
+#modal_movie_picture_container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-self: center;
+  grid-area: cover;
+}
+
+#modal_movie_picture {
+  object-fit: cover;
+  border-radius: 5px;
+  height: 100%;
+  width: 100%;
+}
+
+#modal_movie_title {
+  border-radius: 5px;
+  grid-area: heading;
+}
+
+.modal_row_title {
+  color: #f39c12;
+  font-weight: 700;
+  margin-right: 1ch;
+}
+
+#modal_genre {
+  grid-area: genre;
+}
+
+#modal_release {
+  grid-area: release;
+}
+
+#modal_rating {
+  grid-area: rating;
+}
+
+#modal_imdb {
+  grid-area: imdb;
+}
+
+#modal_director {
+  grid-area: director;
+}
+
+#modal_casting {
+  grid-area: casting;
+}
+
+#modal_duration {
+  grid-area: duration;
+}
+
+#modal_country {
+  grid-area: country;
+}
+
+#modal_box-office {
+  grid-area: boxoffice;
+}
+
+#modal_synopsis {
+  grid-area: synopsis;
+}
+
+.player_table_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.player_heading {
+  margin: 2em 0;
+}
+
+.player_table {
+  width: 70%;
+  margin-bottom: 2em;
+}
+
+.player_table_header {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  margin-bottom: 1em;
+}
+
+.player_table_header_cell {
+  text-align: center;
+  font-weight: 700;
+}
+
+.player_row {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+}
+.player_row div {
+  text-align: center;
+}
+.player_row a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero_content {
+  padding: 2em 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 3em;
+}
+
+.home_heading {
+  color: white;
+}
+
+.home_subheading {
+  color: white;
+}
+
+.home_description {
+  color: white;
+  font-size: 0.5em;
+}
+
+#hero_section {
+  height: 100vh;
+  background-image: url("./hero_background_2.jpg");
+}
+
+/*# sourceMappingURL=style.css.map */
