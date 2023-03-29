@@ -7,6 +7,7 @@ import Reports from './pages/Reports.jsx'
 import PlayerProfile from './pages/PlayerProfile.jsx'
 import CreatePlayer from './pages/CreatePlayer.jsx'
 import CreateTournament from './components/CreateTournament.jsx'
+import Tournament from './pages/Tournament.jsx'
 
 export const AppContext = createContext(null)
 
@@ -25,6 +26,7 @@ function App () {
               <Route path="/player/:id" element={<PlayerProfile/>}></Route>
               <Route path="/player/create" element={<CreatePlayer/>}></Route>
               <Route path="/tournament/create" element={<CreateTournament/>}></Route>
+              <Route path="/tournament/:id" element={<Tournament/>}></Route>
             </Routes>
           </BrowserRouter>
         </AppContext.Provider>

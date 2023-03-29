@@ -1,25 +1,20 @@
 class TournamentModel:
-    def __init__(self):
-        self.t_id = None
-        self.name = None
-        self.location = None
-        self.start_date = None
-        self.end_date = None
-        self.max_rounds = None
-        self.curr_round = None
-        self.players = None
-        self.description = None
+    def __init__(
+        self, name, max_rounds, location, description, players_ids,
+            creation_date,
+            current_round, status, t_id=None,
 
-    def __str__(self):
-        return (
-            f"{self.name} {self.location} {self.start_date}"
-            f" {self.end_date} {self.max_rounds} {self.curr_round} "
-            f"{self.players} {self.description}"
-        )
+    ):
+        self.t_id = t_id
+        self.name = name
+        self.max_rounds = max_rounds
+        self.location = location
+        self.description = description
+        self.players_ids = players_ids
+        self.creation_date = creation_date
+        self.current_round = current_round
+        self.end_date = None
+        self.status = status
 
     def __repr__(self):
-        return (
-            f"{self.name} {self.location} {self.start_date}"
-            f" {self.end_date} {self.max_rounds} {self.curr_round} "
-            f"{self.players} {self.description}"
-        )
+        return f"TournamentModel(t_id={self.t_id}, name={self.name}, max_rounds={self.max_rounds}, location={self.location}, description={self.description}, players_ids={self.players_ids}, creation_date={self.creation_date}, current_round={self.current_round}, end_date={self.end_date}, tournament_status={self.status})"

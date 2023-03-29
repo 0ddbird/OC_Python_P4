@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Nav from '../components/Nav.jsx'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 async function getPlayer (id) {
   const res = await fetch(`http://127.0.0.1:5000/player/${id}`, {
@@ -22,6 +22,7 @@ const PlayerProfile = () => {
   const [ELO, setELO] = useState('')
 
   const { id } = useParams()
+  const navigate = useNavigate()
 
   useEffect(() => {
     getPlayer(id).then(player => {
@@ -53,7 +54,8 @@ const PlayerProfile = () => {
         }
       )
     })
-    return await res.json()
+    const response = await res.json()
+    if (response.status_code === 200) navigate('/players')
   }
 
   return (

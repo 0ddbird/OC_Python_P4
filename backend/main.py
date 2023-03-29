@@ -11,6 +11,10 @@ from flask_cors import CORS
 from backend.controllers.PlayerController import PlayerController
 from backend.controllers.TournamentController import TournamentController
 from backend.exceptions.dao import PlayerCreationException
+from backend.middleware.validate_tournament_payload import (
+    TournamentValidationException,
+    validate_tournament_fields,
+)
 
 app = Flask(__name__)
 CORS(app)
@@ -38,8 +42,8 @@ def create_player():
         "elo": request.json.get("elo"),
     }
     try:
-        controller.create_player(player)
-        return {"status": "OK"}
+        player_id = controller.create_player(player)
+        return {"status": "OK", "status_code": 200, "id": player_id}
     except PlayerCreationException as e:
         return {
             "status": "Error",
@@ -76,15 +80,21 @@ def update_player(player_id):
         "birthdate": request.json.get("birthdate"),
         "elo": request.json.get("elo"),
     }
+
     try:
-        updated_player = player_controller.update_player(player_data)
-        return {"status": "OK", "player": updated_player}
+        updated_player_id = player_controller.update_player(player_data)
+        return {
+            "status": "OK",
+            "status_code": 200,
+            "player_id": updated_player_id
+        }
     except Exception as e:
         return {
             "status": "Not OK",
-            "code": 400,
+            "status_code": 400,
             "message": f"Error in PlayerController: {e}",
         }
+
 
 @app.route("/player/<player_id>/delete", methods=["DELETE"])
 def delete_player(player_id):
@@ -109,34 +119,65 @@ def create_tournament():
         return handle_preflight_request()
 
     if request.method == "POST":
-        tournament_name = request.json.get("tournament_name")
-        # controller = TournamentController()
-        # controller.create_tournament(tournament_name)
-        return {"status_code": 200, "message": tournament_name}
+        name = request.json.get("name")
+        rounds = request.json.get("rounds")
+        location = request.json.get("location")
+        description = request.json.get("description")
+        players_ids = request.json.get("players_ids")
+
+        try:
+            validate_tournament_fields(name, rounds, location, description, players_ids)
+        except TournamentValidationException as e:
+            return {
+                "status": "Not OK",
+                "code": 400,
+                "message": f"Error in TournamentController: {e}",
+            }
+
+        try:
+            controller = TournamentController()
+            tournament_id = controller.create_tournament(
+                name, rounds, location, description, players_ids
+            )
+            return {
+                "status": "OK",
+                "status_code": 200,
+                "tournament_id": tournament_id
+            }
+
+        except Exception as e:
+            return {
+                "status": "Not OK",
+                "code": 400,
+                "message": f"Error in TournamentController: {e}",
+            }
+
+
+    return {"status_code": 400, "message": "Bad request"}
 
 
 @app.route("/tournament/<tournament_id>", methods=["GET"])
 def get_tournament(tournament_id):
-    return {
-        "name": "Tournament 1",
-        "location": "Location 1",
-        "start_date": "2020-01-01",
-        "end_date": "2020-01-01",
-        "max_rounds": 5,
-        "curr_round": 1,
-        "players": [
-            {
-                "first_name": "John",
-                "last_name": "Doe",
-                "birthdate": "1990-01-01",
-                "elo": 1000,
-            },
-            {
-                "first_name": "Jane",
-                "last_name": "Doe",
-                "birthdate": "1990-01-01",
-                "elo": 2000,
-            },
-        ],
-        "description": "Description 1",
-    }
+    controller = TournamentController()
+    try:
+        serialized_tournament = controller.get_tournament(tournament_id)
+        return {"status": "OK", "status_code": 200, "tournament": serialized_tournament}
+    except Exception as e:
+        return {
+            "status": "Not OK",
+            "code": 400,
+            "message": f"Error in TournamentController: {e}",
+        }
+
+@app.route("/tournaments", methods=["GET"])
+def get_tournaments():
+    controller = TournamentController()
+    try:
+        serialized_tournaments = controller.get_all_tournaments()
+        return {"status": "OK", "status_code": 200, "tournaments": serialized_tournaments}
+    except Exception as e:
+        return {
+            "status": "Not OK",
+            "code": 400,
+            "message": f"Error in TournamentController: {e}",
+        }

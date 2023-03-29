@@ -27,7 +27,6 @@ class PlayerDAO:
             player_record = self.db.get(doc_id=player_id)
             if not player_record:
                 raise PlayerNotFoundException(f"Player with id {player_id} not found")
-            print(player_record)
             player_record["player_id"] = player_id
             player = self.serializer.deserialize(player_record)
             return player
@@ -48,7 +47,7 @@ class PlayerDAO:
         serialized_player.pop("player_id")
         try:
             self.db.update(serialized_player, doc_ids=[player.player_id])
-            return "Player updated", 200
+            return player.player_id
         except Exception as e:
             print(f"Error updating player: {e}")
             return "Player not updated", 500

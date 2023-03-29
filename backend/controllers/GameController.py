@@ -16,3 +16,6 @@ class GameController:
 
     def delete_game(self, game_id):
         self.game.delete_game(game_id)
+
+    def get_all_games(self):
+        return self.game.get_all_games()

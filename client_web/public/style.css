@@ -595,4 +595,19 @@ button {
   background-image: url("./hero_background_2.jpg");
 }
 
+.tournament_player {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.tournaments_table_header {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+}
+
+.tournament_row {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+}
+
 /*# sourceMappingURL=style.css.map */
