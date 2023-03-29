@@ -5,7 +5,7 @@
       "first_name": "Alice",
       "last_name": "Smith",
       "birthdate": "1989-06-15",
-      "elo": 1850
+      "elo": 1851
     },
     "2": {
       "chess_id": "BB23456",
@@ -64,11 +64,18 @@
       "elo": 2030
     },
     "10": {
-      "chess_id": "JJ01234",
-      "first_name": "James",
-      "last_name": "Wang",
-      "birthdate": "1981-04-27",
-      "elo": 1750
+      "chess_id": "BX12345",
+      "first_name": "Hello",
+      "last_name": "test",
+      "birthdate": "2023-03-08",
+      "elo": 123
+    },
+    "11": {
+      "chess_id": "GH65487",
+      "first_name": "test",
+      "last_name": "test",
+      "birthdate": "2023-03-07",
+      "elo": 5869
     }
   }
 }

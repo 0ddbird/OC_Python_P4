@@ -1,10 +1,8 @@
-from datetime import datetime
-
+from backend.dao.PlayerDAO import PlayerDAO
+from backend.serializers.PlayerSerializer import PlayerSerializer
 from ..exceptions.dao import PlayerNotFoundException
 from ..exceptions.serializer_exceptions import SerializationException
 from ..models.PlayerModel import PlayerModel
-from backend.serializers.PlayerSerializer import PlayerSerializer
-from backend.dao.PlayerDAO import PlayerDAO
 
 
 class PlayerController:
@@ -14,12 +12,10 @@ class PlayerController:
         self.serializer = PlayerSerializer()
 
     def create_player(self, player_data):
-        try:
-            player = self.serializer.deserialize(player_data)
-            record_id = self.dao.create_player(player)
-            return record_id
-        except Exception as e:
-            return {"error": str(e)}
+        player = self.serializer.deserialize(player_data)
+        print(player)
+        record_id = self.dao.create_player(player)
+        return record_id
 
     def get_all_players(self):
         players = self.dao.get_all_players()

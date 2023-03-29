@@ -29,7 +29,7 @@ class TournamentSerializer:
             creation_date,
             current_round,
             status,
-            t_id
+            t_id,
         )
 
     @staticmethod
@@ -42,14 +42,13 @@ class TournamentSerializer:
                 "location": tournament.location,
                 "description": tournament.description,
                 "players_ids": tournament.players_ids,
-                "creation_date": tournament.creation_date.strftime("%Y-%m-%d_%H:%M"),
-                "status": tournament.status
+                "creation_date": tournament.creation_date.strftime(
+                    "%Y-%m-%d_%H:%M"
+                ),
+                "status": tournament.status,
             }
             if tournament.t_id:
                 serialized_tournament["tournament_id"] = tournament.t_id
             return serialized_tournament
         except Exception as e:
             print(e)
-
-
-

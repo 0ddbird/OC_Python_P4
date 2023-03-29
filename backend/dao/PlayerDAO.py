@@ -1,8 +1,7 @@
 import os
 from typing import List
 
-from tinydb import TinyDB, Query
-from tinydb.table import Document
+from tinydb import TinyDB
 
 from backend.exceptions.dao import PlayerNotFoundException
 from backend.models.PlayerModel import PlayerModel
@@ -15,18 +14,17 @@ class PlayerDAO:
         self.serializer = PlayerSerializer()
 
     def create_player(self, player: PlayerModel):
-        try:
-            player = self.serializer.serialize(player)
-            record_id = self.db.insert(player)
-            return record_id
-        except Exception as e:
-            print(e)
+        player = self.serializer.serialize_to_db(player)
+        record_id = self.db.insert(player)
+        return record_id
 
     def get_player(self, player_id: int) -> PlayerModel:
         try:
             player_record = self.db.get(doc_id=player_id)
             if not player_record:
-                raise PlayerNotFoundException(f"Player with id {player_id} not found")
+                raise PlayerNotFoundException(
+                    f"Player with id {player_id} not found"
+                )
             player_record["player_id"] = player_id
             player = self.serializer.deserialize(player_record)
             return player

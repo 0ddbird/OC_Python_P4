@@ -1,6 +1,5 @@
-from enum import Enum
-from typing import List
 from datetime import datetime
+from typing import List
 
 from ..dao.PlayerDAO import PlayerDAO
 from ..dao.TournamentDAO import TournamentDAO
@@ -20,9 +19,6 @@ class TournamentNotFoundException(Exception):
     pass
 
 
-
-
-
 class TournamentController:
     def __init__(self):
         self.tournament_dao = TournamentDAO()
@@ -30,13 +26,15 @@ class TournamentController:
         self.serializer = TournamentSerializer()
 
     def create_tournament(
-        self, name, max_rounds, location, description, players_ids: List[int]
+            self, name, max_rounds, location, description,
+            players_ids: List[int]
     ):
-
         for player_id in players_ids:
             player = self.player_dao.get_player(player_id)
             if player is None:
-                raise MissingPlayerException(f"Player with ID {player_id} not found")
+                raise MissingPlayerException(
+                    f"Player with ID {player_id} not found"
+                )
 
         creation_datetime = datetime.now()
         current_round = 0
@@ -49,9 +47,8 @@ class TournamentController:
             players_ids,
             creation_datetime,
             current_round,
-            status
+            status,
         )
-
 
         return self.tournament_dao.create_tournament(tournament)
 
@@ -69,8 +66,9 @@ class TournamentController:
             serialized_tournament = self.serializer.serialize(tournament)
             return serialized_tournament
         except Exception as e:
-            raise TournamentNotFoundException(f"Tournament with ID "
-                                              f"{tournament_id} not found, {e}")
+            raise TournamentNotFoundException(
+                f"Tournament with ID " f"{tournament_id} not found, {e}"
+            )
 
     def update_tournament(self, tournament_id, updated_tournament):
         raise NotImplementedError

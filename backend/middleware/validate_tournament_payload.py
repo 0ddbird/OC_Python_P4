@@ -2,7 +2,9 @@ class TournamentValidationException(Exception):
     pass
 
 
-def validate_tournament_fields(name, rounds, location, description, players_ids):
+def validate_tournament_fields(
+    name, rounds, location, description, players_ids
+):
     errors = []
 
     if name is None or name == "":
@@ -14,7 +16,7 @@ def validate_tournament_fields(name, rounds, location, description, players_ids)
     if location is None or location == "":
         errors.append("Location is required")
 
-    if description is None:
+    if description is None or description == "":
         errors.append("Description is required")
 
     if players_ids is None or len(players_ids) < 2:

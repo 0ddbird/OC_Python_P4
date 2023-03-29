@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Nav from '../components/Nav.jsx'
+import { useNavigate } from 'react-router-dom'
 
 const CreatePlayer = () => {
   const [firstName, setFirstName] = useState('')
@@ -7,6 +8,7 @@ const CreatePlayer = () => {
   const [birthdate, setBirthdate] = useState('')
   const [chessID, setChessID] = useState('')
   const [ELO, setELO] = useState('')
+  const navigate = useNavigate()
 
   async function handleFormSubmit (e) {
     e.preventDefault()
@@ -24,7 +26,10 @@ const CreatePlayer = () => {
         elo: ELO
       })
     })
-    return await res.json()
+    const response = await res.json()
+    if (response.status_code === 201) {
+      navigate('/players')
+    }
   }
 
   return (
