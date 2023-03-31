@@ -2,8 +2,12 @@ import datetime
 import random
 import string
 
-from dao.PlayerDAO import PlayerDAO
-from models.PlayerModel import PlayerModel
+from dao.PlayerDAO import (
+    PlayerDAO,
+)
+from models.PlayerModel import (
+    PlayerModel,
+)
 
 used_ids = set()
 
@@ -24,10 +28,32 @@ for i in range(1, 11):
     p_id = next(generator)
     first_name = "FirstName_" + str(i)
     last_name = "LastName_" + str(i)
-    year = random.randint(1970, 2000)
-    month = random.randint(1, 12)
-    day = random.randint(1, 28)
-    birthdate = datetime.datetime(year, month, day)
-    elo = random.randint(1000, 3000)
-    player = PlayerModel(p_id, first_name, last_name, birthdate, elo)
+    year = random.randint(
+        1970,
+        2000,
+    )
+    month = random.randint(
+        1,
+        12,
+    )
+    day = random.randint(
+        1,
+        28,
+    )
+    birthdate = datetime.datetime(
+        year,
+        month,
+        day,
+    )
+    elo = random.randint(
+        1000,
+        3000,
+    )
+    player = PlayerModel(
+        p_id,
+        first_name,
+        last_name,
+        birthdate,
+        elo,
+    )
     player_dao.create_player(player)

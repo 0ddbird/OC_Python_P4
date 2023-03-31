@@ -1,17 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Nav from '../components/Nav.jsx'
 import { useNavigate, useParams } from 'react-router-dom'
-
-async function getPlayer (id) {
-  const res = await fetch(`http://127.0.0.1:5000/player/${id}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json'
-    },
-    method: 'GET'
-  })
-  return await res.json()
-}
+import { getPlayer, updatePlayer } from '../api/PlayerAPIServices.js'
 
 const PlayerProfile = () => {
   // const [playerID, setPlayerID] = useState('')
@@ -25,7 +15,8 @@ const PlayerProfile = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    getPlayer(id).then(player => {
+    getPlayer(id).then(response => {
+      const player = response.payload
       // setPlayerID(player.id)
       setFirstName(player.first_name)
       setLastName(player.last_name)
@@ -36,32 +27,25 @@ const PlayerProfile = () => {
     })
   }, [])
 
-  async function handleFormSubmit (e) {
+  async function handleUpdatePlayer (e) {
     e.preventDefault()
-    const res = await fetch(`http://127.0.0.1:5000/player/${id}/update`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      method: 'PUT',
-      body: JSON.stringify(
-        {
-          chess_id: chessID,
-          first_name: firstName,
-          last_name: lastName,
-          birthdate,
-          elo: ELO
-        }
-      )
-    })
-    const response = await res.json()
+
+    const player = {
+      chess_id: chessID,
+      first_name: firstName,
+      last_name: lastName,
+      birthdate,
+      elo: ELO
+    }
+
+    const response = await updatePlayer(id, player)
     if (response.status_code === 200) navigate('/players')
   }
 
   return (
       <>
         <Nav/>
-        <form className="player_form" onSubmit={(e) => handleFormSubmit(e)}>
+        <form className="player_form" onSubmit={(e) => handleUpdatePlayer(e)}>
           <label htmlFor="first_name"></label>
           <input id="first_name" type="text" value={firstName}
                  onChange={(e) => setFirstName(e.target.value)}/>

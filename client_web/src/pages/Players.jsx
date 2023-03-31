@@ -5,43 +5,26 @@ import { AppContext } from '../App.jsx'
 import PlayerRow from '../components/PlayerRow.jsx'
 import DeletePlayerIcon from '../assets/user-xmark-solid.svg'
 import EditPlayerIcon from '../assets/user-pen-solid.svg'
-
-export async function getPlayers () {
-  const res = await fetch('http://127.0.0.1:5000/players', {
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json'
-    },
-    method: 'GET'
-  })
-  return await res.json()
-}
+import { deletePlayer, getPlayers } from '../api/PlayerAPIServices.js'
+import Background from '../components/Background.jsx'
 
 const Players = () => {
   const { players, setPlayers } = useContext(AppContext)
 
   useEffect(() => {
-    getPlayers().then(players => {
-      setPlayers(players)
-    }
-    )
+    getPlayers().then(response => setPlayers(response.payload))
   }, [])
 
   async function handleDeletePlayer (e, id) {
-    const res = await fetch(`http://127.0.0.1:5000/player/${id}/delete`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      method: 'DELETE',
-      body: JSON.stringify({ chess_id: id }
-      )
-    })
-    return await res.json()
+    e.preventDefault()
+    const response = await deletePlayer(id)
+    console.log(response)
+    if (response.status_code === 204) setPlayers(players.filter(player => player.player_id !== id))
   }
 
   return (
       <>
+        <Background/>
         <Nav/>
         <div className="player_table_container">
           <h2 className="player_heading">Players</h2>

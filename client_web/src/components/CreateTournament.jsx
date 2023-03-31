@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Nav from '../components/Nav.jsx'
 import PlayerRow from './PlayerRow.jsx'
-import { getPlayers } from '../pages/Players.jsx'
 import { useNavigate } from 'react-router-dom'
+import { getPlayers } from '../api/PlayerAPIServices.js'
+import { createTournament } from '../api/TournamentsAPIServices.js'
 
 const CreateTournament = () => {
   const [tournamentName, setTournamentName] = useState('')
@@ -25,29 +26,16 @@ const CreateTournament = () => {
 
   async function handleCreateTournament (e) {
     e.preventDefault()
-    const res = await fetch('http://127.0.0.1:5000/tournament/create', {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify({
-        name: tournamentName,
-        location: tournamentLocation,
-        rounds: tournamentRoundNumber,
-        description: tournamentDescription,
-        players_ids: selectedPlayerIDs
-      })
-    })
-
-    const response = await res.json()
-
-    if (response.status_code === 200) {
-      const tournamentId = response.tournament_id
-      navigate(`/tournament/${tournamentId}`)
-    } else {
-      setError(response.message)
+    const tournament = {
+      name: tournamentName,
+      location: tournamentLocation,
+      rounds: tournamentRoundNumber,
+      description: tournamentDescription,
+      players_ids: selectedPlayerIDs
     }
+    const response = await createTournament(tournament)
+    if (response.status_code === 200) navigate(`/tournament/${response.payload.tournament_id}`)
+    else setError(response.message)
   }
 
   function handlePlayerSelection (playerID) {

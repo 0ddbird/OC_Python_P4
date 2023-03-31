@@ -1,28 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import Nav from '../components/Nav.jsx'
 import { NavLink } from 'react-router-dom'
-
-async function getTournaments (id) {
-  const res = await fetch('http://127.0.0.1:5000/tournaments', {
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json'
-    },
-    method: 'GET'
-  })
-  return await res.json()
-}
+import { getTournaments } from '../api/TournamentsAPIServices.js'
+import Background from '../components/Background.jsx'
 
 const Tournaments = () => {
   const [tournaments, setTournaments] = useState(null)
   useEffect(() => {
-    getTournaments().then(response => {
-      setTournaments(response.tournaments)
-    })
+    getTournaments().then(response => setTournaments(response.payload)
+    )
   }, [])
 
   return (
       <>
+        <Background/>
         <Nav/>
         <h1>Tournaments</h1>
         <NavLink to="/tournament/create">Create tournament</NavLink>
@@ -42,7 +33,7 @@ const Tournaments = () => {
             {
               tournaments && tournaments.map(tournament => {
                 return (
-                    <div className="tournament_row" key={tournament.id}>
+                    <div className="tournament_row" key={tournament.tournament_id}>
                       <div className="tournaments_table_body_item">{tournament.tournament_id}</div>
                       <div className="tournaments_table_body_item">{tournament.name}</div>
                       <div className="tournaments_table_body_item">{tournament.creation_date}</div>

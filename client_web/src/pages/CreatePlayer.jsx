@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Nav from '../components/Nav.jsx'
 import { useNavigate } from 'react-router-dom'
+import { createPlayer } from '../api/PlayerAPIServices.js'
 
 const CreatePlayer = () => {
   const [firstName, setFirstName] = useState('')
@@ -12,24 +13,15 @@ const CreatePlayer = () => {
 
   async function handleFormSubmit (e) {
     e.preventDefault()
-    const res = await fetch('http://127.0.0.1:5000/player/create', {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify({
-        chess_id: chessID,
-        first_name: firstName,
-        last_name: lastName,
-        birthdate,
-        elo: ELO
-      })
-    })
-    const response = await res.json()
-    if (response.status_code === 201) {
-      navigate('/players')
+    const player = {
+      chess_id: chessID,
+      first_name: firstName,
+      last_name: lastName,
+      birthdate,
+      elo: ELO
     }
+    const response = await createPlayer(player)
+    if (response.status_code === 201) navigate('/players')
   }
 
   return (

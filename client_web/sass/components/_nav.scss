@@ -1,12 +1,15 @@
 @use '../abstract' as a;
 nav {
-  background-color: a.$clr-dgrey;
+  background-color: rgba(0, 0, 0, .15);
   padding: 1em;
 }
 
 nav a {
   padding: 0.5em;
-  background-color: a.$clr-agrey;
+  background-color: rgba(255, 255, 255, .15);
   margin-left: .25em;
   margin-right: .25em;
+  border-radius: 5px;
+  color: white;
+  font-weight: 700;
 }

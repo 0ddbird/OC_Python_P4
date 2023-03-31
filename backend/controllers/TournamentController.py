@@ -1,10 +1,22 @@
-from datetime import datetime
-from typing import List
+from datetime import (
+    datetime,
+)
+from typing import (
+    List,
+)
 
-from ..dao.PlayerDAO import PlayerDAO
-from ..dao.TournamentDAO import TournamentDAO
-from ..models.TournamentModel import TournamentModel
-from ..serializers.TournamentSerializer import TournamentSerializer
+from ..dao.PlayerDAO import (
+    PlayerDAO,
+)
+from ..dao.TournamentDAO import (
+    TournamentDAO,
+)
+from ..models.TournamentModel import (
+    TournamentModel,
+)
+from ..serializers.TournamentSerializer import (
+    TournamentSerializer,
+)
 
 
 class MissingPlayerException(Exception):
@@ -26,8 +38,12 @@ class TournamentController:
         self.serializer = TournamentSerializer()
 
     def create_tournament(
-            self, name, max_rounds, location, description,
-            players_ids: List[int]
+        self,
+        name,
+        max_rounds,
+        location,
+        description,
+        players_ids: List[int],
     ):
         for player_id in players_ids:
             player = self.player_dao.get_player(player_id)
