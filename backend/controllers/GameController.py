@@ -1,12 +1,8 @@
-from backend.models.GameModel import (
-    GameModel,
-)
+from backend.models.GameModel import GameModel
 
 
 class GameController:
-    def __init__(
-        self,
-    ):
+    def __init__(self):
         self.game = GameModel()
 
     # def create_game(self):

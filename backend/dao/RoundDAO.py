@@ -1,11 +1,6 @@
 import os
-from tinydb import (
-    TinyDB,
-    Query,
-)
-from models.RoundModel import (
-    RoundModel,
-)
+from tinydb import TinyDB, Query
+from ..models.RoundModel import RoundModel
 
 
 class RoundDAO:

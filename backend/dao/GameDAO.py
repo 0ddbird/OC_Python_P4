@@ -1,11 +1,6 @@
 import os
-from tinydb import (
-    TinyDB,
-    Query,
-)
-from models.GameModel import (
-    GameModel,
-)
+from tinydb import TinyDB, Query
+from backend.models.GameModel import GameModel
 
 
 class GameDAO:

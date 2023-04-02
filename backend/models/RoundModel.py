@@ -1,6 +1,4 @@
-from dataclasses import (
-    asdict,
-)
+from dataclasses import asdict
 
 
 class RoundModel:
