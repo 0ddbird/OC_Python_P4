@@ -10,22 +10,25 @@ import Background from '../components/Background.jsx'
 
 const Players = () => {
   const { players, setPlayers } = useContext(AppContext)
-
+  const fields = ['id', 'chessId', 'firstName', 'lastName', 'birthdate', 'elo']
   useEffect(() => {
-    getPlayers().then(response => setPlayers(response.payload))
+    getPlayers().then((response) => setPlayers(response.payload))
   }, [])
 
-  async function handleDeletePlayer (e, id) {
+  async function handleDeletePlayer(e, id) {
     e.preventDefault()
     const response = await deletePlayer(id)
     console.log(response)
-    if (response.status_code === 204) setPlayers(players.filter(player => player.player_id !== id))
+    if (response.status_code === 204) {
+      setPlayers(players.filter((player) => player.player_id !== id))
+    }
   }
 
   return (
-      <>
-        <Background/>
-        <Nav/>
+    <>
+      <Background />
+      <Nav />
+      <div className="players_page">
         <div className="player_table_container">
           <h2 className="player_heading">Players</h2>
           <div className="player_table">
@@ -36,36 +39,31 @@ const Players = () => {
               <span className="player_table_header_cell">Last Name</span>
               <span className="player_table_header_cell">Birthdate</span>
               <span className="player_table_header_cell">Rating</span>
-              <span className="player_table_header_cell">Edit</span>
-              <span className="player_table_header_cell">Delete</span>
+              <span className="player_table_header_cell"></span>
+              <span className="player_table_header_cell"></span>
             </div>
             <div className="player_table_content">
-              {
-              players && players.map(
-                player => {
+              {players &&
+                players.map((player) => {
                   return (
-                      <div key={player.player_id} className="player_row">
-                        <PlayerRow player={player} />
-                        <NavLink to={`/player/${player.player_id}`}>
-                          <button className="edit_player_button">
-                            <img src={EditPlayerIcon} className="edit_player_icon icon" alt="edit_player"/>
-                          </button>
-                        </NavLink>
-                        <button onClick={(e) => handleDeletePlayer(e, player.player_id)} className="delete_player_button">
-                          <img src={DeletePlayerIcon} className="delete_player_icon icon" alt="delete_player"/>
+                    <div key={player.player_id} className="player_row">
+                      <PlayerRow player={player} fields={fields}/>
+                      <NavLink to={`/player/${player.player_id}/edit`}>
+                        <button className="edit_player_button">
+                          <img src={EditPlayerIcon} className="edit_player_icon icon" alt="edit_player" />
                         </button>
-                      </div>
-
+                      </NavLink>
+                      <button onClick={(e) => handleDeletePlayer(e, player.player_id)} className="delete_player_button">
+                        <img src={DeletePlayerIcon} className="delete_player_icon icon" alt="delete_player" />
+                      </button>
+                    </div>
                   )
-                }
-              )
-            }
+                })}
             </div>
-
           </div>
-          <NavLink to="/player/create">Add new player</NavLink>
         </div>
-      </>
+      </div>
+    </>
   )
 }
 

@@ -16,10 +16,7 @@ from backend.router.utils import (
 tournaments_bp = Blueprint("tournaments", __name__, url_prefix="/tournaments")
 
 
-@tournaments_bp.route(
-    "",
-    methods=["GET", "POST", "OPTIONS"],
-)
+@tournaments_bp.route("", methods=["GET", "POST", "OPTIONS"])
 def tournaments():
     if request.method == "OPTIONS":
         return handle_preflight_request()
@@ -30,11 +27,29 @@ def tournaments():
     return api_response("Error", 400, "Invalid request")
 
 
-@tournaments_bp.route(
-    "/<tournament_id>", methods=["GET", "PUT", "OPTIONS", "DELETE"]
-)
-def tournament(
-    tournament_id,
-):
+@tournaments_bp.route("/<tournament_id>", methods=["GET", "PUT", "OPTIONS", "DELETE"])
+def tournament(tournament_id):
+    if request.method == "OPTIONS":
+        return handle_preflight_request()
+
     if request.method == "GET":
-        handle_get_tournament(tournament_id)
+        return handle_get_tournament(tournament_id)
+
+
+@tournaments_bp.route(
+    "/<tournament_id>/<round_id>", methods=["GET", "PUT", "OPTIONS", "DELETE"]
+)
+def round(tournament_id, round_id):
+    if request.method == "OPTIONS":
+        return handle_preflight_request()
+
+    if request.method == "GET":
+        return handle_get_round(tournament_id, round_id)
+
+    if request.method == "PUT":
+        return handle_put_round(tournament_id, round_id, request)
+
+    if request.method == "DELETE":
+        return handle_delete_round(tournament_id, round_id)
+
+    return api_response("Error", 400, "Invalid request")

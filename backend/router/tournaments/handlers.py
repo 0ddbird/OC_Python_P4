@@ -14,9 +14,7 @@ def handle_get_tournaments():
         return api_response("OK", 200, serialized_tournaments)
 
     except Exception as e:
-        return api_response(
-            "Error", 400, f"Error in TournamentController: {e}"
-        )
+        return api_response("Error", 400, f"Error in TournamentController: {e}")
 
 
 def handle_post_tournament(http_request):
@@ -29,9 +27,7 @@ def handle_post_tournament(http_request):
     try:
         validate_tournament_fields(name, rounds, location, description, ids)
     except TournamentValidationException as e:
-        return api_response(
-            "Error", 400, f"Error in TournamentController: {e}"
-        )
+        return api_response("Error", 400, f"Error in TournamentController: {e}")
 
     try:
         tournament_id = controller.create_tournament(
@@ -40,9 +36,7 @@ def handle_post_tournament(http_request):
         return api_response("OK", 201, {"id": tournament_id})
 
     except Exception as e:
-        return api_response(
-            "Error", 400, f"Error in TournamentController: {e}"
-        )
+        return api_response("Error", 400, f"Error in TournamentController: {e}")
 
 
 def handle_get_tournament(tournament_id):
@@ -51,6 +45,4 @@ def handle_get_tournament(tournament_id):
         return api_response("OK", 200, serialized_tournament)
 
     except Exception as e:
-        return api_response(
-            "Error", 400, f"Error in TournamentController: " f"{e}"
-        )
+        return api_response("Error", 400, f"Error in TournamentController: " f"{e}")

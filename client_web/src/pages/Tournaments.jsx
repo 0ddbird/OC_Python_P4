@@ -3,20 +3,20 @@ import Nav from '../components/Nav.jsx'
 import { NavLink } from 'react-router-dom'
 import { getTournaments } from '../api/TournamentsAPIServices.js'
 import Background from '../components/Background.jsx'
+import PlayButton from '../assets/play-solid.svg'
 
 const Tournaments = () => {
   const [tournaments, setTournaments] = useState(null)
   useEffect(() => {
-    getTournaments().then(response => setTournaments(response.payload)
-    )
+    getTournaments().then((response) => setTournaments(response.payload))
   }, [])
 
   return (
-      <>
-        <Background/>
-        <Nav/>
+    <>
+      <Background />
+      <Nav />
+      <section id="tournaments_page">
         <h1>Tournaments</h1>
-        <NavLink to="/tournament/create">Create tournament</NavLink>
         <section className="tournaments_table">
           <div className="tournaments_table_header">
             <div className="tournaments_table_header_item">ID</div>
@@ -30,26 +30,28 @@ const Tournaments = () => {
             <div className="tournaments_table_header_item">Edit</div>
           </div>
           <div className="tournaments_table_body">
-            {
-              tournaments && tournaments.map(tournament => {
+            {tournaments &&
+              tournaments.map((tournament) => {
                 return (
-                    <div className="tournament_row" key={tournament.tournament_id}>
-                      <div className="tournaments_table_body_item">{tournament.tournament_id}</div>
-                      <div className="tournaments_table_body_item">{tournament.name}</div>
-                      <div className="tournaments_table_body_item">{tournament.creation_date}</div>
-                      <div className="tournaments_table_body_item">{tournament.location}</div>
-                      <div className="tournaments_table_body_item">{tournament.players_ids.length}</div>
-                      <div className="tournaments_table_body_item">{tournament.max_rounds}</div>
-                      <div className="tournaments_table_body_item">{tournament.current_round}</div>
-                      <div className="tournaments_table_body_item">{tournament.status}</div>
-                      <NavLink to={`/tournament/${tournament.tournament_id}`}>Edit</NavLink>
-                    </div>
+                  <div className="tournament_row" key={tournament.tournament_id}>
+                    <div className="tournaments_table_body_item">{tournament.tournament_id}</div>
+                    <div className="tournaments_table_body_item">{tournament.name}</div>
+                    <div className="tournaments_table_body_item">{tournament.creation_date}</div>
+                    <div className="tournaments_table_body_item">{tournament.location}</div>
+                    <div className="tournaments_table_body_item">{tournament.players_ids.length}</div>
+                    <div className="tournaments_table_body_item">{tournament.max_rounds}</div>
+                    <div className="tournaments_table_body_item">{tournament.current_round}</div>
+                    <div className="tournaments_table_body_item">{tournament.status}</div>
+                    <NavLink to={`/tournament/${tournament.tournament_id}`}>
+                      <img className="icon" src={PlayButton} alt="edit" />
+                    </NavLink>
+                  </div>
                 )
-              })
-            }
+              })}
           </div>
         </section>
-      </>
+      </section>
+    </>
   )
 }
 

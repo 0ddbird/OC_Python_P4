@@ -29,9 +29,7 @@ class TournamentDAO:
         try:
             tournament_record = self.db.get(doc_id=tournament_id)
             if not tournament_record:
-                raise Exception(
-                    f"Tournament with id {tournament_id} not found"
-                )
+                raise Exception(f"Tournament with id {tournament_id} not found")
             tournament_record["tournament_id"] = tournament_id
             tournament = self.serializer.deserialize(tournament_record)
             return tournament
@@ -40,9 +38,7 @@ class TournamentDAO:
 
     def update_tournament(self, tournament_id, updated_tournament):
         tournament = Query()
-        self.db.update(
-            updated_tournament, tournament.t_id.matches(tournament_id)
-        )
+        self.db.update(updated_tournament, tournament.t_id.matches(tournament_id))
 
     def delete_tournament(self, tournament_id):
         tournament = Query()

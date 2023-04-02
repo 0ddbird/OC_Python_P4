@@ -1,1 +1,53 @@
-{"_default": {"1": {"name": "New tournament", "max_rounds": 4, "current_round": 0, "location": "Paris", "description": "Description", "players_ids": [1, 2], "creation_date": "2023-03-26_17:09", "status": "unstarted"}, "2": {"name": "Tournoi 2", "max_rounds": 4, "current_round": 0, "location": "Montpellier", "description": "Tournoi de montpellier", "players_ids": [1, 4, 5, 6], "creation_date": "2023-03-29_19:27", "status": "unstarted"}}}
+{
+  "_default": {
+    "1": {
+      "name": "New tournament",
+      "max_rounds": 4,
+      "current_round": 0,
+      "location": "Paris",
+      "description": "Description",
+      "players_ids": [
+        1,
+        2
+      ],
+      "creation_date": "2023-03-26_17:09",
+      "status": "To start"
+    },
+    "2": {
+      "name": "Tournoi local",
+      "max_rounds": 4,
+      "current_round": 0,
+      "location": "Montpellier",
+      "description": "Tournoi de Montpellier",
+      "players_ids": [
+        1,
+        4,
+        5,
+        6
+      ],
+      "creation_date": "2023-03-29_19:27",
+      "status": "To start"
+    },
+    "3": {
+      "name": "Big tournament",
+      "max_rounds": 4,
+      "current_round": 0,
+      "location": "New York",
+      "description": "A big tournament in New York!",
+      "players_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "creation_date": "2023-04-02_16:37",
+      "status": "To start"
+    }
+  }
+}

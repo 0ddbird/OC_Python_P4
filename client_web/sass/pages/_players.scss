@@ -1,0 +1,11 @@
+.players_page {
+  display: flex;
+  justify-content: center;
+}
+
+.player_table_container {
+  max-width: 900px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, .25);
+  border-radius: 5px;
+}

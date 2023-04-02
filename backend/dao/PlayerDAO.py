@@ -19,17 +19,11 @@ class PlayerDAO:
         return record_id
 
     def get_player(self, player_id: int) -> PlayerModel:
-        try:
-            player_record = self.db.get(doc_id=player_id)
-            if not player_record:
-                raise PlayerNotFoundException(
-                    f"Player with id {player_id} not found"
-                )
-            player_record["player_id"] = player_id
-            player = self.serializer.deserialize(player_record)
-            return player
-        except Exception as e:
-            print(e)
+        player_record = self.db.get(doc_id=player_id)
+        if not player_record:
+            raise PlayerNotFoundException(f"Player with id {player_id} not found")
+        player_record["player_id"] = player_id
+        return self.serializer.deserialize(player_record)
 
     def get_all_players(self) -> List[PlayerModel]:
         players = self.db.all()
@@ -43,17 +37,9 @@ class PlayerDAO:
     def update_player(self, player: PlayerModel):
         serialized_player = self.serializer.serialize(player)
         serialized_player.pop("player_id")
-        try:
-            self.db.update(serialized_player, doc_ids=[player.player_id])
-            return player.player_id
-        except Exception as e:
-            print(f"Error updating player: {e}")
-            return "Player not updated", 500
+        self.db.update(serialized_player, doc_ids=[player.player_id])
+        return player.player_id
 
     def delete_player(self, player_id):
-        try:
-            self.db.remove(doc_ids=[player_id])
-            return "Player deleted", 200
-        except Exception as e:
-            print(f"Error deleting player: {e}")
-            return "Player not deleted", 500
+        self.db.remove(doc_ids=[player_id])
+        return "Player deleted", 200

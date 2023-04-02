@@ -1,5 +1,16 @@
 @use '../abstract' as a;
 
+#tournaments_page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  & h1 {
+    margin-bottom: 1em;
+  }
+}
+
 .tournaments_table_header {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
