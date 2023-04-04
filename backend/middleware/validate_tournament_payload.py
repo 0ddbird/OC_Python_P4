@@ -3,11 +3,7 @@ class TournamentValidationException(Exception):
 
 
 def validate_tournament_fields(
-    name,
-    location,
-    description,
-    players_ids,
-    max_rounds,
+    name, location, description, players_ids, max_rounds
 ):
     errors = []
 

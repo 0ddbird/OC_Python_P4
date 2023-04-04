@@ -1,4 +1,5 @@
 tinydb
 flask
+flask_cors
 black
 flake8

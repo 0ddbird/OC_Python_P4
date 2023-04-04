@@ -1,10 +1,6 @@
-from datetime import (
-    datetime,
-)
+from datetime import datetime
 
-from backend.models.TournamentModel import (
-    TournamentModel,
-)
+from backend.models.TournamentModel import TournamentModel
 
 
 class TournamentSerializer:
