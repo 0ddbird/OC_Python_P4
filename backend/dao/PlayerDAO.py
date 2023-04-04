@@ -21,11 +21,16 @@ class PlayerDAO:
     def get_player(self, player_id: int) -> PlayerModel:
         player_record = self.db.get(doc_id=player_id)
         if not player_record:
-            raise PlayerNotFoundException(
-                f"Player with id {player_id} not found"
-            )
+            raise PlayerNotFoundException(f"Player with id {player_id} not found")
         player_record["player_id"] = player_id
         return self.serializer.deserialize(player_record)
+
+    def get_selected_players(self, player_ids: List[int]) -> List[PlayerModel]:
+        players = []
+        for player_id in player_ids:
+            player = self.get_player(player_id)
+            players.append(player)
+        return players
 
     def get_all_players(self) -> List[PlayerModel]:
         players = self.db.all()

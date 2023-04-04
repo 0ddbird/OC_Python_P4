@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
-import Nav from '../components/Nav.jsx'
-import { useNavigate } from 'react-router-dom'
-import Background from '../components/Background.jsx'
 import Router from '../router/Router.js'
+import { useNavigate } from 'react-router-dom'
 
 const CreatePlayer = () => {
   const [firstName, setFirstName] = useState('')
@@ -34,36 +32,35 @@ const CreatePlayer = () => {
   }
 
   return (
-    <section id="create_player_page">
-      <Background />
-      <Nav />
-      <h1>Create new player</h1>
+      <section id="create_player_page">
 
-      <form className="player_form" onSubmit={(e) => handleFormSubmit(e)}>
-        <label htmlFor="first_name">First name</label>
-        <input id="first_name" type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+        <h1>Create new player</h1>
 
-        <label htmlFor="last_name">Last name</label>
-        <input id="last_name" type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+        <form className="player_form" onSubmit={(e) => handleFormSubmit(e)}>
+          <label htmlFor="first_name">First name</label>
+          <input id="first_name" type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
 
-        <label htmlFor="birthdate">Birthdate</label>
-        <input id="birthdate" type="date" value={birthdate} onChange={(e) => setBirthdate(e.target.value)} />
+          <label htmlFor="last_name">Last name</label>
+          <input id="last_name" type="text" value={lastName} onChange={(e) => setLastName(e.target.value)}/>
 
-        <label htmlFor="chess_id">Chess ID</label>
-        <input id="chess_id" type="text" value={chessID} onChange={(e) => setChessID(e.target.value)} />
+          <label htmlFor="birthdate">Birthdate</label>
+          <input id="birthdate" type="date" value={birthdate} onChange={(e) => setBirthdate(e.target.value)}/>
 
-        <label htmlFor="elo">ELO</label>
-        <input id="elo" type="number" min="0" value={ELO} onChange={(e) => setELO(e.target.value)} />
-        <div className="player_form_button-container">
-          <button className="reset-button" onClick={handleFormReset}>
-            Reset
-          </button>
-          <button className="submit-button" type="submit">
-            Submit
-          </button>
-        </div>
-      </form>
-    </section>
+          <label htmlFor="chess_id">Chess ID</label>
+          <input id="chess_id" type="text" value={chessID} onChange={(e) => setChessID(e.target.value)}/>
+
+          <label htmlFor="elo">ELO</label>
+          <input id="elo" type="number" min="0" value={ELO} onChange={(e) => setELO(e.target.value)}/>
+          <div className="player_form_button-container">
+            <button className="reset-button" onClick={handleFormReset}>
+              Reset
+            </button>
+            <button className="submit-button" type="submit">
+              Submit
+            </button>
+          </div>
+        </form>
+      </section>
   )
 }
 

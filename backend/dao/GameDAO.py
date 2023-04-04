@@ -1,26 +1,35 @@
 import os
 from tinydb import TinyDB, Query
 from backend.models.GameModel import GameModel
+from backend.serializers.GameSerializer import GameSerializer
 
 
 class GameDAO:
     def __init__(self):
         self.db = TinyDB(os.path.join(os.getcwd(), "db", "games.json"))
+        self.serializer = GameSerializer()
 
     def create_game(self, game: GameModel):
-        game_dict = game.to_dict()
-        self.db.insert(game_dict)
+        serialized_game = self.serializer.serialize_to_db(game)
+        return self.db.insert(serialized_game)
 
     def get_games(self):
         return self.db.all()
 
     def get_game(self, game_id):
-        user = Query()
-        return self.db.search(user.p_id.matches(game_id))
+        game_record = self.db.get(doc_id=game_id)
+        return self.serializer.deserialize(game_record)
 
-    def update_game(self, game_id, updated_game):
-        user = Query()
-        self.db.update(updated_game, user.p_id.matches(game_id))
+    def get_games_by_ids(self, game_ids):
+        games = []
+        for game_id in game_ids:
+            game = self.get_game(game_id)
+            games.append(game)
+        return games
+
+    def update_game(self, updated_game: GameModel):
+        serialized_game = self.serializer.serialize_to_db(updated_game)
+        return self.db.update(serialized_game, doc_ids=[updated_game.g_id])
 
     def delete_game(self, game_id):
         user = Query()

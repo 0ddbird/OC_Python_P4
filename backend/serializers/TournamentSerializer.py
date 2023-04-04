@@ -44,9 +44,7 @@ class TournamentSerializer:
             "location": tournament.location,
             "description": tournament.description,
             "players_ids": tournament.players_ids,
-            "creation_date": tournament.creation_date.strftime(
-                "%Y-%m-%d_%H:%M"
-            ),
+            "creation_date": tournament.creation_date.strftime("%Y-%m-%d_%H:%M"),
             "max_rounds": tournament.max_rounds,
             "current_round": tournament.current_round,
             "status": tournament.status,

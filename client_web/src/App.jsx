@@ -8,6 +8,7 @@ import UpdatePlayer from './pages/UpdatePlayer.jsx'
 import CreatePlayer from './pages/CreatePlayer.jsx'
 import CreateTournament from './pages/CreateTournament.jsx'
 import Tournament from './pages/Tournament.jsx'
+import PageTemplate from './layout/Page.jsx'
 
 export const AppContext = createContext(null)
 
@@ -15,22 +16,46 @@ function App() {
   const [players, setPlayers] = useState(null)
 
   return (
-    <>
-      <AppContext.Provider value={{ players, setPlayers }}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/players" element={<Players />}></Route>
-            <Route path="/tournaments" element={<Tournaments />}></Route>
-            <Route path="/reports" element={<Reports />}></Route>
-            <Route path="/players/:id/edit" element={<UpdatePlayer />}></Route>
-            <Route path="/players/create" element={<CreatePlayer />}></Route>
-            <Route path="/tournaments/create" element={<CreateTournament />}></Route>
-            <Route path="/tournaments/:id" element={<Tournament />}></Route>
-          </Routes>
-        </BrowserRouter>
-      </AppContext.Provider>
-    </>
+      <>
+        <AppContext.Provider value={{ players, setPlayers }}>
+          <BrowserRouter>
+            <Routes>
+              <Route
+                  path="/"
+                  element={<PageTemplate page={<Home/>}/>}>
+              </Route>
+              <Route
+                  path="/players"
+                  element={<PageTemplate page={<Players/>}/>}>
+              </Route>
+              <Route
+                  path="/tournaments"
+                  element={<PageTemplate page={<Tournaments/>}/>}>
+              </Route>
+              <Route
+                  path="/reports"
+                  element={<PageTemplate page={<Reports/>}/>}>
+              </Route>
+              <Route
+                  path="/players/:id/edit"
+                  element={<PageTemplate page={<UpdatePlayer/>}/>}>
+              </Route>
+              <Route
+                  path="/players/create"
+                  element={<PageTemplate page={<CreatePlayer/>}/>}>
+              </Route>
+              <Route
+                  path="/tournaments/create"
+                  element={<PageTemplate page={<CreateTournament/>}/>}>
+              </Route>
+              <Route
+                  path="/tournaments/:id"
+                  element={<PageTemplate page={<Tournament/>}/>}>
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </AppContext.Provider>
+      </>
   )
 }
 

@@ -25,17 +25,13 @@
 }
 
 .player_table_header_cell {
-  text-align: center;
   font-weight: 700;
 }
 
 .player_row {
   display: grid;
   grid-template-columns: repeat(6, 1fr) .5fr .5fr;
-
-  div {
-    text-align: center;
-  }
+  
   a {
     display: flex;
     justify-content: center;

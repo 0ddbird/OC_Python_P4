@@ -69,7 +69,7 @@ def tournaments():
 
 
 @tournaments_bp.route(
-    "/<tournament_id>", methods=["GET", "PUT", "OPTIONS", "DELETE"]
+    "/<tournament_id>", methods=["GET", "PUT", "OPTIONS", "DELETE", "POST"]
 )
 def tournament(tournament_id):
     if request.method == "OPTIONS":
@@ -78,15 +78,7 @@ def tournament(tournament_id):
     if request.method == "GET":
         return tournament_router.handle_get_tournament(tournament_id)
 
-    return make_response({"message": "Bad request"}, ResCode.BAD_REQUEST)
-
-
-@tournaments_bp.route("/<tournament_id>/start", methods=["OPTIONS", "POST"])
-def start_tournament(tournament_id):
-    if request.method == "OPTIONS":
-        return handle_preflight_request()
-
     if request.method == "POST":
-        return tournament_router.handle_start_tournament(tournament_id)
+        return tournament_router.handle_next_round(tournament_id)
 
     return make_response({"message": "Bad request"}, ResCode.BAD_REQUEST)

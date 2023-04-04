@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Nav from '../components/Nav.jsx'
-import { NavLink, useParams } from 'react-router-dom'
-import Background from '../components/Background.jsx'
+import { useParams } from 'react-router-dom'
 import Round from '../components/Round.jsx'
 import Router from '../router/Router.js'
 
@@ -17,12 +15,10 @@ const Tournament = () => {
   const [location, setLocation] = useState('')
   const [status, setStatus] = useState('')
   const [isLoaded, setIsLoaded] = useState(false)
-  const isToStart = status === 'To Start'
-  const isStarted = status === 'Started'
   const isEnded = status === 'Ended'
 
   useEffect(() => {
-    (async () => {
+    (async() => {
       const response = await Router.getTournament(id)
       if (response.ok) {
         const jsonResponse = await response.json()
@@ -41,19 +37,17 @@ const Tournament = () => {
     })()
   }, [])
 
-  async function handleStartTournament() {
-    const response = await Router.startTournament(id)
+  async function handleNextRound() {
+    const response = await Router.handleNextRound(id)
     if (response.status === 200) {
       const tournament = response.payload
       setRounds(tournament.rounds)
       setCurrentRound(tournament.current_round)
-    } else console.log('Error while starting tournament')
+    } else console.log('Error while resuming tournament')
   }
 
   return isLoaded
     ? <>
-        <Background />
-        <Nav />
         <h1 className="tournament_name">{name}</h1>
         <p className="tournament_status">Status: {status}</p>
         <p className="tournament_creation_date">Creation date: {creationDate}</p>
@@ -63,16 +57,12 @@ const Tournament = () => {
         <p className="tournament_current_round">Current round: {currentRound}</p>
         <div>Players: {playersIDs}</div>
         {
-          rounds && rounds.map(round => <Round key={round.round_id} games={round.games}/>)
+            rounds && rounds.map(round => <Round key={round.round_id} games={round.games}/>)
         }
 
-        {isToStart && <button onClick={handleStartTournament}>Start</button>}
-        {isStarted && <NavLink to={`/tournaments/${id}/round`}>Next round</NavLink>}
-        {isEnded && <div>Results</div>}
+        {!isEnded && <button onClick={handleNextRound}>Start</button>}
       </>
     : <>
-        <Background />
-        <Nav />
         <div>Loading</div>
       </>
 }

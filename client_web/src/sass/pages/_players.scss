@@ -1,11 +1,17 @@
+@use '../abstract' as a;
+
 .players_page {
   display: flex;
   justify-content: center;
 }
 
 .player_table_container {
-  max-width: 900px;
+  max-width: 1200px;
   backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, .25);
   border-radius: 5px;
+}
+
+.player_table_header_cell {
+  font-weight: 700;
+  color: a.$clr-main;
 }

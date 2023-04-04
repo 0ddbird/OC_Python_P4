@@ -40,9 +40,7 @@ class TournamentDAO:
 
     def update_tournament(self, tournament_id, updated_tournament):
         tournament = Query()
-        self.db.update(
-            updated_tournament, tournament.t_id.matches(tournament_id)
-        )
+        self.db.update(updated_tournament, tournament.t_id.matches(tournament_id))
 
     def delete_tournament(self, tournament_id):
         tournament = Query()

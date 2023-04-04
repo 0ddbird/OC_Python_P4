@@ -14,12 +14,16 @@
 .tournaments_table_header {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
+  gap: 0 1em;
 }
 
-.tournaments_table_body {
+.tournaments_table_header_item {
+  font-weight: 700;
+  color: a.$clr-main;
 }
 
 .tournament_row {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
+  gap: 0 1em;
 }

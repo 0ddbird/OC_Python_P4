@@ -23,9 +23,7 @@ class PlayerSerializer:
             return PlayerModel(chess_id, first_name, last_name, birthdate, elo)
 
         player_id = int(player_id)
-        return PlayerModel(
-            chess_id, first_name, last_name, birthdate, elo, player_id
-        )
+        return PlayerModel(chess_id, first_name, last_name, birthdate, elo, player_id)
 
     @staticmethod
     def serialize(player):
@@ -37,7 +35,6 @@ class PlayerSerializer:
             "birthdate": player.birthdate.strftime("%Y-%m-%d"),
             "elo": player.elo,
         }
-        # print(f"Serialized player: {serialized_player}")
         return serialized_player
 
     @staticmethod

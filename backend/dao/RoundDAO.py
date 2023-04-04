@@ -1,15 +1,17 @@
 import os
 from tinydb import TinyDB, Query
 from ..models.RoundModel import RoundModel
+from ..serializers.RoundSerializer import RoundSerializer
 
 
 class RoundDAO:
     def __init__(self):
         self.db = TinyDB(os.path.join(os.getcwd(), "db", "rounds.json"))
+        self.serializer = RoundSerializer()
 
     def create_round(self, round: RoundModel):
-        round_dict = round.to_dict()
-        self.db.insert(round_dict)
+        serialized_round = self.serializer.serialize_to_db(round)
+        return self.db.insert(serialized_round)
 
     def get_rounds(self):
         return self.db.all()

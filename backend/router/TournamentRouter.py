@@ -94,13 +94,22 @@ class TournamentRouter:
                 ResCode.BAD_REQUEST.value,
             )
 
-    def handle_start_tournament(self, tournament_id):
+    def handle_next_round(self, tournament_id):
         try:
-            tournament = self.controller.start_tournament(tournament_id)
+            tournament = self.controller.get_tournament(tournament_id)
+            if tournament.status == "awaiting round results":
+                return make_response(
+                    {
+                        "message": "Please wait for the current round to finish",
+                    },
+                    ResCode.BAD_REQUEST.value,
+                )
+            round_id = self.controller.create_next_round(tournament_id)
             return make_response(
                 {
                     "message": "Tournament started successfully",
-                    "payload": tournament,
+                    "payload": f"http://localhost:3000/tournaments/"
+                    f"{tournament_id}/{round_id}",
                 },
                 ResCode.OK.value,
             )

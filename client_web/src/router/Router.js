@@ -69,7 +69,7 @@ class Router {
     return Router.makeRequest(route)
   }
 
-  static startTournament(id) {
+  static handleNextRound(id) {
     const route = {
       path: `${Router.basePath}/tournaments/${id}/start`,
       method: 'POST'
