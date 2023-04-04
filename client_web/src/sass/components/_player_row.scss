@@ -1,0 +1,45 @@
+@use '../abstract' as a;
+
+.player_table_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.player_heading {
+  margin: 2em 0;
+}
+
+.player_table {
+  width: 70%;
+  margin-bottom: 2em;
+}
+
+.player_table_header {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr) .5fr .5fr;
+  margin-bottom: 1em;
+}
+
+.player_table_header_cell {
+  text-align: center;
+  font-weight: 700;
+}
+
+.player_row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr) .5fr .5fr;
+
+  div {
+    text-align: center;
+  }
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+

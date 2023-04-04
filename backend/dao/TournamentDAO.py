@@ -1,7 +1,15 @@
 import os
 from tinydb import TinyDB, Query
+
+
 from ..models.TournamentModel import TournamentModel
 from ..serializers.TournamentSerializer import TournamentSerializer
+
+
+class TournamentNotFoundException(Exception):
+    def __init__(self, t_id):
+        self.message = f"Can't find the tournament with id: {t_id}"
+        super().__init__(self.message)
 
 
 class TournamentDAO:
@@ -11,10 +19,8 @@ class TournamentDAO:
 
     def create_tournament(self, tournament: TournamentModel):
         serialized_tournament = self.serializer.serialize(tournament)
-        try:
-            return self.db.insert(serialized_tournament)
-        except Exception as e:
-            print(e)
+        tournament_record_id = self.db.insert(serialized_tournament)
+        return tournament_record_id
 
     def get_tournaments(self):
         tournament_records = self.db.all()
@@ -26,17 +32,11 @@ class TournamentDAO:
         return tournaments
 
     def get_tournament(self, tournament_id):
-        try:
-            tournament_record = self.db.get(doc_id=tournament_id)
-            if not tournament_record:
-                raise Exception(
-                    f"Tournament with id {tournament_id} not found"
-                )
-            tournament_record["tournament_id"] = tournament_id
-            tournament = self.serializer.deserialize(tournament_record)
-            return tournament
-        except Exception as e:
-            print(e)
+        tournament_record = self.db.get(doc_id=tournament_id)
+        if tournament_record is None:
+            raise TournamentNotFoundException(tournament_id)
+        tournament_record["tournament_id"] = tournament_id
+        return self.serializer.deserialize(tournament_record)
 
     def update_tournament(self, tournament_id, updated_tournament):
         tournament = Query()

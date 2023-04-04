@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import Nav from '../components/Nav.jsx'
 import { useNavigate } from 'react-router-dom'
-import { createPlayer } from '../api/PlayerAPIServices.js'
 import Background from '../components/Background.jsx'
+import Router from '../router/Router.js'
 
 const CreatePlayer = () => {
   const [firstName, setFirstName] = useState('')
@@ -21,8 +21,8 @@ const CreatePlayer = () => {
       birthdate,
       elo: ELO
     }
-    const response = await createPlayer(player)
-    if (response.status_code === 201) navigate('/players')
+    const response = await Router.createPlayer(player)
+    if (response.ok) navigate('/players')
   }
 
   function handleFormReset() {

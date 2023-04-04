@@ -5,21 +5,27 @@ import { AppContext } from '../App.jsx'
 import PlayerRow from '../components/PlayerRow.jsx'
 import DeletePlayerIcon from '../assets/user-xmark-solid.svg'
 import EditPlayerIcon from '../assets/user-pen-solid.svg'
-import { deletePlayer, getPlayers } from '../api/PlayerAPIServices.js'
 import Background from '../components/Background.jsx'
+import Router from '../router/Router.js'
 
 const Players = () => {
   const { players, setPlayers } = useContext(AppContext)
   const fields = ['id', 'chessId', 'firstName', 'lastName', 'birthdate', 'elo']
   useEffect(() => {
-    getPlayers().then((response) => setPlayers(response.payload))
+    async function fetchData() {
+      const response = await Router.getPlayers()
+      if (response.ok) {
+        const jsonResponse = await response.json()
+        setPlayers(jsonResponse.payload)
+      }
+    }
+    fetchData()
   }, [])
 
   async function handleDeletePlayer(e, id) {
     e.preventDefault()
-    const response = await deletePlayer(id)
-    console.log(response)
-    if (response.status_code === 204) {
+    const response = await Router.deletePlayer(id)
+    if (response.ok) {
       setPlayers(players.filter((player) => player.player_id !== id))
     }
   }
@@ -48,7 +54,7 @@ const Players = () => {
                   return (
                     <div key={player.player_id} className="player_row">
                       <PlayerRow player={player} fields={fields}/>
-                      <NavLink to={`/player/${player.player_id}/edit`}>
+                      <NavLink to={`/players/${player.player_id}/edit`}>
                         <button className="edit_player_button">
                           <img src={EditPlayerIcon} className="edit_player_icon icon" alt="edit_player" />
                         </button>

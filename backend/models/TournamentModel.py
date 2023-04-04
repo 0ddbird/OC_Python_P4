@@ -1,14 +1,18 @@
+from datetime import datetime
+
+
 class TournamentModel:
     def __init__(
         self,
         name,
-        max_rounds,
         location,
         description,
         players_ids,
-        creation_date,
-        current_round,
-        status,
+        max_rounds=4,
+        creation_date=datetime.now(),
+        current_round=0,
+        status="To start",
+        rounds=[],
         t_id=None,
     ):
         self.t_id = t_id
@@ -21,3 +25,4 @@ class TournamentModel:
         self.current_round = current_round
         self.end_date = None
         self.status = status
+        self.rounds = rounds

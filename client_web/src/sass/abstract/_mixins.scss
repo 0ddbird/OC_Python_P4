@@ -1,0 +1,37 @@
+@mixin flex($j:center, $a:center) {
+  display: flex;
+  justify-content: $j;
+  align-items: $a;
+}
+
+/* smartphones, iPhone, portrait 480x320 phones */
+@mixin mq-320 {
+  @media (min-width:320px)  { @content; }
+}
+/* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+@mixin mq-481 {
+  @media (min-width:481px)  { @content; }
+}
+
+/* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+@mixin mq-641 {
+  @media (min-width:641px)  { @content; }
+}
+/* tablet, landscape iPad, lo-res laptops ands desktops */
+@mixin mq-961 {
+  @media (min-width:961px)  { @content; }
+}
+
+/* big landscape tablets, laptops, and desktops */
+@mixin mq-1025 {
+  @media (min-width:1025px) { @content; }
+}
+
+/* hi-res laptops and desktops */
+@mixin mq-1281 {
+  @media (min-width:1281px) { @content; }
+}
+
+@mixin mq-1800 {
+  @media (min-width:1800px) { @content; }
+}

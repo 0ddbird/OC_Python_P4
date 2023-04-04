@@ -1,0 +1,104 @@
+@use '../abstract' as a;
+
+#observer_anchor {
+  position: absolute;
+  top: 0;
+  height: 200px;
+}
+
+header {
+  position: sticky;
+  height: 3em;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  top: 0;
+
+  @include a.flex($j: space-between);
+}
+
+.gradient {
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color .5s ease-in-out;
+
+  &::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+  }
+}
+
+.plain {
+  transition: background-color .5s ease-in-out;
+  background-color: rgba(0, 0, 0, .90);
+
+  &::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+  }
+}
+
+#logo_container {
+  position: relative;
+
+  @include a.flex;
+
+  & h1 {
+    font-size: 1.1em;
+    margin-left: 4em;
+    font-family: 'Fugaz One', sans-serif;
+
+    @include a.mq-641 {
+      font-size: 1.5em;
+      margin-left: 3.25em;
+    }
+  }
+}
+
+#logo_elements {
+  height: 3em;
+  position: relative;
+  top: 0;
+  left: 1em;
+
+  & img {
+    position: absolute;
+    inset: 0;
+    height: 3em;
+  }
+}
+
+#logo_el_1 {
+  animation: rotateLeft 27s linear infinite;
+}
+
+#logo_el_3 {
+  animation: rotateRight 18s linear infinite;
+}
+
+#logo_el_4 {
+  animation: rotateLeft 25s linear infinite;
+}
+
+@keyframes rotateRight {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateLeft {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}

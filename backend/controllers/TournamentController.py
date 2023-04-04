@@ -1,22 +1,15 @@
-from datetime import (
-    datetime,
-)
-from typing import (
-    List,
-)
+from datetime import datetime
+from typing import List
 
-from ..dao.PlayerDAO import (
-    PlayerDAO,
-)
-from ..dao.TournamentDAO import (
-    TournamentDAO,
-)
-from ..models.TournamentModel import (
-    TournamentModel,
-)
-from ..serializers.TournamentSerializer import (
-    TournamentSerializer,
-)
+from flask import make_response
+
+from ..dao.PlayerDAO import PlayerDAO
+from ..dao.TournamentDAO import TournamentDAO, TournamentNotFoundException
+
+from ..dao.RoundDAO import RoundDAO
+
+from ..models.TournamentModel import TournamentModel
+from ..serializers.TournamentSerializer import TournamentSerializer
 
 
 class MissingPlayerException(Exception):
@@ -27,8 +20,10 @@ class PlayerCountException(Exception):
     pass
 
 
-class TournamentNotFoundException(Exception):
-    pass
+class TournamentEndedException(Exception):
+    def __init__(self):
+        self.message = "This tournament has ended"
+        super().__init__(self.message)
 
 
 class TournamentController:
@@ -36,14 +31,15 @@ class TournamentController:
         self.tournament_dao = TournamentDAO()
         self.player_dao = PlayerDAO()
         self.serializer = TournamentSerializer()
+        self.round_dao = RoundDAO()
 
     def create_tournament(
         self,
-        name,
-        max_rounds,
-        location,
-        description,
+        name: str,
+        location: str,
+        description: str,
         players_ids: List[int],
+        max_rounds: int,
     ):
         for player_id in players_ids:
             player = self.player_dao.get_player(player_id)
@@ -52,18 +48,12 @@ class TournamentController:
                     f"Player with ID {player_id} not found"
                 )
 
-        creation_datetime = datetime.now()
-        current_round = 0
-        status = "To start"
         tournament = TournamentModel(
             name,
-            max_rounds,
             location,
             description,
             players_ids,
-            creation_datetime,
-            current_round,
-            status,
+            max_rounds,
         )
 
         return self.tournament_dao.create_tournament(tournament)
@@ -77,14 +67,13 @@ class TournamentController:
         return serialized_tournaments
 
     def get_tournament(self, tournament_id):
-        try:
-            tournament = self.tournament_dao.get_tournament(tournament_id)
-            serialized_tournament = self.serializer.serialize(tournament)
-            return serialized_tournament
-        except Exception as e:
-            raise TournamentNotFoundException(
-                f"Tournament with ID " f"{tournament_id} not found, {e}"
-            )
+        tournament = self.tournament_dao.get_tournament(tournament_id)
+        return self.serializer.serialize(tournament)
+
+    def start_tournament(self, tournament_id):
+        tournament = self.tournament_dao.get_tournament(tournament_id)
+        if tournament.status == "Ended":
+            raise TournamentEndedException
 
     def update_tournament(self, tournament_id, updated_tournament):
         raise NotImplementedError

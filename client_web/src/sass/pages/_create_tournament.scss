@@ -1,0 +1,71 @@
+@use '../abstract' as a;
+
+#create_tournament_page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & h1 {
+        margin-bottom: 1em;
+    }
+}
+
+.create_tournament_form {
+    display: grid;
+    grid-template-areas:    'a b'
+                            'c c';
+
+    & input {
+        background-color: rgba(255, 255, 255, .10);
+    }
+}
+
+.tournament_form_fields {
+    grid-area: a;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1em;
+    border: none;
+    border: 1px solid rgba(255, 255, 255, .10);
+}
+
+.tournament_player {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0 .5em;
+
+    & div {
+        display: flex;
+        justify-content: flex-start;
+
+    }
+}
+
+.player_selection {
+    grid-area: b;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.create_tournament_submit_button {
+    grid-area: c;
+    background-color: a.$clr-main;
+    border-radius: 5px;
+    padding: .5em 1em;
+    color: black;
+    font-weight: 700;
+}
+
+.player_selection_pool {
+    & h4 {
+        text-align: center;
+    }
+    border: 1px solid rgba(255, 255, 255, .10);
+}
+
+.player_selection_selected {
+    & h4 {
+        text-align: center;
+    }
+    border: 1px solid rgba(255, 255, 255, .10);
+}

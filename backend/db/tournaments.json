@@ -1,53 +1,36 @@
 {
   "_default": {
     "1": {
-      "name": "New tournament",
-      "max_rounds": 4,
-      "current_round": 0,
-      "location": "Paris",
-      "description": "Description",
+      "name": "test",
+      "location": "test",
+      "description": "test2",
       "players_ids": [
         1,
         2
       ],
-      "creation_date": "2023-03-26_17:09",
-      "status": "To start"
+      "creation_date": "2023-04-04_00:10",
+      "max_rounds": 4,
+      "current_round": 0,
+      "status": "To start",
+      "rounds": []
     },
     "2": {
-      "name": "Tournoi local",
-      "max_rounds": 4,
-      "current_round": 0,
-      "location": "Montpellier",
-      "description": "Tournoi de Montpellier",
-      "players_ids": [
-        1,
-        4,
-        5,
-        6
-      ],
-      "creation_date": "2023-03-29_19:27",
-      "status": "To start"
-    },
-    "3": {
-      "name": "Big tournament",
-      "max_rounds": 4,
-      "current_round": 0,
-      "location": "New York",
-      "description": "A big tournament in New York!",
+      "name": "Nouveau format",
+      "location": "Somewhere",
+      "description": "test",
       "players_ids": [
         1,
         2,
         3,
         4,
         5,
-        6,
-        7,
-        8,
-        9,
-        10
+        6
       ],
-      "creation_date": "2023-04-02_16:37",
-      "status": "To start"
+      "creation_date": "2023-04-04_00:10",
+      "max_rounds": "6",
+      "current_round": 0,
+      "status": "To start",
+      "rounds": []
     }
   }
 }

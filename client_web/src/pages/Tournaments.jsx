@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import Nav from '../components/Nav.jsx'
 import { NavLink } from 'react-router-dom'
-import { getTournaments } from '../api/TournamentsAPIServices.js'
 import Background from '../components/Background.jsx'
 import PlayButton from '../assets/play-solid.svg'
+import Router from '../router/Router.js'
 
 const Tournaments = () => {
   const [tournaments, setTournaments] = useState(null)
   useEffect(() => {
-    getTournaments().then((response) => setTournaments(response.payload))
+    (async () => {
+      const response = await Router.getTournaments()
+      if (response.ok) {
+        const jsonResponse = await response.json()
+        const tournaments = jsonResponse.payload
+        setTournaments(tournaments)
+      }
+    })()
   }, [])
 
   return (
@@ -42,7 +49,7 @@ const Tournaments = () => {
                     <div className="tournaments_table_body_item">{tournament.max_rounds}</div>
                     <div className="tournaments_table_body_item">{tournament.current_round}</div>
                     <div className="tournaments_table_body_item">{tournament.status}</div>
-                    <NavLink to={`/tournament/${tournament.tournament_id}`}>
+                    <NavLink to={`/tournaments/${tournament.tournament_id}`}>
                       <img className="icon" src={PlayButton} alt="edit" />
                     </NavLink>
                   </div>

@@ -4,8 +4,8 @@ import Logo from '../assets/chess-solid.svg'
 const Nav = () => {
   const location = useLocation()
   const path = location.pathname
-  const isPlayerPage = path.startsWith('/player') && !path.endsWith('/edit') && !path.endsWith('/create')
-  const isTournamentPage = path.startsWith('/tournament') && !path.endsWith('/create')
+  const isPlayerPage = path === '/players'
+  const isTournamentPage = path === '/tournaments'
   return (
     <nav>
       <div className="navlinks">
@@ -19,12 +19,12 @@ const Nav = () => {
       </div>
       <div className="ctas">
         {isPlayerPage && (
-          <NavLink to="/player/create" className="cta">
+          <NavLink to="/players/create" className="cta">
             Add player
           </NavLink>
         )}
         {isTournamentPage && (
-          <NavLink to="/tournament/create" className="cta">
+          <NavLink to="/tournaments/create" className="cta">
             Create tournament
           </NavLink>
         )}

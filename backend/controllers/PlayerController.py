@@ -24,10 +24,7 @@ class PlayerController:
         players = self.dao.get_all_players()
         return [self.serializer.serialize(player) for player in players]
 
-    def get_player(
-        self,
-        player_id,
-    ):
+    def get_player(self, player_id):
         try:
             player = self.dao.get_player(player_id)
             serialized_player = self.serializer.serialize(player)

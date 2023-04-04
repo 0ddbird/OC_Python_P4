@@ -1,0 +1,38 @@
+@use '../abstract' as a;
+
+.hero_content {
+  padding: 2em 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 3em;
+  text-align: center;
+}
+
+.home_logo {
+  height: 2em;
+  width: 2em;
+}
+
+.home_heading {
+  color: white;
+}
+
+.home_subheading {
+ color: white;
+  font-size: .55em;
+  margin-bottom: 1em;
+}
+
+
+.home_description {
+ color: white;
+ font-size: .5em;
+}
+
+#hero_section {
+ height: 100vh;
+
+}
+

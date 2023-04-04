@@ -25,17 +25,19 @@ class TournamentSerializer:
             "%Y-%m-%d_%H:%M",
         )
         current_round = int(json_data.get("current_round"))
+        rounds = json_data.get("rounds")
         status = json_data.get("status")
 
         return TournamentModel(
             name,
-            max_rounds,
             location,
             description,
             players_ids,
+            max_rounds,
             creation_date,
             current_round,
             status,
+            rounds,
             t_id,
         )
 
@@ -43,15 +45,16 @@ class TournamentSerializer:
     def serialize(tournament):
         serialized_tournament = {
             "name": tournament.name,
-            "max_rounds": tournament.max_rounds,
-            "current_round": tournament.current_round,
             "location": tournament.location,
             "description": tournament.description,
             "players_ids": tournament.players_ids,
             "creation_date": tournament.creation_date.strftime(
                 "%Y-%m-%d_%H:%M"
             ),
+            "max_rounds": tournament.max_rounds,
+            "current_round": tournament.current_round,
             "status": tournament.status,
+            "rounds": tournament.rounds,
         }
         if tournament.t_id:
             serialized_tournament["tournament_id"] = tournament.t_id

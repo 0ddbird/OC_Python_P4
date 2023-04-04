@@ -1,4 +1,4 @@
-from routes import players_bp, tournaments_bp
+from .routes import players_bp, tournaments_bp
 
 
 def register_routes(app):
