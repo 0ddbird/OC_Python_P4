@@ -30,7 +30,9 @@ class RoundSerializer:
         tournament_id = json_data.get("tournament_id")
         round_number = json_data.get("round_number")
         start_datetime_str = json_data.get("start_datetime")
-        start_datetime = datetime.strptime(start_datetime_str, "%Y-%m-%d_%H:%M")
+        start_datetime = datetime.strptime(
+            start_datetime_str, "%Y-%m-%d_%H:%M"
+        )
         end_datetime_str = json_data.get("end_datetime")
         end_datetime = (
             datetime.strptime(end_datetime_str, "%Y-%m-%d_%H:%M")

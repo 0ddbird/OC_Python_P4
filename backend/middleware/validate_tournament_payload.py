@@ -2,7 +2,9 @@ class TournamentValidationException(Exception):
     pass
 
 
-def validate_tournament_fields(name, location, description, players_ids, max_rounds):
+def validate_tournament_fields(
+    name, location, description, players_ids, max_rounds
+):
     errors = []
 
     if name is None or name == "":

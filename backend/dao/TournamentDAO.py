@@ -47,7 +47,9 @@ class TournamentDAO:
         tournament = Query()
         serialized_tournament = self.serializer.serialize(updated_tournament)
         del serialized_tournament["id"]
-        self.table.update(updated_tournament, tournament.t_id.matches(tournament_id))
+        self.table.update(
+            updated_tournament, tournament.t_id.matches(tournament_id)
+        )
 
     def delete_tournament(self, tournament_id):
         tournament = Query()

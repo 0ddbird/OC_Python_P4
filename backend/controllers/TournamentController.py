@@ -44,7 +44,9 @@ class TournamentController:
         for player_id in players_ids:
             player = self.player_dao.get_player(player_id)
             if player is None:
-                raise MissingPlayerException(f"Player with ID {player_id} not found")
+                raise MissingPlayerException(
+                    f"Player with ID {player_id} not found"
+                )
 
         tournament = TournamentModel(
             name=name,

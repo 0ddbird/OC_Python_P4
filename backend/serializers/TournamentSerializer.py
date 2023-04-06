@@ -11,7 +11,9 @@ class TournamentSerializer:
             "location": tournament.location,
             "description": tournament.description,
             "players_ids": tournament.players_ids,
-            "start_datetime": tournament.start_datetime.strftime("%Y-%m-%d_%H:%M"),
+            "start_datetime": tournament.start_datetime.strftime(
+                "%Y-%m-%d_%H:%M"
+            ),
             "end_datetime": tournament.end_datetime.strftime("%Y-%m-%d_%H:%M")
             if tournament.end_datetime
             else None,
@@ -52,21 +54,16 @@ class TournamentSerializer:
         rounds = tuple(json_data.get("rounds"))
         status = TournamentStatus[json_data.get("status")]
 
-        try:
-            tournament = TournamentModel(
-                name=name,
-                location=location,
-                description=description,
-                players_ids=players_ids,
-                max_rounds=max_rounds,
-                start_datetime=start_datetime,
-                end_datetime=end_datetime,
-                current_round=current_round,
-                status=status,
-                rounds=rounds,
-                id=id,
-            )
-
-            return tournament
-        except Exception as e:
-            print(e)
+        return TournamentModel(
+            name=name,
+            location=location,
+            description=description,
+            players_ids=players_ids,
+            max_rounds=max_rounds,
+            start_datetime=start_datetime,
+            end_datetime=end_datetime,
+            current_round=current_round,
+            status=status,
+            rounds=rounds,
+            id=id,
+        )
