@@ -31,8 +31,8 @@ const CreateTournament = () => {
     const tournament = {
       name: tournamentName,
       location: tournamentLocation,
-      max_rounds: tournamentRoundNumber,
       description: tournamentDescription,
+      max_rounds: tournamentRoundNumber,
       players_ids: selectedPlayerIDs
     }
     const response = await Router.createTournament(tournament)
@@ -51,8 +51,8 @@ const CreateTournament = () => {
     setSelectedPlayerIDs(currentSelectedIDs)
   }
 
-  const unselectedPlayers = players.filter((player) => !selectedPlayerIDs.includes(player.player_id))
-  const selectedPlayers = players.filter((player) => selectedPlayerIDs.includes(player.player_id))
+  const unselectedPlayers = players.filter((player) => !selectedPlayerIDs.includes(player.id))
+  const selectedPlayers = players.filter((player) => selectedPlayerIDs.includes(player.id))
 
   return !isLoaded
     ? <p>Loading...</p>
@@ -77,8 +77,8 @@ const CreateTournament = () => {
             <div className="player_selection_pool">
               <h4>Player pool ({unselectedPlayers.length})</h4>
               {unselectedPlayers.map((player) => (
-                  <div className="tournament_player" key={`player_${player.player_id}`}>
-                    <input type="checkbox" onChange={() => handlePlayerSelection(player.player_id)}/>
+                  <div className="tournament_player" key={`player_${player.id}`}>
+                    <input type="checkbox" onChange={() => handlePlayerSelection(player.id)}/>
                     <Player player={player} fields={fields}/>
                   </div>
               ))}
@@ -86,8 +86,8 @@ const CreateTournament = () => {
             <div className="player_selection_selected">
               <h4>Selected Players ({selectedPlayers.length})</h4>
               {selectedPlayers.map((player) => (
-                  <div className="tournament_player" key={`player_${player.player_id}`}>
-                    <input type="checkbox" checked onChange={() => handlePlayerSelection(player.player_id)}/>
+                  <div className="tournament_player" key={`player_${player.id}`}>
+                    <input type="checkbox" checked onChange={() => handlePlayerSelection(player.id)}/>
                     <Player player={player} fields={fields}/>
                   </div>
               ))}

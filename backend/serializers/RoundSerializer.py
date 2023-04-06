@@ -1,39 +1,48 @@
+from datetime import datetime
+
 from backend.models.RoundModel import RoundModel
 
 
 class RoundSerializer:
-    def __init__(self):
-        pass
+    @staticmethod
+    def serialize(round: RoundModel) -> dict:
+        serialized_round = {
+            key: getattr(round, key)
+            for key in [
+                "tournament_id",
+                "round_number",
+                "games_ids",
+                "start_datetime",
+                "end_datetime",
+            ]
+        }
+        serialized_round["start_datetime"] = round.start_datetime.strftime(
+            "%Y-%m-%d_%H:%M"
+        )
+        if round.id:
+            serialized_round["id"] = round.id
+        return serialized_round
 
     @staticmethod
-    def deserialize(json_data):
-        return RoundModel(
-            json_data["player_1"],
-            json_data["player_2"],
+    def deserialize(json_data: dict) -> RoundModel:
+        id = json_data.get("id")
+        games_ids = json_data.get("games_ids")
+        tournament_id = json_data.get("tournament_id")
+        round_number = json_data.get("round_number")
+        start_datetime_str = json_data.get("start_datetime")
+        start_datetime = datetime.strptime(start_datetime_str, "%Y-%m-%d_%H:%M")
+        end_datetime_str = json_data.get("end_datetime")
+        end_datetime = (
+            datetime.strptime(end_datetime_str, "%Y-%m-%d_%H:%M")
+            if end_datetime_str
+            else None
         )
 
-    @staticmethod
-    def serialize(round):
-        round.games_ids = round.games_ids
-        serialized_round = {
-            "round_id": round.r_id,
-            "tournament_id": round.t_id,
-            "round_number": round.r_num,
-            "start_date": round.start_date.strftime("%Y-%m-%d_%H:%M"),
-            "games_ids": round.games_ids,
-        }
-
-        return serialized_round
-
-    @staticmethod
-    def serialize_to_db(round):
-        try:
-            serialized_round = {
-                "tournament_id": round.t_id,
-                "round_number": round.r_num,
-                "start_date": round.start_date.strftime("%Y-%m-%d_%H:%M"),
-                "games_ids": round.games_ids,
-            }
-        except Exception as e:
-            print(e)
-        return serialized_round
+        return RoundModel(
+            id=id,
+            games_ids=games_ids,
+            tournament_id=tournament_id,
+            round_number=round_number,
+            start_datetime=start_datetime,
+            end_datetime=end_datetime,
+        )

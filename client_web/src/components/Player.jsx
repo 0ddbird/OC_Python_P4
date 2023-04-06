@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 const Player = ({ player, fields }) => {
   return (
       <>
-        {fields.includes('id') && <div className="player_id">{player.player_id}</div>}
+        {fields.includes('id') && <div className="player_id">{player.id}</div>}
         {fields.includes('chessId') && <div className="player_chess_id">{player.chess_id}</div>}
         {fields.includes('firstName') && <div className="player_firstname">{player.first_name}</div>}
         {fields.includes('lastName') && <div className="player_lastname">{player.last_name}</div>}

@@ -1,19 +1,18 @@
 from datetime import date
+from dataclasses import dataclass
+from typing import Optional
+from backend.models.model_typing import ChessID, PrimaryKey
 
 
+@dataclass
 class PlayerModel:
-    def __init__(
-        self,
-        chess_id: str,
-        first_name: str,
-        last_name: str,
-        birthdate: date,
-        elo: int,
-        player_id=None,
-    ):
-        self.player_id = player_id
-        self.chess_id = chess_id
-        self.first_name = first_name
-        self.last_name = last_name
-        self.birthdate = birthdate
-        self.elo = elo
+    chess_id: ChessID
+    first_name: str
+    last_name: str
+    birthdate: date
+    elo: int
+    id: Optional[PrimaryKey] = None
+
+    def __post_init__(self):
+        if not ChessID.match(self.chess_id):
+            raise ValueError("Invalid chess ID format")

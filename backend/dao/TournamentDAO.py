@@ -1,7 +1,7 @@
 import os
 from tinydb import TinyDB, Query
 
-
+from ..models.model_typing import PrimaryKey
 from ..models.TournamentModel import TournamentModel
 from ..serializers.TournamentSerializer import TournamentSerializer
 
@@ -14,34 +14,41 @@ class TournamentNotFoundException(Exception):
 
 class TournamentDAO:
     def __init__(self):
-        self.db = TinyDB(os.path.join(os.getcwd(), "db", "tournaments.json"))
+        self.db = TinyDB(os.path.join(os.getcwd(), "db", "db.json"))
+        self.table = self.db.table("tournaments")
         self.serializer = TournamentSerializer()
 
     def create_tournament(self, tournament: TournamentModel):
         serialized_tournament = self.serializer.serialize(tournament)
-        tournament_record_id = self.db.insert(serialized_tournament)
-        return tournament_record_id
+        try:
+            del serialized_tournament["id"]
+        except KeyError:
+            pass
+        return self.table.insert(serialized_tournament)
 
     def get_tournaments(self):
-        tournament_records = self.db.all()
+        tournament_records = self.table.all()
         tournaments = []
         for tournament_record in tournament_records:
-            tournament_record["tournament_id"] = tournament_record.doc_id
+            tournament_record["id"] = tournament_record.doc_id
             tournament = self.serializer.deserialize(tournament_record)
+            print(tournament)
             tournaments.append(tournament)
         return tournaments
 
-    def get_tournament(self, tournament_id):
-        tournament_record = self.db.get(doc_id=tournament_id)
-        if tournament_record is None:
-            raise TournamentNotFoundException(tournament_id)
-        tournament_record["tournament_id"] = tournament_id
-        return self.serializer.deserialize(tournament_record)
+    def get_tournament(self, id: PrimaryKey) -> TournamentModel:
+        record = self.table.get(doc_id=id)
+        if record is None:
+            raise TournamentNotFoundException(id)
+        record["id"] = record.doc_id
+        return self.serializer.deserialize(record)
 
     def update_tournament(self, tournament_id, updated_tournament):
         tournament = Query()
-        self.db.update(updated_tournament, tournament.t_id.matches(tournament_id))
+        serialized_tournament = self.serializer.serialize(updated_tournament)
+        del serialized_tournament["id"]
+        self.table.update(updated_tournament, tournament.t_id.matches(tournament_id))
 
     def delete_tournament(self, tournament_id):
         tournament = Query()
-        self.db.remove(tournament.t_id.matches(tournament_id))
+        self.table.remove(tournament.t_id.matches(tournament_id))

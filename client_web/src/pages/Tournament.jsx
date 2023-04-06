@@ -6,7 +6,8 @@ import Router from '../router/Router.js'
 const Tournament = () => {
   const { id } = useParams()
   const [name, setName] = useState('')
-  const [creationDate, setCreationDate] = useState('')
+  const [startDatetime, setStartDatetime] = useState('')
+  const [endDatetime, setEndDatetime] = useState('')
   const [maxRounds, setMaxRounds] = useState('')
   const [currentRound, setCurrentRound] = useState('')
   const [rounds, setRounds] = useState([])
@@ -24,7 +25,8 @@ const Tournament = () => {
         const jsonResponse = await response.json()
         const tournament = jsonResponse.payload
         setName(tournament.name)
-        setCreationDate(tournament.creation_date)
+        setStartDatetime(tournament.start_datetime)
+        setEndDatetime(tournament.end_datetime)
         setMaxRounds(tournament.max_rounds)
         setCurrentRound(tournament.current_round)
         setRounds(tournament.rounds)
@@ -50,7 +52,8 @@ const Tournament = () => {
     ? <>
         <h1 className="tournament_name">{name}</h1>
         <p className="tournament_status">Status: {status}</p>
-        <p className="tournament_creation_date">Creation date: {creationDate}</p>
+        <p className="tournament_creation_date">Start datetime: {startDatetime}</p>
+        <p className="tournament_creation_date">End datetime: {endDatetime}</p>
         <p className="tournament_location">Location: {location}</p>
         <p className="tournament description">Description: {description}</p>
         <p className="tournament_max_rounds">Max rounds: {maxRounds}</p>
@@ -60,7 +63,7 @@ const Tournament = () => {
             rounds && rounds.map(round => <Round key={round.round_id} games={round.games}/>)
         }
 
-        {!isEnded && <button onClick={handleNextRound}>Start</button>}
+        {!isEnded && <button id="tournament_start_button" onClick={handleNextRound}>Start</button>}
       </>
     : <>
         <div>Loading</div>

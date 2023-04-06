@@ -27,3 +27,9 @@
   grid-template-columns: repeat(9, 1fr);
   gap: 0 1em;
 }
+
+#tournament_start_button {
+  background-color: a.$clr-main;
+  color: black;
+  font-weight: 700;
+}

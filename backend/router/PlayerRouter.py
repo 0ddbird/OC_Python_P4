@@ -48,17 +48,15 @@ class PlayerRouter:
             ResCode.OK.value,
         )
 
-    def handle_update_player(self, player_id, http_request):
-        print(http_request.json.get("chess_id"))
+    def handle_update_player(self, id, http_request):
         player_data = {
-            "player_id": player_id,
+            "id": id,
             "chess_id": http_request.json.get("chess_id"),
             "first_name": http_request.json.get("first_name"),
             "last_name": http_request.json.get("last_name"),
             "birthdate": http_request.json.get("birthdate"),
             "elo": http_request.json.get("elo"),
         }
-        print(player_data)
         try:
             updated_player_id = self.controller.update_player(player_data)
             return make_response(

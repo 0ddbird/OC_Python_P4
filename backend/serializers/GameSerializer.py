@@ -2,54 +2,33 @@ from backend.models.GameModel import GameModel, PlayerScore
 
 
 class GameSerializer:
-    def __init__(self):
-        pass
-
     @staticmethod
-    def deserialize(json_data):
-        try:
-            p1_id = json_data["player_1"]
-            p2_id = json_data["player_2"]
-            p1_score = PlayerScore(json_data["p1_score"])
-            p2_score = PlayerScore(json_data["p2_score"])
-            r_id = json_data["round_id"]
-            g_id = json_data.doc_id
-
-            return GameModel(
-                p1_id,
-                p2_id,
-                r_id,
-                p1_score,
-                p2_score,
-                g_id,
-            )
-        except Exception as e:
-            print(f"GameSerializer: {e}")
-            return None
-
-    @staticmethod
-    def serialize(game):
-        game_id = game.g_id
-        player_1_list = game.player_1
-        player_2_list = game.player_2
-
+    def serialize(game: GameModel) -> dict:
         serialized_game = {
-            "game_id": game_id,
-            "round_id": game.r_id,
-            "player_1": player_1_list,
-            "player_2": player_2_list,
+            "p1_id": game.p1_id,
+            "p2_id": game.p2_id,
+            "p1_score": game.p1_score.name,
+            "p2_score": game.p2_score.name,
+            "round_id": game.round_id,
         }
-
+        if game.id:
+            serialized_game["id"] = game.id
         return serialized_game
 
     @staticmethod
-    def serialize_to_db(game):
-        serialized_game = {
-            "player_1": game.p1_id,
-            "p1_score": game.p1_score.value,
-            "player_2": game.p2_id,
-            "p2_score": game.p2_score.value,
-            "round_id": game.r_id,
-        }
+    def deserialize(json_data: dict) -> GameModel:
+        id = json_data.get("id")
+        p1_id = json_data.get("p1_id")
+        p2_id = json_data.get("p2_id")
+        p1_score = PlayerScore[json_data.get("p1_score")]
+        p2_score = PlayerScore[json_data.get("p2_score")]
+        round_id = json_data.get("round_id")
 
-        return serialized_game
+        return GameModel(
+            id=id,
+            p1_id=p1_id,
+            p2_id=p2_id,
+            p1_score=p1_score,
+            p2_score=p2_score,
+            round_id=round_id,
+        )

@@ -1,55 +1,72 @@
 from datetime import datetime
 
-from backend.models.TournamentModel import TournamentModel
+from backend.models.TournamentModel import TournamentModel, TournamentStatus
 
 
 class TournamentSerializer:
-    def __init__(self):
-        pass
-
     @staticmethod
-    def deserialize(json_data):
-        t_id = int(json_data.get("tournament_id")) or None
-        name = json_data.get("name")
-        max_rounds = int(json_data.get("max_rounds"))
-        location = json_data.get("location")
-        description = json_data.get("description")
-        players_ids = json_data.get("players_ids")
-        creation_date_str = json_data.get("creation_date")
-        creation_date = datetime.strptime(
-            creation_date_str,
-            "%Y-%m-%d_%H:%M",
-        )
-        current_round = int(json_data.get("current_round"))
-        rounds = json_data.get("rounds")
-        status = json_data.get("status")
-
-        return TournamentModel(
-            name,
-            location,
-            description,
-            players_ids,
-            max_rounds,
-            creation_date,
-            current_round,
-            status,
-            rounds,
-            t_id,
-        )
-
-    @staticmethod
-    def serialize(tournament):
+    def serialize(tournament: TournamentModel) -> dict:
         serialized_tournament = {
             "name": tournament.name,
             "location": tournament.location,
             "description": tournament.description,
             "players_ids": tournament.players_ids,
-            "creation_date": tournament.creation_date.strftime("%Y-%m-%d_%H:%M"),
+            "start_datetime": tournament.start_datetime.strftime("%Y-%m-%d_%H:%M"),
+            "end_datetime": tournament.end_datetime.strftime("%Y-%m-%d_%H:%M")
+            if tournament.end_datetime
+            else None,
             "max_rounds": tournament.max_rounds,
             "current_round": tournament.current_round,
-            "status": tournament.status,
+            "status": tournament.status.name,
             "rounds": tournament.rounds,
         }
-        if tournament.t_id:
-            serialized_tournament["tournament_id"] = tournament.t_id
+
+        if tournament.id:
+            serialized_tournament["id"] = tournament.id
         return serialized_tournament
+
+    @staticmethod
+    def deserialize(json_data: dict) -> TournamentModel:
+        id = int(json_data.get("id"))
+        name = json_data.get("name")
+        location = json_data.get("location")
+        description = json_data.get("description")
+        players_ids = tuple(json_data.get("players_ids"))
+        max_rounds = int(json_data.get("max_rounds"))
+        start_datetime_str = json_data.get("start_datetime")
+        start_datetime = datetime.strptime(
+            start_datetime_str,
+            "%Y-%m-%d_%H:%M",
+        )
+        end_datetime_str = json_data.get("end_datetime")
+
+        end_datetime = (
+            datetime.strptime(
+                end_datetime_str,
+                "%Y-%m-%d_%H:%M",
+            )
+            if end_datetime_str is not None
+            else None
+        )
+        current_round = json_data.get("current_round")
+        rounds = tuple(json_data.get("rounds"))
+        status = TournamentStatus[json_data.get("status")]
+
+        try:
+            tournament = TournamentModel(
+                name=name,
+                location=location,
+                description=description,
+                players_ids=players_ids,
+                max_rounds=max_rounds,
+                start_datetime=start_datetime,
+                end_datetime=end_datetime,
+                current_round=current_round,
+                status=status,
+                rounds=rounds,
+                id=id,
+            )
+
+            return tournament
+        except Exception as e:
+            print(e)

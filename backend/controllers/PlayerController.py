@@ -1,38 +1,36 @@
-from backend.dao.PlayerDAO import PlayerDAO
-from backend.serializers.PlayerSerializer import PlayerSerializer
+from typing import Tuple
+
+from ..dao.PlayerDAO import PlayerDAO
+from ..serializers.PlayerSerializer import PlayerSerializer
 from ..exceptions.dao import PlayerNotFoundException
-from ..models.PlayerModel import PlayerModel
+from ..models.model_typing import PrimaryKey
 
 
 class PlayerController:
-    def __init__(self):
-        self.model = PlayerModel
-        self.dao = PlayerDAO()
-        self.serializer = PlayerSerializer()
+    def __init__(self) -> None:
+        self.dao: PlayerDAO = PlayerDAO()
+        self.serializer: PlayerSerializer = PlayerSerializer()
 
-    def create_player(self, player_data):
+    def create_player(self, player_data) -> PrimaryKey:
         player = self.serializer.deserialize(player_data)
-        record_id = self.dao.create_player(player)
-        return record_id
+        return self.dao.create_player(player)
 
-    def get_all_players(self):
+    def get_all_players(self) -> Tuple[dict, ...]:
         players = self.dao.get_all_players()
-        return [self.serializer.serialize(player) for player in players]
+        return tuple(self.serializer.serialize(player) for player in players)
 
-    def get_player(self, player_id):
+    def get_player(self, id: PrimaryKey) -> dict:
         try:
-            player = self.dao.get_player(player_id)
-            serialized_player = self.serializer.serialize(player)
-            return serialized_player
+            player = self.dao.get_player(id)
+            return self.serializer.serialize(player)
         except PlayerNotFoundException as e:
             raise PlayerNotFoundException("Player not found") from e
 
-    def update_player(self, player_data):
+    def update_player(self, player_data: dict) -> True:
         player = self.serializer.deserialize(player_data)
-        return self.dao.update_player(player)
+        self.dao.update_player(player)
+        return True
 
-    def delete_player(self, player_id):
-        try:
-            self.dao.delete_player(player_id)
-        except Exception as e:
-            raise
+    def delete_player(self, id: PrimaryKey) -> True:
+        self.dao.delete_player(id)
+        return True

@@ -10,7 +10,8 @@ class RoundDAO:
         self.serializer = RoundSerializer()
 
     def create_round(self, round: RoundModel):
-        serialized_round = self.serializer.serialize_to_db(round)
+        serialized_round = self.serializer.serialize(round)
+        del serialized_round["id"]
         return self.db.insert(serialized_round)
 
     def get_rounds(self):
@@ -20,8 +21,8 @@ class RoundDAO:
         return self.db.search(Query().r_id.matches(round_id))
 
     def update_round(self, round_id, updated_round):
-        round_ = Query()
-        self.db.update(updated_round, round_.r_id.matches(round_id))
+        round = Query()
+        self.db.update(updated_round, round.id.matches(round_id))
 
     def delete_round(self, round_id):
         round_ = Query()

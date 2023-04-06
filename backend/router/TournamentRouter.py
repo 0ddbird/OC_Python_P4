@@ -47,12 +47,12 @@ class TournamentRouter:
                 ResCode.BAD_REQUEST.value,
             )
 
-    def handle_post_tournament(self, http_request):
-        name = http_request.json.get("name")
-        max_rounds = http_request.json.get("max_rounds")
-        location = http_request.json.get("location")
-        description = http_request.json.get("description")
-        player_ids = http_request.json.get("players_ids")
+    def handle_post_tournament(self, request):
+        name = request.json.get("name")
+        max_rounds = request.json.get("max_rounds")
+        location = request.json.get("location")
+        description = request.json.get("description")
+        player_ids = tuple(request.json.get("players_ids"))
 
         tournament_data = validate_tournament_fields(
             name,
@@ -85,7 +85,6 @@ class TournamentRouter:
                 },
                 ResCode.CREATED.value,
             )
-
         except Exception as e:
             return make_response(
                 {
@@ -108,12 +107,12 @@ class TournamentRouter:
             return make_response(
                 {
                     "message": "Tournament started successfully",
-                    "payload": f"http://localhost:3000/tournaments/"
-                    f"{tournament_id}/{round_id}",
+                    "payload": round_id,
                 },
                 ResCode.OK.value,
             )
         except Exception as e:
+            print(e)
             return make_response(
                 {
                     "message": "Can't find tournament",

@@ -77,11 +77,10 @@ class Router {
     return Router.makeRequest(route)
   }
 
-  static async makeRequest(route, body = null) {
+  static makeRequest(route, body = null) {
     const options = { headers: Router.headers, method: route.method }
     if (body) options.body = JSON.stringify(body)
-    const response = await fetch(route.path, options)
-    return response
+    return fetch(route.path, options)
   }
 }
 

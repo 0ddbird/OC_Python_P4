@@ -1,24 +1,24 @@
+from dataclasses import dataclass
 from datetime import datetime
-from typing import List
+from typing import Tuple, Optional
+
+from backend.models.model_typing import ForeignKey, PrimaryKey
 
 
+@dataclass
 class RoundModel:
-    def __init__(self, games_ids: List[int], tournament_id: int, r_num, r_id=None):
-        self.r_id = r_id
-        self.t_id = tournament_id
-        self.r_num = r_num
-        self.games_ids = games_ids
-        self.start_date = datetime.now()
+    games_ids: Tuple[ForeignKey, ...]
+    tournament_id: ForeignKey
+    round_number: int
+    start_datetime: datetime = datetime.now()
+    end_datetime: Optional[datetime] = None
+    id: Optional[PrimaryKey] = None
 
-    def __repr__(self):
-        return f"RoundModel({self.r_id}, {self.t_id}, {self.r_num}, {self.r_games_ids}, {self.start_date})"
+    def __post_init__(self):
+        if self.tournament_id is None:
+            raise ValueError("Tournament ID cannot be None")
+        if not isinstance(self.round_number, int) or self.round_number <= 0:
+            raise ValueError("Round number must be a positive integer")
 
-    def __str__(self):
-        return (
-            f"RoundModel\n"
-            f"{self.r_id=}\n"
-            f"{self.t_id=}\n"
-            f"{self.r_num=}\n"
-            f"{self.games_ids=}\n"
-            f"{self.start_date=}"
-        )
+    def set_end_datetime(self):
+        self.end_datetime = datetime.now()

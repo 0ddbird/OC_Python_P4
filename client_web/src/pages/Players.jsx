@@ -23,7 +23,7 @@ const Players = () => {
     e.preventDefault()
     const response = await Router.deletePlayer(id)
     if (response.ok) {
-      setPlayers(players.filter((player) => player.player_id !== id))
+      setPlayers(players.filter((player) => player.id !== id))
     }
   }
 
@@ -47,14 +47,14 @@ const Players = () => {
                 {players &&
                     players.map((player) => {
                       return (
-                          <div key={player.player_id} className="player_row">
+                          <div key={player.id} className="player_row">
                             <Player player={player} fields={fields}/>
-                            <NavLink to={`/players/${player.player_id}/edit`}>
+                            <NavLink to={`/players/${player.id}/edit`}>
                               <button className="edit_player_button">
                                 <img src={EditPlayerIcon} className="edit_player_icon icon" alt="edit_player"/>
                               </button>
                             </NavLink>
-                            <button onClick={(e) => handleDeletePlayer(e, player.player_id)} className="delete_player_button">
+                            <button onClick={(e) => handleDeletePlayer(e, player.id)} className="delete_player_button">
                               <img src={DeletePlayerIcon} className="delete_player_icon icon" alt="delete_player"/>
                             </button>
                           </div>
