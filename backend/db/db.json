@@ -70,15 +70,22 @@
       "p2_id": 2,
       "p1_score": null,
       "p2_score": null,
-      "round_id": 1,
-      "id": 1
+      "round_id": 1
+    },
+    "2": {
+      "p1_id": 2,
+      "p2_id": 1,
+      "p1_score": null,
+      "p2_score": null,
+      "round_id": 1
     }
   },
   "rounds": {
     "1": {
       "tournament_id": 3,
       "games_ids": [
-        1
+        1,
+        2
       ],
       "start_datetime": "2023-04-07_01:18",
       "end_datetime": null

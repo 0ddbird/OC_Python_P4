@@ -1,7 +1,7 @@
 from datetime import date
 from dataclasses import dataclass
 from typing import Optional
-from backend.models.model_typing import ChessID, PrimaryKey
+from backend.abstract.typing.model_typing import ChessID, PrimaryKey
 
 
 @dataclass

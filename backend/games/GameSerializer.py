@@ -1,5 +1,5 @@
-from backend.models.GameModel import GameModel, PlayerScore
-from backend.models.model_typing import SerializedGame
+from backend.games.GameModel import GameModel, PlayerScore
+from backend.abstract.typing.model_typing import SerializedGame
 
 
 class GameSerializer:

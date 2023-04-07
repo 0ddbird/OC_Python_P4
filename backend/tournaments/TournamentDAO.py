@@ -1,10 +1,12 @@
 import os
 from tinydb import TinyDB
 
-from .dao_exceptions import TournamentNotFoundException
-from ..models.model_typing import PrimaryKey
-from ..models.TournamentModel import TournamentModel
-from ..serializers.TournamentSerializer import TournamentSerializer
+from backend.abstract.exceptions.dao_exceptions import (
+    TournamentNotFoundException,
+)
+from backend.abstract.typing.model_typing import PrimaryKey
+from backend.tournaments.TournamentModel import TournamentModel
+from backend.tournaments.TournamentSerializer import TournamentSerializer
 
 
 class TournamentDAO:

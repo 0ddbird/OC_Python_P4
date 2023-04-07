@@ -2,8 +2,8 @@ import datetime
 import random
 import string
 
-from backend.dao.PlayerDAO import PlayerDAO
-from backend.models.PlayerModel import PlayerModel
+from backend.players.PlayerDAO import PlayerDAO
+from backend.players.PlayerModel import PlayerModel
 
 used_ids = set()
 

@@ -1,14 +1,15 @@
-from flask import make_response, Response, Request
+from flask import make_response, Response, Request, redirect, url_for
 
-from backend.controllers.TournamentController import TournamentController
+from backend.abstract.classes.Router import Router
+from backend.tournaments.TournamentController import TournamentController
 from backend.middleware.validate_tournament_payload import (
     validate_tournament_fields,
 )
-from backend.models.model_typing import PrimaryKey
-from backend.router.response_codes import ResCode
+from backend.abstract.typing.model_typing import PrimaryKey
+from backend.abstract.response_codes import ResCode
 
 
-class TournamentRouter:
+class TournamentRouter(Router):
     def __init__(self) -> None:
         self.controller = TournamentController()
 
@@ -128,6 +129,69 @@ class TournamentRouter:
             return make_response(
                 {
                     "message": "Error while creating new round",
+                    "error": str(e),
+                },
+                ResCode.BAD_REQUEST.value,
+            )
+
+    def handle_get_tournament_rounds(self, t_id: PrimaryKey) -> Response:
+        try:
+            rounds = self.controller.get_tournament_rounds(tournament_id=t_id)
+            return make_response(
+                {
+                    "message": "Tournament rounds found",
+                    "payload": rounds,
+                },
+                ResCode.OK.value,
+            )
+        except Exception as e:
+            return make_response(
+                {
+                    "message": "Error while fetching rounds",
+                    "error": str(e),
+                },
+                ResCode.BAD_REQUEST.value,
+            )
+
+    def handle_get_tournament_round(
+        self,
+        tournament_id: PrimaryKey,
+        round_number: int,
+    ) -> Response:
+        try:
+            round_id = self.controller.get_round_id(
+                tournament_id=tournament_id, round_number=round_number
+            )
+            return redirect(url_for("rounds.round", round_id=round_id))
+        except Exception as e:
+            return make_response(
+                {
+                    "message": "Error while fetching round",
+                    "error": str(e),
+                },
+                ResCode.BAD_REQUEST.value,
+            )
+
+    def handle_update_games(
+        self,
+        tournament_id: PrimaryKey,
+        round_number: int,
+        request: Request,
+    ) -> Response:
+        try:
+            payload = request.json
+            self.controller.update_games(tournament_id, round_number, payload)
+            return make_response(
+                {
+                    "message": f"Tournament round #{round_number} updated",
+                    "payload": round,
+                },
+                ResCode.NO_CONTENT.value,
+            )
+        except Exception as e:
+            return make_response(
+                {
+                    "message": "Error while updating round",
                     "error": str(e),
                 },
                 ResCode.BAD_REQUEST.value,

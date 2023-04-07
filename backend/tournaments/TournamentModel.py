@@ -3,11 +3,11 @@ from datetime import date, datetime
 from enum import Enum
 from typing import Optional
 
-from backend.dao.GameDAO import GameDAO
-from backend.dao.RoundDAO import RoundDAO
-from backend.models.GameModel import GameModel
-from backend.models.model_typing import ForeignKey, PrimaryKey
-from backend.models.RoundModel import RoundModel
+from backend.games.GameDAO import GameDAO
+from backend.rounds.RoundDAO import RoundDAO
+from backend.games.GameModel import GameModel
+from backend.abstract.typing.model_typing import ForeignKey, PrimaryKey
+from backend.rounds.RoundModel import RoundModel
 from backend.utils import shuffle_players, sort_by_score
 
 

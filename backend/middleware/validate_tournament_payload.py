@@ -1,4 +1,4 @@
-from backend.models.model_typing import ForeignKey
+from backend.abstract.typing.model_typing import ForeignKey
 
 
 class TournamentValidationException(Exception):

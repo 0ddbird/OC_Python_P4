@@ -1,7 +1,7 @@
-from ..dao.PlayerDAO import PlayerDAO
-from ..serializers.PlayerSerializer import PlayerSerializer
-from backend.dao.dao_exceptions import PlayerNotFoundException
-from ..models.model_typing import PrimaryKey, SerializedPlayer
+from backend.players.PlayerDAO import PlayerDAO
+from backend.players.PlayerSerializer import PlayerSerializer
+from backend.abstract.exceptions.dao_exceptions import PlayerNotFoundException
+from backend.abstract.typing.model_typing import PrimaryKey, SerializedPlayer
 
 
 class PlayerController:

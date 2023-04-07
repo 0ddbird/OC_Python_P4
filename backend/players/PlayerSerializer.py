@@ -1,7 +1,7 @@
 from datetime import datetime
 
-from backend.models.model_typing import SerializedPlayer
-from backend.models.PlayerModel import PlayerModel
+from backend.abstract.typing.model_typing import SerializedPlayer
+from backend.players.PlayerModel import PlayerModel
 
 
 class PlayerSerializer:

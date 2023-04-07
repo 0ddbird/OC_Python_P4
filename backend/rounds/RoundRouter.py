@@ -1,11 +1,12 @@
 from flask import make_response, Response
 
-from backend.controllers.RoundController import RoundController
-from backend.models.model_typing import PrimaryKey
-from backend.router.response_codes import ResCode
+from backend.abstract.classes.Router import Router
+from backend.rounds.RoundController import RoundController
+from backend.abstract.typing.model_typing import PrimaryKey
+from backend.abstract.response_codes import ResCode
 
 
-class RoundRouter:
+class RoundRouter(Router):
     def __init__(self) -> None:
         self.controller = RoundController()
 
@@ -35,6 +36,25 @@ class RoundRouter:
                 {
                     "message": "Round found",
                     "payload": round,
+                },
+                ResCode.OK.value,
+            )
+        except Exception as e:
+            return make_response(
+                {
+                    "message": "Can't find round",
+                    "error": e,
+                },
+                ResCode.BAD_REQUEST.value,
+            )
+
+    def handle_get_all_rounds(self) -> Response:
+        try:
+            rounds = self.controller.get_all_rounds()
+            return make_response(
+                {
+                    "message": "Round found",
+                    "payload": rounds,
                 },
                 ResCode.OK.value,
             )

@@ -3,7 +3,7 @@ from datetime import datetime
 from enum import Enum
 from typing import Optional
 
-from backend.models.model_typing import ForeignKey, PrimaryKey
+from backend.abstract.typing.model_typing import ForeignKey, PrimaryKey
 
 
 class RoundStatus(Enum):

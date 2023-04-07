@@ -1,7 +1,7 @@
 from datetime import datetime
 
-from backend.models.model_typing import SerializedRound
-from backend.models.RoundModel import RoundModel
+from backend.abstract.typing.model_typing import SerializedRound
+from backend.rounds.RoundModel import RoundModel
 
 
 class RoundSerializer:

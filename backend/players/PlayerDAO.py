@@ -3,10 +3,10 @@ from typing import List, Tuple
 
 from tinydb import TinyDB
 
-from backend.dao.dao_exceptions import PlayerNotFoundException
-from ..models.model_typing import PrimaryKey
-from ..models.PlayerModel import PlayerModel
-from ..serializers.PlayerSerializer import PlayerSerializer
+from backend.abstract.exceptions.dao_exceptions import PlayerNotFoundException
+from backend.abstract.typing.model_typing import PrimaryKey
+from backend.players.PlayerModel import PlayerModel
+from backend.players.PlayerSerializer import PlayerSerializer
 
 
 class PlayerDAO:

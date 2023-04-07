@@ -1,12 +1,13 @@
 from flask import make_response, Request, Response
 
-from backend.controllers.PlayerController import PlayerController
-from backend.dao.dao_exceptions import PlayerCreationException
-from backend.models.model_typing import PrimaryKey
-from backend.router.response_codes import ResCode
+from backend.abstract.classes.Router import Router
+from backend.players.PlayerController import PlayerController
+from backend.abstract.exceptions.dao_exceptions import PlayerCreationException
+from backend.abstract.typing.model_typing import PrimaryKey
+from backend.abstract.response_codes import ResCode
 
 
-class PlayerRouter:
+class PlayerRouter(Router):
     def __init__(self) -> None:
         self.controller = PlayerController()
 

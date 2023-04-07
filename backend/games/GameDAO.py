@@ -1,9 +1,9 @@
 import os
 
 from tinydb import TinyDB
-from backend.models.GameModel import GameModel
-from backend.models.model_typing import PrimaryKey
-from backend.serializers.GameSerializer import GameSerializer
+from backend.games.GameModel import GameModel
+from backend.abstract.typing.model_typing import PrimaryKey
+from backend.games.GameSerializer import GameSerializer
 
 
 class GameDAO:
@@ -31,15 +31,16 @@ class GameDAO:
             record["id"] = record.doc_id
         return [self.serializer.deserialize(record) for record in records]
 
-    def get_games_by_id(self, game_ids: tuple[PrimaryKey]):
-        games = []
-        for game_id in game_ids:
-            game = self.get_game(game_id)
-            games.append(game)
+    def get_games_by_id(self, games_ids: tuple[PrimaryKey]):
+        games = tuple(self.get_game(id) for id in games_ids)
         return games
 
     def update_game(self, updated_game: GameModel):
         serialized_game = self.serializer.serialize(updated_game)
+        try:
+            del serialized_game["id"]
+        except KeyError:
+            pass
         return self.table.update(serialized_game, doc_ids=[updated_game.id])
 
     def delete_game(self, game_id: PrimaryKey) -> None:

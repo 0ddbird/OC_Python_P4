@@ -1,7 +1,10 @@
 from datetime import datetime
 
-from backend.models.model_typing import SerializedTournament
-from backend.models.TournamentModel import TournamentModel, TournamentStatus
+from backend.abstract.typing.model_typing import SerializedTournament
+from backend.tournaments.TournamentModel import (
+    TournamentModel,
+    TournamentStatus,
+)
 
 
 class TournamentSerializer:
