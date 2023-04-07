@@ -1,11 +1,12 @@
 from datetime import datetime
 
+from backend.models.model_typing import SerializedTournament
 from backend.models.TournamentModel import TournamentModel, TournamentStatus
 
 
 class TournamentSerializer:
     @staticmethod
-    def serialize(tournament: TournamentModel) -> dict:
+    def serialize(tournament: TournamentModel) -> SerializedTournament:
         serialized_tournament = {
             "name": tournament.name,
             "location": tournament.location,
@@ -20,7 +21,7 @@ class TournamentSerializer:
             "max_rounds": tournament.max_rounds,
             "current_round": tournament.current_round,
             "status": tournament.status.name,
-            "rounds": tournament.rounds,
+            "rounds_ids": tournament.rounds_ids,
         }
 
         if tournament.id:
@@ -51,7 +52,7 @@ class TournamentSerializer:
             else None
         )
         current_round = json_data.get("current_round")
-        rounds = tuple(json_data.get("rounds"))
+        rounds_ids = json_data.get("rounds_ids")
         status = TournamentStatus[json_data.get("status")]
 
         return TournamentModel(
@@ -64,6 +65,6 @@ class TournamentSerializer:
             end_datetime=end_datetime,
             current_round=current_round,
             status=status,
-            rounds=rounds,
+            rounds_ids=rounds_ids,
             id=id,
         )

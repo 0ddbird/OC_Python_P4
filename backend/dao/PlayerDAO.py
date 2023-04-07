@@ -3,7 +3,7 @@ from typing import List, Tuple
 
 from tinydb import TinyDB
 
-from ..exceptions.dao import PlayerNotFoundException
+from backend.dao.dao_exceptions import PlayerNotFoundException
 from ..models.model_typing import PrimaryKey
 from ..models.PlayerModel import PlayerModel
 from ..serializers.PlayerSerializer import PlayerSerializer
@@ -22,15 +22,11 @@ class PlayerDAO:
     def get_player(self, player_id: int) -> PlayerModel:
         player_record = self.table.get(doc_id=player_id)
         if not player_record:
-            raise PlayerNotFoundException(
-                f"Player with id {player_id} not found"
-            )
+            raise PlayerNotFoundException(player_id)
         player_record["id"] = player_record.doc_id
         return self.serializer.deserialize(player_record)
 
-    def get_selected_players(
-        self, ids: List[PrimaryKey]
-    ) -> Tuple[PlayerModel]:
+    def get_players_by_id(self, ids: List[PrimaryKey]) -> Tuple[PlayerModel]:
         players = tuple(self.get_player(id) for id in ids)
         return players
 

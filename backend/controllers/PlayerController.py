@@ -1,9 +1,7 @@
-from typing import Tuple
-
 from ..dao.PlayerDAO import PlayerDAO
 from ..serializers.PlayerSerializer import PlayerSerializer
-from ..exceptions.dao import PlayerNotFoundException
-from ..models.model_typing import PrimaryKey
+from backend.dao.dao_exceptions import PlayerNotFoundException
+from ..models.model_typing import PrimaryKey, SerializedPlayer
 
 
 class PlayerController:
@@ -15,22 +13,19 @@ class PlayerController:
         player = self.serializer.deserialize(player_data)
         return self.dao.create_player(player)
 
-    def get_all_players(self) -> Tuple[dict, ...]:
+    def get_all_players(self) -> tuple[SerializedPlayer]:
         players = self.dao.get_all_players()
         return tuple(self.serializer.serialize(player) for player in players)
 
-    def get_player(self, id: PrimaryKey) -> dict:
-        try:
-            player = self.dao.get_player(id)
-            return self.serializer.serialize(player)
-        except PlayerNotFoundException as e:
-            raise PlayerNotFoundException("Player not found") from e
+    def get_player(self, id: PrimaryKey) -> SerializedPlayer:
+        player = self.dao.get_player(id)
+        if player is None:
+            raise PlayerNotFoundException
+        return self.serializer.serialize(player)
 
-    def update_player(self, player_data: dict) -> True:
+    def update_player(self, player_data: SerializedPlayer) -> None:
         player = self.serializer.deserialize(player_data)
         self.dao.update_player(player)
-        return True
 
-    def delete_player(self, id: PrimaryKey) -> True:
+    def delete_player(self, id: PrimaryKey) -> None:
         self.dao.delete_player(id)
-        return True

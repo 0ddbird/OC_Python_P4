@@ -1,14 +1,15 @@
-from tinydb import TinyDB, Query
+import os
+
+from tinydb import TinyDB
 import gc
 
-# create a TinyDB instance and open the table you want to reset
-db = TinyDB("my_table.json")
-table = db.table("my_table_name")
+DB = TinyDB(os.path.join(os.getcwd(), "db", "db.json"))
 
-# truncate the table and run garbage collection to free up memory
-table.truncate()
-gc.collect()
 
-# close the table and database
-table.close()
-db.close()
+def reset_db() -> None:
+    tables = ["players", "tournaments", "games", "rounds"]
+    for table in tables:
+        table = DB.table(table)
+        table.truncate()
+        gc.collect()
+        DB.close()

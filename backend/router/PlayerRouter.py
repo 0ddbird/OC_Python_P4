@@ -1,22 +1,23 @@
-from flask import make_response
+from flask import make_response, Request, Response
 
 from backend.controllers.PlayerController import PlayerController
-from backend.exceptions.dao import PlayerCreationException
+from backend.dao.dao_exceptions import PlayerCreationException
+from backend.models.model_typing import PrimaryKey
 from backend.router.response_codes import ResCode
 
 
 class PlayerRouter:
-    def __init__(self):
+    def __init__(self) -> None:
         self.controller = PlayerController()
 
-    def handle_get_players(self):
+    def handle_get_players(self) -> Response:
         players = self.controller.get_all_players()
         return make_response(
             {"message": "Successfully fetched players", "payload": players},
             ResCode.OK.value,
         )
 
-    def handle_post_player(self, http_request):
+    def handle_post_player(self, http_request: Request) -> Response:
         player = {
             "chess_id": http_request.json.get("chess_id"),
             "first_name": http_request.json.get("first_name"),
@@ -35,20 +36,18 @@ class PlayerRouter:
             )
         except PlayerCreationException as e:
             return make_response(
-                {
-                    "message": "Error while creating player",
-                },
+                {"message": "Error while creating player", "error": str(e)},
                 ResCode.BAD_REQUEST.value,
             )
 
-    def handle_get_player(self, player_id):
+    def handle_get_player(self, player_id) -> Response:
         player = self.controller.get_player(player_id)
         return make_response(
             {"message": "Successfully fetched player", "payload": player},
             ResCode.OK.value,
         )
 
-    def handle_update_player(self, id, http_request):
+    def handle_update_player(self, id, http_request: Request) -> Response:
         player_data = {
             "id": id,
             "chess_id": http_request.json.get("chess_id"),
@@ -69,13 +68,11 @@ class PlayerRouter:
 
         except Exception as e:
             return make_response(
-                {
-                    "message": "Error while updating player",
-                },
+                {"message": "Error while updating player", "error": str(e)},
                 ResCode.BAD_REQUEST.value,
             )
 
-    def handle_delete_player(self, player_id):
+    def handle_delete_player(self, player_id: PrimaryKey) -> Response:
         try:
             self.controller.delete_player(int(player_id))
             return make_response(
@@ -86,8 +83,6 @@ class PlayerRouter:
             )
         except Exception as e:
             return make_response(
-                {
-                    "message": "Error while deleting player",
-                },
+                {"message": "Error while deleting player", "error": str(e)},
                 ResCode.BAD_REQUEST.value,
             )

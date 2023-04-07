@@ -1,16 +1,16 @@
 from datetime import datetime
 
+from backend.models.model_typing import SerializedRound
 from backend.models.RoundModel import RoundModel
 
 
 class RoundSerializer:
     @staticmethod
-    def serialize(round: RoundModel) -> dict:
+    def serialize(round: RoundModel) -> SerializedRound:
         serialized_round = {
             key: getattr(round, key)
             for key in [
                 "tournament_id",
-                "round_number",
                 "games_ids",
                 "start_datetime",
                 "end_datetime",
@@ -28,7 +28,6 @@ class RoundSerializer:
         id = json_data.get("id")
         games_ids = json_data.get("games_ids")
         tournament_id = json_data.get("tournament_id")
-        round_number = json_data.get("round_number")
         start_datetime_str = json_data.get("start_datetime")
         start_datetime = datetime.strptime(
             start_datetime_str, "%Y-%m-%d_%H:%M"
@@ -44,7 +43,6 @@ class RoundSerializer:
             id=id,
             games_ids=games_ids,
             tournament_id=tournament_id,
-            round_number=round_number,
             start_datetime=start_datetime,
             end_datetime=end_datetime,
         )

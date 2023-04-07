@@ -1,10 +1,12 @@
 from datetime import datetime
+
+from backend.models.model_typing import SerializedPlayer
 from backend.models.PlayerModel import PlayerModel
 
 
 class PlayerSerializer:
     @staticmethod
-    def serialize(player: PlayerModel) -> dict:
+    def serialize(player: PlayerModel) -> SerializedPlayer:
         serialized_player = {
             key: getattr(player, key)
             for key in ["chess_id", "first_name", "last_name", "elo"]

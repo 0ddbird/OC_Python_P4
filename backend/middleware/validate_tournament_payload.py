@@ -1,10 +1,17 @@
+from backend.models.model_typing import ForeignKey
+
+
 class TournamentValidationException(Exception):
     pass
 
 
 def validate_tournament_fields(
-    name, location, description, players_ids, max_rounds
-):
+    name: str,
+    location: str,
+    description: str,
+    players_ids: tuple[ForeignKey],
+    max_rounds: int,
+) -> dict:
     errors = []
 
     if name is None or name == "":

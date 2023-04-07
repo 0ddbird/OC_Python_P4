@@ -13,6 +13,6 @@ class PlayerModel:
     elo: int
     id: Optional[PrimaryKey] = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if not ChessID.match(self.chess_id):
             raise ValueError("Invalid chess ID format")

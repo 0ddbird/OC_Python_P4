@@ -21,9 +21,12 @@ class GameModel:
     round_id: Optional[ForeignKey] = None
     id: Optional[PrimaryKey] = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.p1_id == self.p2_id:
             raise ValueError("Player IDs must be different.")
 
     def set_id(self, id: PrimaryKey) -> None:
         self.id = id
+
+    def set_round_id(self, round_id: ForeignKey) -> None:
+        self.round_id = round_id

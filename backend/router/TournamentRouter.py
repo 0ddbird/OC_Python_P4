@@ -1,17 +1,18 @@
-from flask import make_response
+from flask import make_response, Response, Request
 
 from backend.controllers.TournamentController import TournamentController
 from backend.middleware.validate_tournament_payload import (
     validate_tournament_fields,
 )
+from backend.models.model_typing import PrimaryKey
 from backend.router.response_codes import ResCode
 
 
 class TournamentRouter:
-    def __init__(self):
+    def __init__(self) -> None:
         self.controller = TournamentController()
 
-    def handle_get_tournament(self, tournament_id):
+    def handle_get_tournament(self, tournament_id) -> Response:
         try:
             tournament = self.controller.get_tournament(tournament_id)
             return make_response(
@@ -25,11 +26,12 @@ class TournamentRouter:
             return make_response(
                 {
                     "message": "Can't find tournament",
+                    "error": e,
                 },
                 ResCode.BAD_REQUEST.value,
             )
 
-    def handle_get_tournaments(self):
+    def handle_get_tournaments(self) -> Response:
         try:
             tournaments = self.controller.get_all_tournaments()
             return make_response(
@@ -43,11 +45,12 @@ class TournamentRouter:
             return make_response(
                 {
                     "message": "Can't find tournament",
+                    "error": e,
                 },
                 ResCode.BAD_REQUEST.value,
             )
 
-    def handle_post_tournament(self, request):
+    def handle_post_tournament(self, request: Request) -> Response:
         name = request.json.get("name")
         max_rounds = request.json.get("max_rounds")
         location = request.json.get("location")
@@ -87,35 +90,39 @@ class TournamentRouter:
             )
         except Exception as e:
             return make_response(
+                {"message": "Can't create tournament", "error": e},
+                ResCode.BAD_REQUEST.value,
+            )
+
+    def handle_delete_tournament(self, tournament_id: PrimaryKey) -> Response:
+        try:
+            self.controller.delete_tournament(tournament_id)
+            return make_response(
                 {
-                    "message": "Can't create tournament",
+                    "message": "Tournament deleted successfully",
+                },
+                ResCode.NO_CONTENT.value,
+            )
+        except Exception as e:
+            return make_response(
+                {
+                    "message": "Can't delete tournament",
+                    "error": e,
                 },
                 ResCode.BAD_REQUEST.value,
             )
 
-    def handle_next_round(self, tournament_id):
+    def handle_create_next_round(self, tournament_id: PrimaryKey) -> Response:
         try:
-            tournament = self.controller.get_tournament(tournament_id)
-            if tournament.status == "awaiting round results":
-                return make_response(
-                    {
-                        "message": "Please wait for the current round to finish",
-                    },
-                    ResCode.BAD_REQUEST.value,
-                )
-            round_id = self.controller.create_next_round(tournament_id)
+            round = self.controller.create_next_round(
+                tournament_id=tournament_id
+            )
             return make_response(
-                {
-                    "message": "Tournament started successfully",
-                    "payload": round_id,
-                },
-                ResCode.OK.value,
+                {"message": "Round created", "payload": round},
+                ResCode.CREATED.value,
             )
         except Exception as e:
-            print(e)
             return make_response(
-                {
-                    "message": "Can't find tournament",
-                },
+                {"message": "Error while creating new round", "error": str(e)},
                 ResCode.BAD_REQUEST.value,
             )
