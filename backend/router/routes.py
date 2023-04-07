@@ -9,10 +9,17 @@ from backend.router.TournamentRouter import TournamentRouter
 
 def handle_preflight_request() -> Response:
     response = make_response()
-    response.headers.add("Access-Control-Allow-Origin", "*")
-    response.headers.add("Access-Control-Allow-Headers", "Content-Type")
     response.headers.add(
-        "Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS"
+        "Access-Control-Allow-Origin",
+        "*",
+    )
+    response.headers.add(
+        "Access-Control-Allow-Headers",
+        "Content-Type",
+    )
+    response.headers.add(
+        "Access-Control-Allow-Methods",
+        "GET, POST, PUT, DELETE, OPTIONS",
     )
     return response
 
@@ -32,7 +39,10 @@ def players() -> Response:
             return player_router.handle_post_player(request)
         case _:
             return make_response(
-                {"message": "Bad request"}, ResCode.BAD_REQUEST.value
+                {
+                    "message": "Bad request",
+                },
+                ResCode.BAD_REQUEST.value,
             )
 
 
@@ -51,7 +61,10 @@ def player(player_id) -> Response:
             return player_router.handle_delete_player(player_id)
         case _:
             return make_response(
-                {"message": "Bad request"}, ResCode.BAD_REQUEST.value
+                {
+                    "message": "Bad request",
+                },
+                ResCode.BAD_REQUEST.value,
             )
 
 
@@ -70,7 +83,10 @@ def tournaments() -> Response:
             return tournament_router.handle_post_tournament(request)
         case _:
             return make_response(
-                {"message": "Bad request"}, ResCode.BAD_REQUEST.value
+                {
+                    "message": "Bad request",
+                },
+                ResCode.BAD_REQUEST.value,
             )
 
 
@@ -89,7 +105,10 @@ def tournament(tournament_id: PrimaryKey) -> Response:
             return tournament_router.handle_delete_tournament(tournament_id)
         case _:
             return make_response(
-                {"message": "Bad request"}, ResCode.BAD_REQUEST.value
+                {
+                    "message": "Bad request",
+                },
+                ResCode.BAD_REQUEST.value,
             )
 
 
@@ -104,7 +123,10 @@ def rounds(tournament_id: PrimaryKey) -> Response:
             return round.router.handle_get_rounds(tournament_id)
         case _:
             return make_response(
-                {"message": "Bad request"}, ResCode.BAD_REQUEST.value
+                {
+                    "message": "Bad request",
+                },
+                ResCode.BAD_REQUEST.value,
             )
 
 
@@ -123,5 +145,8 @@ def round(round_id: PrimaryKey) -> Response:
             return round_router.handle_update_round(round_id, request)
         case _:
             return make_response(
-                {"message": "Bad request"}, ResCode.BAD_REQUEST.value
+                {
+                    "message": "Bad request",
+                },
+                ResCode.BAD_REQUEST.value,
             )

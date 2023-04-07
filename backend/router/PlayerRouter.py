@@ -13,7 +13,10 @@ class PlayerRouter:
     def handle_get_players(self) -> Response:
         players = self.controller.get_all_players()
         return make_response(
-            {"message": "Successfully fetched players", "payload": players},
+            {
+                "message": "Successfully fetched players",
+                "payload": players,
+            },
             ResCode.OK.value,
         )
 
@@ -36,14 +39,20 @@ class PlayerRouter:
             )
         except PlayerCreationException as e:
             return make_response(
-                {"message": "Error while creating player", "error": str(e)},
+                {
+                    "message": "Error while creating player",
+                    "error": str(e),
+                },
                 ResCode.BAD_REQUEST.value,
             )
 
     def handle_get_player(self, player_id) -> Response:
         player = self.controller.get_player(player_id)
         return make_response(
-            {"message": "Successfully fetched player", "payload": player},
+            {
+                "message": "Successfully fetched player",
+                "payload": player,
+            },
             ResCode.OK.value,
         )
 
@@ -57,11 +66,10 @@ class PlayerRouter:
             "elo": http_request.json.get("elo"),
         }
         try:
-            updated_player_id = self.controller.update_player(player_data)
+            self.controller.update_player(player_data)
             return make_response(
                 {
                     "message": "Successfully updated player",
-                    "payload": updated_player_id,
                 },
                 ResCode.OK.value,
             )

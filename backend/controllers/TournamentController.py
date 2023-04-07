@@ -22,7 +22,7 @@ class TournamentController:
         name: str,
         location: str,
         description: str,
-        players_ids: tuple[ForeignKey, ...],
+        players_ids: tuple[ForeignKey],
         max_rounds: int,
     ) -> PrimaryKey:
         for player_id in players_ids:
@@ -37,7 +37,7 @@ class TournamentController:
         )
         return self.tournament_dao.create_tournament(tournament)
 
-    def get_all_tournaments(self) -> list[SerializedTournament, ...]:
+    def get_all_tournaments(self) -> list[SerializedTournament]:
         tournaments = self.tournament_dao.get_tournaments()
         serialized_tournaments = []
         for tournament in tournaments:

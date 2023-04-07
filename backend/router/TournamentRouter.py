@@ -118,11 +118,17 @@ class TournamentRouter:
                 tournament_id=tournament_id
             )
             return make_response(
-                {"message": "Round created", "payload": round},
+                {
+                    "message": "Round created",
+                    "payload": round,
+                },
                 ResCode.CREATED.value,
             )
         except Exception as e:
             return make_response(
-                {"message": "Error while creating new round", "error": str(e)},
+                {
+                    "message": "Error while creating new round",
+                    "error": str(e),
+                },
                 ResCode.BAD_REQUEST.value,
             )
