@@ -2,7 +2,7 @@ from flask import make_response, Response, Request, redirect, url_for
 
 from backend.abstract.classes.Router import Router
 from backend.tournaments.TournamentController import TournamentController
-from backend.middleware.validate_tournament_payload import (
+from backend.tournaments.validate_tournament_payload import (
     validate_tournament_fields,
 )
 from backend.abstract.typing.model_typing import PrimaryKey
@@ -73,7 +73,6 @@ class TournamentRouter(Router):
                 },
                 ResCode.BAD_REQUEST.value,
             )
-
         try:
             tournament = self.controller.create_tournament(
                 name,

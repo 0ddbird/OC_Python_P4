@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from backend.abstract.typing.model_typing import SerializedRound
-from backend.rounds.RoundModel import RoundModel
+from backend.rounds.RoundModel import RoundModel, RoundStatus
 
 
 class RoundSerializer:
@@ -19,6 +19,7 @@ class RoundSerializer:
         serialized_round["start_datetime"] = round.start_datetime.strftime(
             "%Y-%m-%d_%H:%M"
         )
+        serialized_round["status"] = round.status.name
         if round.id:
             serialized_round["id"] = round.id
         return serialized_round
@@ -38,10 +39,12 @@ class RoundSerializer:
             if end_datetime_str
             else None
         )
+        status = RoundStatus[json_data.get("status")]
 
         return RoundModel(
             id=id,
             games_ids=games_ids,
+            status=status,
             tournament_id=tournament_id,
             start_datetime=start_datetime,
             end_datetime=end_datetime,

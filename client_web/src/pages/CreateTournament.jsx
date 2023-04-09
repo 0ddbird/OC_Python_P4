@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Router from '../router/Router.js'
+import APIService from '../api/ApiService.js'
 import { useNavigate } from 'react-router-dom'
 import Player from '../components/Player.jsx'
 
@@ -16,7 +16,7 @@ const CreateTournament = () => {
   const fields = ['chess_id', 'firstName', 'lastName', 'elo']
   useEffect(() => {
     (async() => {
-      const response = await Router.getPlayers()
+      const response = await APIService.getPlayers()
       if (response.ok) {
         const jsonResponse = await response.json()
         const players = jsonResponse.payload
@@ -35,7 +35,7 @@ const CreateTournament = () => {
       max_rounds: tournamentRoundNumber,
       players_ids: selectedPlayerIDs
     }
-    const response = await Router.createTournament(tournament)
+    const response = await APIService.createTournament(tournament)
     if (response.ok) {
       const jsonResponse = await response.json()
       console.log(jsonResponse)

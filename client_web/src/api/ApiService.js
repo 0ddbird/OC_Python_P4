@@ -1,4 +1,4 @@
-class Router {
+class ApiService {
   static basePath = 'http://127.0.0.1:5000'
   static headers = {
     'Content-Type': 'application/json',
@@ -7,81 +7,131 @@ class Router {
 
   static createPlayer(body) {
     const route = {
-      path: `${Router.basePath}/players`,
+      path: `${ApiService.basePath}/players`,
       method: 'POST'
     }
-    return Router.makeRequest(route, body)
+    return ApiService.makeRequest(route, body)
   }
 
   static getPlayers() {
     const route = {
-      path: `${Router.basePath}/players`,
+      path: `${ApiService.basePath}/players`,
       method: 'GET'
     }
-    return Router.makeRequest(route)
+    return ApiService.makeRequest(route)
   }
 
   static getPlayer(id) {
     const route = {
-      path: `${Router.basePath}/players/${id}`,
+      path: `${ApiService.basePath}/players/${id}`,
       method: 'GET'
     }
-    return Router.makeRequest(route)
+    return ApiService.makeRequest(route)
   }
 
   static updatePlayer(id, body) {
     const route = {
-      path: `${Router.basePath}/players/${id}`,
+      path: `${ApiService.basePath}/players/${id}`,
       method: 'PUT'
     }
-    return Router.makeRequest(route, body)
+    return ApiService.makeRequest(route, body)
   }
 
   static deletePlayer(id) {
     const route = {
-      path: `${Router.basePath}/players/${id}`,
+      path: `${ApiService.basePath}/players/${id}`,
       method: 'DELETE'
     }
-    return Router.makeRequest(route)
+    return ApiService.makeRequest(route)
   }
 
   static createTournament(tournament) {
     const route = {
-      path: `${Router.basePath}/tournaments`,
+      path: `${ApiService.basePath}/tournaments`,
       method: 'POST'
     }
-    return Router.makeRequest(route, tournament)
+    return ApiService.makeRequest(route, tournament)
   }
 
   static getTournaments() {
     const route = {
-      path: `${Router.basePath}/tournaments`,
+      path: `${ApiService.basePath}/tournaments`,
       method: 'GET'
     }
-    return Router.makeRequest(route)
+    return ApiService.makeRequest(route)
   }
 
   static getTournament(id) {
     const route = {
-      path: `${Router.basePath}/tournaments/${id}`,
+      path: `${ApiService.basePath}/tournaments/${id}`,
       method: 'GET'
     }
-    return Router.makeRequest(route)
+    return ApiService.makeRequest(route)
   }
 
-  static handleNextRound(id) {
+  static createRound(id) {
     const route = {
-      path: `${Router.basePath}/tournaments/${id}/start`,
+      path: `${ApiService.basePath}/tournaments/${id}`,
       method: 'POST'
     }
-    return Router.makeRequest(route)
+    console.log(route)
+    return ApiService.makeRequest(route)
+  }
+
+  static getRound(id, roundNumber) {
+    const route = {
+      path: `${ApiService.basePath}/tournaments/${id}/${roundNumber}`,
+      method: 'GET'
+    }
+    return ApiService.makeRequest(route)
+  }
+
+  static getGame(gameID) {
+    const route = {
+      path: `${ApiService.basePath}/games/${gameID}`,
+      method: 'GET'
+    }
+    return ApiService.makeRequest(route)
+  }
+
+  static updateAllRoundGames(roundID, gamesResults) {
+    const route = {
+      path: `${ApiService.basePath}/rounds/${roundID}`,
+      method: 'POST'
+    }
+    const body = { games: gamesResults }
+
+    return ApiService.makeRequest(route, body)
+  }
+
+  static updateGame(gameID, p1Score, p2Score) {
+    const route = {
+      path: `${ApiService.basePath}/games/${gameID}`,
+      method: 'PATCH'
+    }
+    const body = {
+      p1_score: p1Score,
+      p2_score: p2Score
+    }
+    return ApiService.makeRequest(route, body)
+  }
+
+  static getGamesByID(gamesIDS) {
+    const route = {
+      path: `${ApiService.basePath}/games/batch`,
+      method: 'POST'
+    }
+    const body = {
+      games_ids: gamesIDS
+    }
+    return ApiService.makeRequest(route, body)
   }
 
   static makeRequest(route, body = null) {
-    const options = { headers: Router.headers, method: route.method }
+    const options = { headers: ApiService.headers, method: route.method }
     if (body) options.body = JSON.stringify(body)
     return fetch(route.path, options)
   }
 }
 
-export default Router
+export default ApiService

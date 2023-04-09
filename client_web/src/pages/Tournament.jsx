@@ -1,69 +1,64 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import Round from '../components/Round.jsx'
-import Router from '../router/Router.js'
+import { NavLink, useParams } from 'react-router-dom'
+import APIService from '../api/ApiService.js'
 
 const Tournament = () => {
   const { id } = useParams()
-  const [name, setName] = useState('')
-  const [startDatetime, setStartDatetime] = useState('')
-  const [endDatetime, setEndDatetime] = useState('')
-  const [maxRounds, setMaxRounds] = useState('')
-  const [currentRound, setCurrentRound] = useState('')
-  const [rounds, setRounds] = useState([])
-  const [description, setDescription] = useState('')
-  const [playersIDs, setPlayersIDs] = useState('')
-  const [location, setLocation] = useState('')
-  const [status, setStatus] = useState('')
+  const [tournament, setTournament] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
-  const isEnded = status === 'Ended'
+  const isToStart = tournament?.status === 'TO_START'
+  const isStarted = tournament?.status === 'STARTED'
+  const hasOpenRound = tournament?.status === 'ROUND_OPEN'
+  const canStartRound = tournament?.status === isToStart || isStarted
 
   useEffect(() => {
     (async() => {
-      const response = await Router.getTournament(id)
+      const response = await APIService.getTournament(id)
       if (response.ok) {
         const jsonResponse = await response.json()
-        const tournament = jsonResponse.payload
-        setName(tournament.name)
-        setStartDatetime(tournament.start_datetime)
-        setEndDatetime(tournament.end_datetime)
-        setMaxRounds(tournament.max_rounds)
-        setCurrentRound(tournament.current_round)
-        setRounds(tournament.rounds)
-        setDescription(tournament.description)
-        setPlayersIDs(tournament.players_ids)
-        setLocation(tournament.location)
-        setStatus(tournament.status)
+        const tournamentData = jsonResponse.payload
+        const tournament = {
+          id: tournamentData.id,
+          name: tournamentData.name,
+          startDatetime: tournamentData.start_datetime,
+          endDatetime: tournamentData.end_datetime,
+          maxRounds: tournamentData.max_rounds,
+          currentRound: tournamentData.current_round,
+          description: tournamentData.description,
+          playersIDs: tournamentData.players_ids,
+          location: tournamentData.location,
+          status: tournamentData.status,
+          roundsIDs: tournamentData.rounds_ids
+        }
+        setTournament(tournament)
         setIsLoaded(true)
       }
     })()
   }, [])
 
-  async function handleNextRound() {
-    const response = await Router.handleNextRound(id)
-    if (response.status === 200) {
-      const tournament = response.payload
-      setRounds(tournament.rounds)
-      setCurrentRound(tournament.current_round)
-    } else console.log('Error while resuming tournament')
+  async function handleCreateRound() {
+    try {
+      await APIService.createRound(id)
+    } catch (e) {
+      console.log('Error while resuming tournament')
+    }
   }
 
   return isLoaded
     ? <>
-        <h1 className="tournament_name">{name}</h1>
-        <p className="tournament_status">Status: {status}</p>
-        <p className="tournament_creation_date">Start datetime: {startDatetime}</p>
-        <p className="tournament_creation_date">End datetime: {endDatetime}</p>
-        <p className="tournament_location">Location: {location}</p>
-        <p className="tournament description">Description: {description}</p>
-        <p className="tournament_max_rounds">Max rounds: {maxRounds}</p>
-        <p className="tournament_current_round">Current round: {currentRound}</p>
-        <div>Players: {playersIDs}</div>
+        <h1 className="tournament_name">{tournament.name}</h1>
+        <p className="tournament_status">Status: {tournament.status}</p>
+        <p className="tournament_creation_date">Start datetime: {tournament.startDatetime}</p>
+        <p className="tournament_creation_date">End datetime: {tournament.endDatetime}</p>
+        <p className="tournament_location">Location: {tournament.location}</p>
+        <p className="tournament description">Description: {tournament.description}</p>
+        <p className="tournament_max_rounds">Max rounds: {tournament.maxRounds}</p>
+        <p className="tournament_current_round">Current round: {tournament.currentRound}</p>
+        <div>Players: {tournament.playersIDs}</div>
+        {canStartRound && <button id="tournament_start_button" onClick={handleCreateRound}>Start</button>}
         {
-            rounds && rounds.map(round => <Round key={round.round_id} games={round.games}/>)
+            hasOpenRound && <NavLink to={`/tournaments/${tournament.id}/${tournament.currentRound}`}>Round</NavLink>
         }
-
-        {!isEnded && <button id="tournament_start_button" onClick={handleNextRound}>Start</button>}
       </>
     : <>
         <div>Loading</div>

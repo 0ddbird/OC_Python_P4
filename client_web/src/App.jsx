@@ -9,6 +9,7 @@ import CreatePlayer from './pages/CreatePlayer.jsx'
 import CreateTournament from './pages/CreateTournament.jsx'
 import Tournament from './pages/Tournament.jsx'
 import PageTemplate from './layout/Page.jsx'
+import Round from './components/Round.jsx'
 
 export const AppContext = createContext(null)
 
@@ -51,6 +52,10 @@ function App() {
               <Route
                   path="/tournaments/:id"
                   element={<PageTemplate page={<Tournament/>}/>}>
+              </Route>
+              <Route
+                  path="/tournaments/:tournamentID/:roundNumber"
+                  element={<PageTemplate page={<Round/>}/>}>
               </Route>
             </Routes>
           </BrowserRouter>

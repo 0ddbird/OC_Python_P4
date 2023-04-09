@@ -30,3 +30,9 @@ class GameModel:
 
     def set_round_id(self, round_id: ForeignKey) -> None:
         self.round_id = round_id
+
+    def set_p1_score(self, score) -> None:
+        self.p1_score = PlayerScore(score)
+
+    def set_p2_score(self, score) -> None:
+        self.p2_score = PlayerScore(score)

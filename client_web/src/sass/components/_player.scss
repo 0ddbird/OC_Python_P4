@@ -20,7 +20,7 @@
 
 .player_table_header {
   display: grid;
-  grid-template-columns: repeat(6, 1fr) .5fr .5fr;
+  grid-template-columns: .5fr repeat(5, 1fr) .5fr .5fr;
   margin-bottom: 1em;
 }
 
@@ -30,8 +30,8 @@
 
 .player_row {
   display: grid;
-  grid-template-columns: repeat(6, 1fr) .5fr .5fr;
-  
+  grid-template-columns: .5fr repeat(5, 1fr) .5fr .5fr;
+
   a {
     display: flex;
     justify-content: center;

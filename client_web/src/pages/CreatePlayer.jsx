@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Router from '../router/Router.js'
+import APIService from '../api/ApiService.js'
 import { useNavigate } from 'react-router-dom'
 
 const CreatePlayer = () => {
@@ -19,7 +19,7 @@ const CreatePlayer = () => {
       birthdate,
       elo: ELO
     }
-    const response = await Router.createPlayer(player)
+    const response = await APIService.createPlayer(player)
     if (response.ok) navigate('/players')
   }
 

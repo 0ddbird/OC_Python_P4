@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import Pen from '../assets/pen.svg'
-import Router from '../router/Router.js'
+import APIService from '../api/ApiService.js'
 
 const Tournaments = () => {
   const [tournaments, setTournaments] = useState(null)
   useEffect(() => {
     (async() => {
-      const response = await Router.getTournaments()
+      const response = await APIService.getTournaments()
       if (response.ok) {
         const jsonResponse = await response.json()
         const tournaments = jsonResponse.payload
@@ -36,15 +36,15 @@ const Tournaments = () => {
               {tournaments &&
                   tournaments.map((tournament) => {
                     return (
-                        <div className="tournament_row" key={tournament.tournament_id}>
-                          <div className="tournaments_table_body_item">{tournament.tournament_id}</div>
+                        <div className="tournament_row" key={tournament.id}>
+                          <div className="tournaments_table_body_item">{tournament.id}</div>
                           <div className="tournaments_table_body_item">{tournament.name}</div>
-                          <div className="tournaments_table_body_item">{tournament.creation_date}</div>
+                          <div className="tournaments_table_body_item">{tournament.start_datetime}</div>
                           <div className="tournaments_table_body_item">{tournament.location}</div>
                           <div className="tournaments_table_body_item">{tournament.players_ids.length}</div>
                           <div className="tournaments_table_body_item">{tournament.current_round} / {tournament.max_rounds}</div>
                           <div className="tournaments_table_body_item">{tournament.status}</div>
-                          <NavLink to={`/tournaments/${tournament.tournament_id}`}>
+                          <NavLink to={`/tournaments/${tournament.id}`}>
                             <img className="icon" src={Pen} alt="edit"/>
                           </NavLink>
                         </div>

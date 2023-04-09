@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date, datetime
 from enum import Enum
 from typing import Optional
@@ -8,7 +8,7 @@ from backend.rounds.RoundDAO import RoundDAO
 from backend.games.GameModel import GameModel
 from backend.abstract.typing.model_typing import ForeignKey, PrimaryKey
 from backend.rounds.RoundModel import RoundModel
-from backend.utils import shuffle_players, sort_by_score
+from backend.tournaments.utils import shuffle_players, sort_by_score
 
 
 class TournamentStatus(Enum):
@@ -31,8 +31,12 @@ class TournamentModel:
     start_datetime: date = datetime.now()
     end_datetime: Optional[date] = None
     id: Optional[PrimaryKey] = None
-    game_dao = GameDAO()
-    round_dao = RoundDAO()
+    game_dao: GameDAO = field(init=False)
+    round_dao: RoundDAO = field(init=False)
+
+    def __post_init__(self) -> None:
+        self.game_dao = GameDAO()
+        self.round_dao = RoundDAO
 
     def set_to_next_round(self) -> None:
         if self.current_round == self.max_rounds:
@@ -43,6 +47,9 @@ class TournamentModel:
         if self.end_datetime is not None:
             raise ValueError("End date is already defined")
         self.end_datetime = datetime.now()
+
+    def close_round(self) -> None:
+        self.status = TournamentStatus.STARTED
 
     def create_game(self, p1_id, p2_id) -> PrimaryKey:
         game = GameModel(
@@ -97,7 +104,7 @@ class TournamentModel:
             players_pairs = sort_by_score(players_ids)
 
         # Create games based on players pairs
-        games_ids = self.create_multiple_games(players_pairs)
+        games_ids = self.create_multiple_games(tuple(players_pairs))
 
         # Create round based on the games IDs
         round_id = self.create_round(games_ids)
@@ -113,5 +120,8 @@ class TournamentModel:
 
         # Set Tournament status to ROUND_OPEN
         self.status = TournamentStatus.ROUND_OPEN
+
+        # Set Tournament currentRound
+        self.current_round += 1
 
         return round_id

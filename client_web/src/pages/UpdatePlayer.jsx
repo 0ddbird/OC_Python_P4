@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import Router from '../router/Router.js'
+import APIService from '../api/ApiService.js'
 
 const UpdatePlayer = () => {
   // const [playerID, setPlayerID] = useState('')
@@ -15,7 +15,7 @@ const UpdatePlayer = () => {
 
   useEffect(() => {
     (async() => {
-      const response = await Router.getPlayer(id)
+      const response = await APIService.getPlayer(id)
       if (response.ok) {
         const jsonResponse = await response.json()
         const player = jsonResponse.payload
@@ -38,7 +38,7 @@ const UpdatePlayer = () => {
       birthdate,
       elo: ELO
     }
-    const response = await Router.updatePlayer(id, player)
+    const response = await APIService.updatePlayer(id, player)
     if (response.ok) navigate('/players')
   }
 

@@ -15,7 +15,9 @@ def rounds():
             return router.handle_bad_request()
 
 
-@rounds_bp.route("/<int:round_id>", methods=["GET", "POST", "OPTIONS"])
+@rounds_bp.route(
+    "/<int:round_id>", methods=["GET", "POST", "OPTIONS", "PATCH"]
+)
 def round(round_id):
     match request.method:
         case "OPTIONS":
@@ -24,5 +26,7 @@ def round(round_id):
             return router.handle_get_round(round_id)
         case "PATCH":
             return router.handle_update_round(round_id, request.json)
+        case "POST":
+            return router.handle_update_round_games(round_id, request)
         case _:
             return router.handle_bad_request()

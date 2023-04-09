@@ -13,7 +13,7 @@
 
 .tournaments_table_header {
   display: grid;
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-columns: .5fr repeat(8, 1fr);
   gap: 0 1em;
 }
 
@@ -24,7 +24,7 @@
 
 .tournament_row {
   display: grid;
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-columns: .5fr repeat(8, 1fr);
   gap: 0 1em;
 }
 

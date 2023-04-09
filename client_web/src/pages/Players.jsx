@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import Router from '../router/Router.js'
+import APIService from '../api/ApiService.js'
 import { NavLink } from 'react-router-dom'
 import { AppContext } from '../App.jsx'
 import Player from '../components/Player.jsx'
@@ -11,7 +11,7 @@ const Players = () => {
   const fields = ['id', 'chessId', 'firstName', 'lastName', 'birthdate', 'elo']
   useEffect(() => {
     (async() => {
-      const response = await Router.getPlayers()
+      const response = await APIService.getPlayers()
       if (response.ok) {
         const jsonResponse = await response.json()
         setPlayers(jsonResponse.payload)
@@ -21,7 +21,7 @@ const Players = () => {
 
   async function handleDeletePlayer(e, id) {
     e.preventDefault()
-    const response = await Router.deletePlayer(id)
+    const response = await APIService.deletePlayer(id)
     if (response.ok) {
       setPlayers(players.filter((player) => player.id !== id))
     }

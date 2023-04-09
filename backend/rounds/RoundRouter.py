@@ -24,7 +24,7 @@ class RoundRouter(Router):
             return make_response(
                 {
                     "message": "Can't find round",
-                    "error": e,
+                    "error": str(e),
                 },
                 ResCode.BAD_REQUEST.value,
             )
@@ -43,7 +43,7 @@ class RoundRouter(Router):
             return make_response(
                 {
                     "message": "Can't find round",
-                    "error": e,
+                    "error": str(e),
                 },
                 ResCode.BAD_REQUEST.value,
             )
@@ -62,7 +62,7 @@ class RoundRouter(Router):
             return make_response(
                 {
                     "message": "Can't find round",
-                    "error": e,
+                    "error": str(e),
                 },
                 ResCode.BAD_REQUEST.value,
             )
@@ -81,7 +81,28 @@ class RoundRouter(Router):
             return make_response(
                 {
                     "message": "Can't find round",
-                    "error": e,
+                    "error": str(e),
+                },
+                ResCode.BAD_REQUEST.value,
+            )
+
+    def handle_update_round_games(
+        self, round_id: PrimaryKey, request
+    ) -> Response:
+        try:
+            self.controller.update_all_round_games(round_id, request)
+            return make_response(
+                {
+                    "message": f"All games for round {round_id} updated",
+                },
+                ResCode.OK.value,
+            )
+        except Exception as e:
+            print(str(e))
+            return make_response(
+                {
+                    "message": "Can't find round",
+                    "error": str(e),
                 },
                 ResCode.BAD_REQUEST.value,
             )
