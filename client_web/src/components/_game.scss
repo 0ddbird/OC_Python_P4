@@ -1,7 +1,25 @@
 .player_result_select {
-  color: black;
+  color: white;
+  background-color: black;
+  border: none;
 
   & option {
-    color: black;
+    color: white;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
   }
+}
+
+.game_form {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, .10);
+  backdrop-filter: blur(5px);
+  max-width: 500px;
+  padding: 1em;
+  border-radius: 5px;
+}
+
+.player_result {
+  margin-top: 1em;
 }

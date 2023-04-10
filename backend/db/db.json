@@ -1,1 +1,98 @@
-{"players": {"1": {"chess_id": "AB12345", "first_name": "John", "last_name": "Doe", "elo": 2510, "birthdate": "2023-04-13"}, "2": {"chess_id": "FG54681", "first_name": "Bob", "last_name": "Iwan", "elo": 3000, "birthdate": "1990-01-07"}}, "tournaments": {"1": {"name": "Simple tournament", "location": "Paris", "description": "A simple tournament with 2 players and 4 rounds.", "players_ids": [1, 2], "start_datetime": "2023-04-06_05:06", "end_datetime": null, "max_rounds": 4, "current_round": 0, "status": "TO_START", "rounds_ids": []}, "2": {"name": "A valid tournament", "location": "Mars", "description": "A tournament for which all players still exist", "players_ids": [1, 2], "start_datetime": "2023-04-06_14:22", "end_datetime": null, "max_rounds": 4, "current_round": 0, "status": "TO_START", "rounds_ids": []}, "3": {"name": "Tournoi 3", "location": "Londres", "description": "British tournament!", "players_ids": [1, 2], "start_datetime": "2023-04-06_22:57", "end_datetime": null, "max_rounds": 6, "current_round": 1, "status": "ROUND_OPEN", "rounds_ids": [1]}}, "games": {"1": {"p1_id": 1, "p2_id": 2, "p1_score": 1.0, "p2_score": 0.0, "round_id": 1}, "2": {"p1_id": 2, "p2_id": 1, "p1_score": 0.5, "p2_score": 0.5, "round_id": 1}}, "rounds": {"1": {"tournament_id": 3, "games_ids": [1, 2], "start_datetime": "2023-04-07_01:18", "end_datetime": null, "status": "OPEN"}}}
+{
+  "players": {
+    "1": {
+      "chess_id": "AB12345",
+      "first_name": "John",
+      "last_name": "Doe",
+      "elo": 2510,
+      "birthdate": "2023-04-13"
+    },
+    "2": {
+      "chess_id": "FG54681",
+      "first_name": "Bob",
+      "last_name": "Iwan",
+      "elo": 3000,
+      "birthdate": "1990-01-07"
+    }
+  },
+  "tournaments": {
+    "1": {
+      "name": "Simple tournament",
+      "location": "Paris",
+      "description": "A simple tournament with 2 players and 4 rounds.",
+      "players_ids": [
+        1,
+        2
+      ],
+      "start_datetime": "2023-04-06_05:06",
+      "end_datetime": null,
+      "max_rounds": 4,
+      "current_round": 0,
+      "status": "TO_START",
+      "rounds_ids": []
+    },
+    "2": {
+      "name": "A valid tournament",
+      "location": "Mars",
+      "description": "A tournament for which all players still exist",
+      "players_ids": [
+        1,
+        2
+      ],
+      "start_datetime": "2023-04-06_14:22",
+      "end_datetime": null,
+      "max_rounds": 4,
+      "current_round": 0,
+      "status": "TO_START",
+      "rounds_ids": []
+    },
+    "3": {
+      "name": "Tournoi 3",
+      "location": "Londres",
+      "description": "British tournament!",
+      "players_ids": [
+        1,
+        2
+      ],
+      "start_datetime": "2023-04-06_22:57",
+      "end_datetime": null,
+      "max_rounds": 6,
+      "current_round": 1,
+      "status": "ROUND_OPEN",
+      "rounds_ids": [
+        1
+      ]
+    }
+  },
+  "games": {
+    "1": {
+      "p1_id": 1,
+      "p2_id": 2,
+      "p1_score": 1.0,
+      "p2_score": 0.0,
+      "round_id": 1,
+      "status": "OPEN"
+    },
+    "2": {
+      "p1_id": 2,
+      "p2_id": 1,
+      "p1_score": 0.5,
+      "p2_score": 0.5,
+      "round_id": 1,
+      "status": "OPEN"
+    }
+  },
+  "rounds": {
+    "1": {
+      "tournament_id": 3,
+      "games_ids": [
+        1,
+        2
+      ],
+      "start_datetime": "2023-04-07_01:18",
+      "end_datetime": null,
+      "round_number": 1,
+      "status": "OPEN"
+    }
+  }
+}

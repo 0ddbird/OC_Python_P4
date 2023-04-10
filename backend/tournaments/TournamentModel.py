@@ -1,14 +1,9 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import date, datetime
 from enum import Enum
 from typing import Optional
 
-from backend.games.GameDAO import GameDAO
-from backend.rounds.RoundDAO import RoundDAO
-from backend.games.GameModel import GameModel
 from backend.abstract.typing.model_typing import ForeignKey, PrimaryKey
-from backend.rounds.RoundModel import RoundModel
-from backend.tournaments.utils import shuffle_players, sort_by_score
 
 
 class TournamentStatus(Enum):
@@ -31,12 +26,9 @@ class TournamentModel:
     start_datetime: date = datetime.now()
     end_datetime: Optional[date] = None
     id: Optional[PrimaryKey] = None
-    game_dao: GameDAO = field(init=False)
-    round_dao: RoundDAO = field(init=False)
 
-    def __post_init__(self) -> None:
-        self.game_dao = GameDAO()
-        self.round_dao = RoundDAO
+    def set_started_status(self) -> None:
+        self.status = TournamentStatus.STARTED
 
     def set_to_next_round(self) -> None:
         if self.current_round == self.max_rounds:
@@ -50,78 +42,3 @@ class TournamentModel:
 
     def close_round(self) -> None:
         self.status = TournamentStatus.STARTED
-
-    def create_game(self, p1_id, p2_id) -> PrimaryKey:
-        game = GameModel(
-            p1_id=p1_id,
-            p2_id=p2_id,
-        )
-        return self.game_dao.create_game(game)
-
-    def create_multiple_games(
-        self,
-        p_ids: tuple[PrimaryKey],
-    ) -> tuple[PrimaryKey]:
-        games_ids = []
-        for i in range(0, len(p_ids), 2):
-            p1_id, p2_id = p_ids[i], p_ids[i + 1]
-            game_id = self.create_game(p1_id, p2_id)
-            games_ids.append(game_id)
-        return tuple(games_ids)
-
-    def create_round(
-        self,
-        games_ids: tuple[PrimaryKey],
-    ) -> PrimaryKey:
-        round = RoundModel(
-            games_ids=games_ids,
-            tournament_id=self.id,
-            round_number=self.current_round + 1,
-        )
-        return self.round_dao.create_round(round)
-
-    def update_games(
-        self,
-        games_ids: tuple[PrimaryKey],
-        round_id: PrimaryKey,
-    ) -> None:
-        games = self.game_dao.get_games_by_id(games_ids)
-
-        for game in games:
-            game.set_round_id(round_id)
-            self.game_dao.update_game(game)
-
-    def create_next_round(self) -> ForeignKey:
-        players_ids = list(self.players_ids)
-        players_pairs = []
-
-        # CASE 1: first round
-        if self.status == TournamentStatus.TO_START:
-            players_pairs = shuffle_players(players_ids)
-
-        # CASE 2: next rounds
-        if self.status == TournamentStatus.STARTED:
-            players_pairs = sort_by_score(players_ids)
-
-        # Create games based on players pairs
-        games_ids = self.create_multiple_games(tuple(players_pairs))
-
-        # Create round based on the games IDs
-        round_id = self.create_round(games_ids)
-
-        # Insert the Round ID into each Game record
-        self.update_games(games_ids, round_id)
-
-        # Append Tournament.rounds_ids
-        current_rounds_ids = list(self.rounds_ids)
-
-        current_rounds_ids.append(round_id)
-        self.rounds_ids = tuple(current_rounds_ids)
-
-        # Set Tournament status to ROUND_OPEN
-        self.status = TournamentStatus.ROUND_OPEN
-
-        # Set Tournament currentRound
-        self.current_round += 1
-
-        return round_id

@@ -48,7 +48,9 @@ class GameRouter(Router):
 
     def handle_update_game(self, game_id, request) -> Response:
         try:
-            self.controller.update_game(game_id, request)
+            p1_score = request.json.get("p1_score")
+            p2_score = request.json.get("p2_score")
+            self.controller.update_game(game_id, p1_score, p2_score)
             return make_response(
                 {
                     "message": "Game updated",

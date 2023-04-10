@@ -14,6 +14,7 @@ class RoundSerializer:
                 "games_ids",
                 "start_datetime",
                 "end_datetime",
+                "round_number",
             ]
         }
         serialized_round["start_datetime"] = round.start_datetime.strftime(
@@ -40,6 +41,7 @@ class RoundSerializer:
             else None
         )
         status = RoundStatus[json_data.get("status")]
+        round_number = json_data.get("round_number")
 
         return RoundModel(
             id=id,
@@ -48,4 +50,5 @@ class RoundSerializer:
             tournament_id=tournament_id,
             start_datetime=start_datetime,
             end_datetime=end_datetime,
+            round_number=round_number,
         )

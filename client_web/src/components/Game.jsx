@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react'
 import APIService from '../api/ApiService.js'
 import PropTypes from 'prop-types'
 import './_game.scss'
+import usePlayer from '../hooks/usePlayer.jsx'
 
-const Game = ({ gameID, gamesResult, setGamesResult, initialScores }) => {
+const Game = ({ gameID }) => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [p1ID, setP1ID] = useState(null)
   const [p2ID, setP2ID] = useState(null)
   const [p1Score, setP1Score] = useState('')
   const [p2Score, setP2Score] = useState('')
+  const player1 = usePlayer(p1ID)
+  const player2 = usePlayer(p2ID)
   const playerResults = {
     null: 'TO SET',
     1.0: 'WIN',
@@ -24,8 +27,6 @@ const Game = ({ gameID, gamesResult, setGamesResult, initialScores }) => {
         const gameData = jsonResponse.payload
         setP1ID(gameData.p1_id)
         setP2ID(gameData.p2_id)
-        setP1Score(initialScores[gameID])
-        setP2Score(1.0 - initialScores[gameID])
         setIsLoaded(true)
       }
     })()
@@ -39,35 +40,43 @@ const Game = ({ gameID, gamesResult, setGamesResult, initialScores }) => {
     const score = parseFloat(e.target.value)
     setP1Score(score)
     setP2Score(1.0 - score)
-    const updatedGamesResult = { ...gamesResult }
-    updatedGamesResult[gameID] = score
-    setGamesResult(updatedGamesResult)
+  }
+
+  async function handleGameResultsSubmit() {
+    try {
+      await APIService.updateGame(gameID, p1Score, p2Score)
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   return isLoaded
     ? <>
-        <h3>Game {gameID}</h3>
-        <div>
-          <div>Player 1: {p1ID}</div>
-          <label htmlFor="player-1_result">Player 1 result</label>
-          <select className="player_result_select" id="player-1_result" value={p1Score} onChange={(e) => setPlayersScores(e)}>
-            <option value={''}>To set</option>
-            <option value={1.0}>WIN</option>
-            <option value={0.0}>LOSE</option>
-            <option value={0.5}>TIE</option>
-          </select>
-          <div>Player 2: {p2ID}</div>
-          <div>Player 2 result: {playerResults[p2Score]}</div>
-        </div>
+
+        <form className="game_form" onSubmit={handleGameResultsSubmit}>
+          <h3>Game {gameID}</h3>
+          <fieldset className="player_result">
+            <div>Player 1: {player1 ? player1.name : 'Loading'}</div>
+            <label htmlFor="player-1_result">Player 1 result</label>
+            <select className="player_result_select" id="player-1_result" value={p1Score} onChange={(e) => setPlayersScores(e)}>
+              <option value={''}>To set</option>
+              <option value={1.0}>WIN</option>
+              <option value={0.0}>LOSE</option>
+              <option value={0.5}>TIE</option>
+            </select>
+          </fieldset>
+          <fieldset className="player_result">
+            <div>Player 2: {player2 ? player2.name : 'Loading'}</div>
+            <div>Player 2 result: {playerResults[p2Score]}</div>
+          </fieldset>
+          <button type="submit">Submit results</button>
+        </form>
       </>
     : <div>Loading</div>
 }
 
 Game.propTypes = {
-  gameID: PropTypes.number,
-  gamesResult: PropTypes.object,
-  setGamesResult: PropTypes.func,
-  initialScores: PropTypes.object
+  gameID: PropTypes.number
 }
 
 export default Game

@@ -1,4 +1,4 @@
-from backend.games.GameModel import GameModel, PlayerScore
+from backend.games.GameModel import GameModel, GameStatus, PlayerScore
 from backend.abstract.typing.model_typing import SerializedGame
 
 
@@ -11,6 +11,7 @@ class GameSerializer:
             "p1_score": game.p1_score.value,
             "p2_score": game.p2_score.value,
             "round_id": game.round_id,
+            "status": game.status.name,
         }
         if game.id:
             serialized_game["id"] = game.id
@@ -24,6 +25,7 @@ class GameSerializer:
         p1_score = PlayerScore(json_data.get("p1_score"))
         p2_score = PlayerScore(json_data.get("p2_score"))
         round_id = json_data.get("round_id")
+        status = GameStatus(json_data.get("status"))
 
         return GameModel(
             id=id,
@@ -32,4 +34,5 @@ class GameSerializer:
             p1_score=p1_score,
             p2_score=p2_score,
             round_id=round_id,
+            status=status,
         )

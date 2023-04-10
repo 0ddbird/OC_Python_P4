@@ -25,6 +25,6 @@ class RoundModel:
         if self.tournament_id is None:
             raise ValueError("Tournament ID cannot be None")
 
-    def close(self) -> None:
+    def close(self):
         self.end_datetime = datetime.now()
         self.status = RoundStatus.CLOSED
