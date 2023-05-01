@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import APIService from '../api/ApiService.js'
 import PropTypes from 'prop-types'
 import './_game.scss'
 import usePlayer from '../hooks/usePlayer.jsx'
 
-const Game = ({ gameID }) => {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [p1ID, setP1ID] = useState(null)
-  const [p2ID, setP2ID] = useState(null)
+const Game = ({ gameData }) => {
   const [p1Score, setP1Score] = useState('')
   const [p2Score, setP2Score] = useState('')
-  const player1 = usePlayer(p1ID)
-  const player2 = usePlayer(p2ID)
+  const player1 = usePlayer(gameData.p1_id)
+  const player2 = usePlayer(gameData.p2_id)
   const playerResults = {
     null: 'TO SET',
     1.0: 'WIN',
@@ -19,20 +16,8 @@ const Game = ({ gameID }) => {
     0.0: 'LOSE'
   }
 
-  useEffect(() => {
-    (async() => {
-      const response = await APIService.getGame(gameID)
-      if (response.ok) {
-        const jsonResponse = await response.json()
-        const gameData = jsonResponse.payload
-        setP1ID(gameData.p1_id)
-        setP2ID(gameData.p2_id)
-        setIsLoaded(true)
-      }
-    })()
-  }, [])
-
   function setPlayersScores(e) {
+    e.preventDefault()
     if (e.target.value === '') {
       setP2Score('')
       return
@@ -42,19 +27,19 @@ const Game = ({ gameID }) => {
     setP2Score(1.0 - score)
   }
 
-  async function handleGameResultsSubmit() {
+  async function handleGameResultsSubmit(e) {
+    e.preventDefault()
     try {
-      await APIService.updateGame(gameID, p1Score, p2Score)
+      await APIService.updateGame(gameData.id, p1Score, p2Score)
     } catch (e) {
       console.log(e)
     }
   }
 
-  return isLoaded
-    ? <>
-
-        <form className="game_form" onSubmit={handleGameResultsSubmit}>
-          <h3>Game {gameID}</h3>
+  return (
+      <>
+        <form className="game_form" onSubmit={(e) => handleGameResultsSubmit(e)}>
+          <h3>Game {gameData.id}</h3>
           <fieldset className="player_result">
             <div>Player 1: {player1 ? player1.name : 'Loading'}</div>
             <label htmlFor="player-1_result">Player 1 result</label>
@@ -72,11 +57,11 @@ const Game = ({ gameID }) => {
           <button type="submit">Submit results</button>
         </form>
       </>
-    : <div>Loading</div>
+  )
 }
 
 Game.propTypes = {
-  gameID: PropTypes.number
+  gameData: PropTypes.object
 }
 
 export default Game

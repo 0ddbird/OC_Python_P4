@@ -2,8 +2,8 @@ import datetime
 import random
 import string
 
-from backend.players.PlayerDAO import PlayerDAO
-from backend.players.PlayerModel import PlayerModel
+from backend.players.dao import PlayerDAO
+from backend.players.models.model import PlayerModel
 
 used_ids = set()
 
@@ -30,4 +30,4 @@ for i in range(1, 11):
     birthdate = datetime.datetime(year, month, day)
     elo = random.randint(1000, 3000)
     player = PlayerModel(p_id, first_name, last_name, birthdate, elo)
-    player_dao.create_player(player)
+    player_dao.create(player)

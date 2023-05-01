@@ -61,9 +61,9 @@ class ApiService {
     return ApiService.makeRequest(route)
   }
 
-  static getTournament(id) {
+  static getTournament(id, eager) {
     const route = {
-      path: `${ApiService.basePath}/tournaments/${id}`,
+      path: `${ApiService.basePath}/tournaments/${id}${eager ? '?eager=true' : ''}`,
       method: 'GET'
     }
     return ApiService.makeRequest(route)
@@ -74,7 +74,6 @@ class ApiService {
       path: `${ApiService.basePath}/tournaments/${id}`,
       method: 'POST'
     }
-    console.log(route)
     return ApiService.makeRequest(route)
   }
 

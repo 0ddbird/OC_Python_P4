@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import APIService from '../api/ApiService.js'
+import Round from '../components/Round.jsx'
 
 const Tournament = () => {
   const { id } = useParams()
   const [tournament, setTournament] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
-  const isToStart = tournament?.status === 'TO_START'
-  const isStarted = tournament?.status === 'STARTED'
-  const hasOpenRound = tournament?.status === 'ROUND_OPEN'
-  const canStartRound = tournament?.status === isToStart || isStarted
+  const eager = true
 
   useEffect(() => {
     (async() => {
-      const response = await APIService.getTournament(id)
+      const response = await APIService.getTournament(id, eager)
       if (response.ok) {
         const jsonResponse = await response.json()
         const tournamentData = jsonResponse.payload
@@ -28,7 +26,8 @@ const Tournament = () => {
           playersIDs: tournamentData.players_ids,
           location: tournamentData.location,
           status: tournamentData.status,
-          roundsIDs: tournamentData.rounds_ids
+          roundsIDs: tournamentData.rounds_ids,
+          rounds: tournamentData.rounds
         }
         setTournament(tournament)
         setIsLoaded(true)
@@ -38,7 +37,11 @@ const Tournament = () => {
 
   async function handleCreateRound() {
     try {
-      await APIService.createRound(id)
+      const response = await APIService.createRound(id)
+
+      if (response.statusCode === 201) {
+        window.location.reload()
+      }
     } catch (e) {
       console.log('Error while resuming tournament')
     }
@@ -54,10 +57,19 @@ const Tournament = () => {
         <p className="tournament description">Description: {tournament.description}</p>
         <p className="tournament_max_rounds">Max rounds: {tournament.maxRounds}</p>
         <p className="tournament_current_round">Current round: {tournament.currentRound}</p>
-        <div>Players: {tournament.playersIDs}</div>
-        {canStartRound && <button id="tournament_start_button" onClick={handleCreateRound}>Start</button>}
+        <div>Players</div>
         {
-            hasOpenRound && <NavLink to={`/tournaments/${tournament.id}/${tournament.currentRound}`}>Round</NavLink>
+            tournament.status === 'TO_START' && <button id="tournament_start_button" onClick={handleCreateRound}>Start</button>
+        }
+        {
+            tournament.status === 'STARTED' && <button id="tournament_start_button" onClick={handleCreateRound}>Next round</button>
+        }
+        {
+            tournament.status === 'ROUND_OPEN' && <NavLink to={`/tournaments/${tournament.id}/${tournament.currentRound}`}>Round</NavLink>
+        }
+        {
+            tournament.rounds && tournament.rounds.map(round => <Round key={round.id} roundData={round}/>
+            )
         }
       </>
     : <>

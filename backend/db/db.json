@@ -13,6 +13,27 @@
       "last_name": "Iwan",
       "elo": 3000,
       "birthdate": "1990-01-07"
+    },
+    "3": {
+      "chess_id": "CD12354",
+      "first_name": "Shashimi",
+      "last_name": "Joueur 3",
+      "elo": 3560,
+      "birthdate": "2023-04-04"
+    },
+    "4": {
+      "chess_id": "GF88475",
+      "first_name": "Doboutch",
+      "last_name": "Joueur 4",
+      "elo": 1200,
+      "birthdate": "2023-04-08"
+    },
+    "5": {
+      "chess_id": "GP59483",
+      "first_name": "Test",
+      "last_name": "Mimido",
+      "elo": 1890,
+      "birthdate": "2023-03-29"
     }
   },
   "tournaments": {
@@ -27,9 +48,11 @@
       "start_datetime": "2023-04-06_05:06",
       "end_datetime": null,
       "max_rounds": 4,
-      "current_round": 0,
-      "status": "TO_START",
-      "rounds_ids": []
+      "current_round": 1,
+      "status": "ROUND_OPEN",
+      "rounds_ids": [
+        3
+      ]
     },
     "2": {
       "name": "A valid tournament",
@@ -42,9 +65,11 @@
       "start_datetime": "2023-04-06_14:22",
       "end_datetime": null,
       "max_rounds": 4,
-      "current_round": 0,
-      "status": "TO_START",
-      "rounds_ids": []
+      "current_round": 1,
+      "status": "ROUND_OPEN",
+      "rounds_ids": [
+        6
+      ]
     },
     "3": {
       "name": "Tournoi 3",
@@ -61,6 +86,63 @@
       "status": "ROUND_OPEN",
       "rounds_ids": [
         1
+      ]
+    },
+    "4": {
+      "name": "Tournament a 4",
+      "location": "Mars",
+      "description": "4 joueurs",
+      "players_ids": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "start_datetime": "2023-04-10_16:59",
+      "end_datetime": null,
+      "max_rounds": 4,
+      "current_round": 1,
+      "status": "STARTED",
+      "rounds_ids": [
+        4
+      ]
+    },
+    "5": {
+      "name": "Tournoi 5",
+      "location": "Somewhere",
+      "description": "Tournoi avec 4 joueurs",
+      "players_ids": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "start_datetime": "2023-04-10_19:01",
+      "end_datetime": null,
+      "max_rounds": 4,
+      "current_round": 1,
+      "status": "STARTED",
+      "rounds_ids": [
+        5
+      ]
+    },
+    "6": {
+      "name": "Tourn",
+      "location": "Marseille",
+      "description": "Tournoi \u00e0 marseille",
+      "players_ids": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "start_datetime": "2023-04-23_11:59",
+      "end_datetime": null,
+      "max_rounds": 4,
+      "current_round": 1,
+      "status": "ROUND_OPEN",
+      "rounds_ids": [
+        7
       ]
     }
   },
@@ -80,6 +162,110 @@
       "p2_score": 0.5,
       "round_id": 1,
       "status": "OPEN"
+    },
+    "3": {
+      "p1_id": 2,
+      "p2_id": 1,
+      "p1_score": null,
+      "p2_score": null,
+      "round_id": 2,
+      "status": "OPEN"
+    },
+    "4": {
+      "p1_id": 2,
+      "p2_id": 1,
+      "p1_score": null,
+      "p2_score": null,
+      "round_id": 3,
+      "status": "OPEN"
+    },
+    "5": {
+      "p1_id": 4,
+      "p2_id": 1,
+      "p1_score": 1.0,
+      "p2_score": 0.0,
+      "round_id": 4,
+      "status": "OVER"
+    },
+    "6": {
+      "p1_id": 2,
+      "p2_id": 3,
+      "p1_score": 0.5,
+      "p2_score": 0.5,
+      "round_id": 4,
+      "status": "OVER"
+    },
+    "7": {
+      "p1_id": 1,
+      "p2_id": 2,
+      "p1_score": 0.5,
+      "p2_score": 0.5,
+      "round_id": 5,
+      "status": "OVER"
+    },
+    "8": {
+      "p1_id": 4,
+      "p2_id": 3,
+      "p1_score": 0.0,
+      "p2_score": 1.0,
+      "round_id": 5,
+      "status": "OVER"
+    },
+    "9": {
+      "p1_id": 1,
+      "p2_id": 4,
+      "p1_score": null,
+      "p2_score": null,
+      "round_id": null,
+      "status": "OPEN"
+    },
+    "10": {
+      "p1_id": 2,
+      "p2_id": 3,
+      "p1_score": null,
+      "p2_score": null,
+      "round_id": null,
+      "status": "OPEN"
+    },
+    "11": {
+      "p1_id": 2,
+      "p2_id": 4,
+      "p1_score": null,
+      "p2_score": null,
+      "round_id": null,
+      "status": "OPEN"
+    },
+    "12": {
+      "p1_id": 1,
+      "p2_id": 3,
+      "p1_score": null,
+      "p2_score": null,
+      "round_id": null,
+      "status": "OPEN"
+    },
+    "13": {
+      "p1_id": 1,
+      "p2_id": 2,
+      "p1_score": null,
+      "p2_score": null,
+      "round_id": 6,
+      "status": "OPEN"
+    },
+    "14": {
+      "p1_id": 1,
+      "p2_id": 3,
+      "p1_score": null,
+      "p2_score": null,
+      "round_id": 7,
+      "status": "OPEN"
+    },
+    "15": {
+      "p1_id": 2,
+      "p2_id": 4,
+      "p1_score": null,
+      "p2_score": null,
+      "round_id": 7,
+      "status": "OPEN"
     }
   },
   "rounds": {
@@ -92,6 +278,67 @@
       "start_datetime": "2023-04-07_01:18",
       "end_datetime": null,
       "round_number": 1,
+      "status": "OPEN"
+    },
+    "2": {
+      "tournament_id": 1,
+      "games_ids": [
+        3
+      ],
+      "start_datetime": "2023-04-10_16:20",
+      "end_datetime": null,
+      "round_number": 1,
+      "status": "OPEN"
+    },
+    "3": {
+      "tournament_id": 1,
+      "games_ids": [
+        4
+      ],
+      "start_datetime": "2023-04-10_16:53",
+      "end_datetime": null,
+      "round_number": 1,
+      "status": "OPEN"
+    },
+    "4": {
+      "tournament_id": 4,
+      "games_ids": [
+        5,
+        6
+      ],
+      "start_datetime": "2023-04-10_16:59",
+      "end_datetime": "2023-04-10_17:42",
+      "round_number": 1,
+      "status": "CLOSED"
+    },
+    "5": {
+      "games_ids": [
+        7,
+        8
+      ],
+      "tournament_id": 5,
+      "round_number": 1,
+      "start_datetime": "2023-04-10_19:08",
+      "status": "CLOSED",
+      "end_datetime": "2023-04-10_19:09"
+    },
+    "6": {
+      "games_ids": [
+        13
+      ],
+      "tournament_id": 2,
+      "round_number": 1,
+      "start_datetime": "2023-04-28_18:54",
+      "status": "OPEN"
+    },
+    "7": {
+      "games_ids": [
+        14,
+        15
+      ],
+      "tournament_id": 6,
+      "round_number": 1,
+      "start_datetime": "2023-04-28_19:08",
       "status": "OPEN"
     }
   }
