@@ -4,15 +4,15 @@ from backend.abstract.typing.model_typing import (
     SerializedTournament,
 )
 from backend.games.dao import GameDAO
-from backend.games.models.GameService import GameService
+from backend.games.service import GameService
 from backend.games.serializer import GameSerializer
 from backend.players.dao import PlayerDAO
 from backend.players.serializer import PlayerSerializer
 from backend.rounds.dao import RoundDAO
-from backend.rounds.models.service import RoundService
+from backend.rounds.service import RoundService
 from backend.rounds.serializer import RoundSerializer
 from backend.tournaments.dao import TournamentDAO
-from backend.tournaments.models.model import TournamentModel
+from backend.tournaments.model import TournamentModel
 from backend.tournaments.serializer import TournamentSerializer
 
 

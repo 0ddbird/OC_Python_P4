@@ -3,7 +3,7 @@ from typing import Optional
 
 from backend.abstract.typing.model_typing import SerializedRound
 from backend.games.serializer import GameSerializer
-from backend.rounds.models.model import RoundModel, RoundStatus
+from backend.rounds.model import RoundModel, RoundStatus
 
 
 class RoundSerializer:

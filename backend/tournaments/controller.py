@@ -4,7 +4,7 @@ from backend.abstract.typing.model_typing import (
     SerializedTournament,
 )
 
-from backend.tournaments.models.service import TournamentService
+from backend.tournaments.service import TournamentService
 
 
 class TournamentController:

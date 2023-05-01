@@ -1,7 +1,5 @@
 from random import shuffle
-from typing import Iterable, List
-
-from backend.abstract.typing.model_typing import ForeignKey
+from typing import Iterable
 
 
 def shuffle_and_pair_players(

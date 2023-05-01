@@ -1,7 +1,7 @@
 from flask import Blueprint, request, Response
 
 from backend.abstract.typing.model_typing import PrimaryKey
-from backend.tournaments.routing.router import TournamentRouter
+from backend.tournaments.router import TournamentRouter
 
 tournaments_blueprint = Blueprint(
     "tournaments",

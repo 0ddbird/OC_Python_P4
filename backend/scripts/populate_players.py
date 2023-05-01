@@ -3,7 +3,7 @@ import random
 import string
 
 from backend.players.dao import PlayerDAO
-from backend.players.models.model import PlayerModel
+from backend.players.model import PlayerModel
 
 used_ids = set()
 

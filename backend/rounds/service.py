@@ -8,7 +8,7 @@ from backend.abstract.typing.model_typing import (
 from backend.games.dao import GameDAO
 from backend.games.serializer import GameSerializer
 from backend.rounds.dao import RoundDAO
-from backend.rounds.models.model import RoundModel
+from backend.rounds.model import RoundModel
 from backend.rounds.serializer import RoundSerializer
 
 

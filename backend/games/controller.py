@@ -4,11 +4,11 @@ from backend.abstract.typing.model_typing import (
     SerializedGame,
 )
 from backend.games.dao import GameDAO
-from backend.games.models.GameService import GameService
+from backend.games.service import GameService
 from backend.games.serializer import GameSerializer
 from backend.rounds.dao import RoundDAO
 from backend.tournaments.dao import TournamentDAO
-from backend.tournaments.models.service import TournamentService
+from backend.tournaments.service import TournamentService
 
 
 class GameController:

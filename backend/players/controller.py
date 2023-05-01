@@ -1,4 +1,4 @@
-from backend.players.models.service import PlayerService
+from backend.players.service import PlayerService
 from backend.abstract.typing.model_typing import PrimaryKey, SerializedPlayer
 
 

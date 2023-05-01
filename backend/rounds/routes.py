@@ -1,7 +1,7 @@
 from flask import Blueprint, request, Response
 
 from backend.abstract.typing.model_typing import PrimaryKey
-from backend.rounds.routing.router import RoundRouter
+from backend.rounds.router import RoundRouter
 
 rounds_blueprint = Blueprint("rounds", __name__, url_prefix="/rounds")
 router = RoundRouter()

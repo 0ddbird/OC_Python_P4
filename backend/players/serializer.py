@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from backend.abstract.typing.model_typing import SerializedPlayer
-from backend.players.models.model import PlayerModel
+from backend.players.model import PlayerModel
 
 
 class PlayerSerializer:
@@ -26,6 +26,7 @@ class PlayerSerializer:
         birthdate = datetime.strptime(birthdate_str, "%Y-%m-%d").date()
         elo = int(json_data.get("elo"))
         id = json_data.get("id")
+
         if id is not None:
             id = int(id)
 

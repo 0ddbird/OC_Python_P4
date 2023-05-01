@@ -1,4 +1,4 @@
-from backend.games.models.GameModel import GameModel, GameStatus, PlayerScore
+from backend.games.model import GameModel, GameStatus, PlayerScore
 from backend.abstract.typing.model_typing import SerializedGame
 
 

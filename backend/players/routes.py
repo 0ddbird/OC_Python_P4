@@ -1,5 +1,5 @@
 from flask import Blueprint, request, Response
-from backend.players.routing.router import PlayerRouter
+from backend.players.router import PlayerRouter
 
 players_blueprint = Blueprint("players", __name__, url_prefix="/players")
 player_router = PlayerRouter()

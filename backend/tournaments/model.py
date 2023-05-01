@@ -4,8 +4,8 @@ from enum import Enum
 from typing import Iterable, Optional
 
 from backend.abstract.typing.model_typing import ForeignKey, PrimaryKey
-from backend.players.models.model import PlayerModel
-from backend.rounds.models.model import RoundModel
+from backend.players.model import PlayerModel
+from backend.rounds.model import RoundModel
 from backend.tournaments.utils import (
     sort_and_pair_players,
     shuffle_and_pair_players,

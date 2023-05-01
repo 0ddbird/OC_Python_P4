@@ -1,7 +1,7 @@
 from flask import Blueprint, request, Response
 
 from backend.abstract.typing.model_typing import PrimaryKey
-from backend.games.routing.router import GameRouter
+from backend.games.router import GameRouter
 
 games_blueprint = Blueprint("games", __name__, url_prefix="/games")
 router = GameRouter()

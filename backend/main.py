@@ -1,9 +1,10 @@
 from flask import Flask
 from flask_cors import CORS
-from .players.routing.routes import players_blueprint
-from .games.routing.routes import games_blueprint
-from .rounds.routing.routes import rounds_blueprint
-from .tournaments.routing.routes import tournaments_blueprint
+from backend.players.routes import players_blueprint
+from backend.games.routes import games_blueprint
+from backend.reports.routes import reports_blueprint
+from backend.rounds.routes import rounds_blueprint
+from backend.tournaments.routes import tournaments_blueprint
 
 
 def register_blueprints(app: Flask) -> None:
@@ -11,6 +12,7 @@ def register_blueprints(app: Flask) -> None:
     app.register_blueprint(tournaments_blueprint)
     app.register_blueprint(rounds_blueprint)
     app.register_blueprint(games_blueprint)
+    app.register_blueprint(reports_blueprint)
 
 
 app = Flask(__name__)

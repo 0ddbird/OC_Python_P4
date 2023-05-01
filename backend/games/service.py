@@ -2,7 +2,7 @@ from typing import Iterable
 
 from backend.abstract.typing.model_typing import ForeignKey, PrimaryKey
 from backend.games.dao import GameDAO
-from backend.games.models.GameModel import GameModel
+from backend.games.model import GameModel
 
 
 class GameService:

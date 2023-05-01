@@ -4,7 +4,7 @@ from typing import Optional
 from backend.abstract.typing.model_typing import SerializedTournament
 from backend.players.serializer import PlayerSerializer
 from backend.rounds.serializer import RoundSerializer
-from backend.tournaments.models.model import (
+from backend.tournaments.model import (
     TournamentModel,
     TournamentStatus,
 )

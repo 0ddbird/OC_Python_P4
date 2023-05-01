@@ -1,4 +1,4 @@
-from backend.rounds.models.service import RoundService
+from backend.rounds.service import RoundService
 from backend.abstract.typing.model_typing import (
     ForeignKey,
     PrimaryKey,
