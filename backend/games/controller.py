@@ -8,6 +8,7 @@ from backend.games.models.GameService import GameService
 from backend.games.serializer import GameSerializer
 from backend.rounds.dao import RoundDAO
 from backend.tournaments.dao import TournamentDAO
+from backend.tournaments.models.service import TournamentService
 
 
 class GameController:
@@ -17,6 +18,7 @@ class GameController:
         self.round_dao = RoundDAO()
         self.tournament_dao = TournamentDAO()
         self.service = GameService()
+        self.tournament_service = TournamentService()
 
     def get(self, game_id: PrimaryKey) -> SerializedGame:
         game = self.game_dao.get(game_id)
@@ -35,5 +37,5 @@ class GameController:
     def create(self, p1_id: ForeignKey, p2_id: ForeignKey) -> PrimaryKey:
         return self.service.create_game(p1_id, p2_id)
 
-    def update(self, game_id, p1_score, p2_score) -> None:
-        self.service.update_game_results(game_id, p1_score, p2_score)
+    def update(self, game_id, p1_score) -> None:
+        self.tournament_service.update_game_results(game_id, p1_score)

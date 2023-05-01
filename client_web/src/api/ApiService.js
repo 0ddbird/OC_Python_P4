@@ -61,9 +61,9 @@ class ApiService {
     return ApiService.makeRequest(route)
   }
 
-  static getTournament(id, eager) {
+  static getTournament(id, rounds) {
     const route = {
-      path: `${ApiService.basePath}/tournaments/${id}${eager ? '?eager=true' : ''}`,
+      path: `${ApiService.basePath}/tournaments/${id}${rounds ? '?rounds=true&players=true' : ''}`,
       method: 'GET'
     }
     return ApiService.makeRequest(route)

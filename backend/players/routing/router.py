@@ -15,7 +15,7 @@ class PlayerRouter(Router):
         keys = ["chess_id", "first_name", "last_name", "birthdate", "elo"]
         player = {key: request.json.get(key) for key in keys}
         try:
-            player_id = self.controller.create(player)
+            player_id = self.controller.create_player(player)
             return make_response(
                 {
                     "message": "Successfully created player",
@@ -31,14 +31,14 @@ class PlayerRouter(Router):
             )
 
     def get_player(self, player_id: PrimaryKey) -> Response:
-        player = self.controller.get(player_id)
+        player = self.controller.get_player(player_id)
         return make_response(
             {"message": "Successfully fetched player", "payload": player},
             ResCode.OK.value,
         )
 
     def get_players(self) -> Response:
-        players = self.controller.get_all()
+        players = self.controller.get_all_players()
         return make_response(
             {"message": "Successfully fetched players", "payload": players},
             ResCode.OK.value,

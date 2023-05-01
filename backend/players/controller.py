@@ -6,17 +6,17 @@ class PlayerController:
     def __init__(self) -> None:
         self.service: PlayerService = PlayerService()
 
-    def get(self, id: PrimaryKey) -> SerializedPlayer:
-        return self.service.get(id)
+    def get_player(self, id: PrimaryKey) -> SerializedPlayer:
+        return self.service.get_player(id)
 
-    def create(self, player_data) -> PrimaryKey:
-        return self.service.create(player_data)
+    def create_player(self, player_data) -> PrimaryKey:
+        return self.service.create_player(player_data)
 
-    def get_all(self) -> tuple[SerializedPlayer]:
-        return self.service.get_all()
+    def get_all_players(self) -> tuple[SerializedPlayer]:
+        return self.service.get_all_players()
 
-    def update(self, player_data: SerializedPlayer) -> None:
-        return self.service.update(player_data)
+    def update_player(self, player_data: SerializedPlayer) -> None:
+        self.service.update_player(player_data)
 
-    def delete(self, id: PrimaryKey) -> None:
-        self.service.delete(id)
+    def delete_player(self, id: PrimaryKey) -> None:
+        self.service.delete_player(id)

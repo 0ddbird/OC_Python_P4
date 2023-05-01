@@ -1,7 +1,7 @@
 @keyframes sceneRotate {
-    to {
-        transform: rotateY(360deg);
-    }
+  to {
+    transform: rotateY(360deg);
+  }
 }
 
 #background_container {
@@ -16,7 +16,7 @@
   perspective: 10em;
   overflow: hidden;
   perspective-origin: 50% calc(50% - 2em);
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
@@ -25,16 +25,15 @@
 }
 
 #background {
- transform-style: preserve-3d;
-    width: 15em;
-    height: 15em;
-    background-image:
-    radial-gradient(#0000, #000 75%),
-    repeating-conic-gradient(from 45deg, #111 0deg 90deg, #222 90deg 180deg);
-    background-size: 100%, 1em 1em;
-    position: absolute;
-    transform: translate(-50%, -50%) rotateX(90deg);
-    top: 1em;
+  transform-style: preserve-3d;
+  width: 15em;
+  height: 15em;
+  background-image: radial-gradient(#0000, #000 75%),
+  repeating-conic-gradient(from 45deg, #111 0deg 90deg, #222 90deg 180deg);
+  background-size: 100%, 1em 1em;
+  position: absolute;
+  transform: translate(-50%, -50%) rotateX(90deg);
+  top: 1em;
 }
 
 #scene {

@@ -18,18 +18,15 @@ class TournamentRouter(Router):
         max_rounds = request.json.get("max_rounds")
         location = request.json.get("location")
         description = request.json.get("description")
-        player_ids = tuple(request.json.get("players_ids"))
+        player_ids = request.json.get("players_ids")
 
-        tournament_data = validate_tournament_fields(
-            name, location, description, player_ids, max_rounds
-        )
-        if not tournament_data["is_valid"]:
+        try:
+            validate_tournament_fields(
+                name, location, description, player_ids, max_rounds
+            )
+        except Exception:
             return make_response(
-                {
-                    "message": "Please provide valid values",
-                    "error": tournament_data["errors"],
-                },
-                ResCode.BAD_REQUEST.value,
+                {"message": "bad payload"}, ResCode.BAD_REQUEST
             )
         try:
             tournament = self.controller.create_tournament(
@@ -49,9 +46,13 @@ class TournamentRouter(Router):
                 ResCode.BAD_REQUEST.value,
             )
 
-    def get_tournament(self, tournament_id, eager=False) -> Response:
+    def get_tournament(
+        self, tournament_id, rounds=False, players=False
+    ) -> Response:
         try:
-            tournament = self.controller.get_tournament(tournament_id, eager)
+            tournament = self.controller.get_tournament(
+                tournament_id, rounds, players
+            )
             return make_response(
                 {
                     "message": "Tournament found",
@@ -66,9 +67,9 @@ class TournamentRouter(Router):
                 ResCode.BAD_REQUEST.value,
             )
 
-    def get_tournaments(self, eager=False) -> Response:
+    def get_tournaments(self, rounds=False) -> Response:
         try:
-            tournaments = self.controller.get_all_tournaments(eager)
+            tournaments = self.controller.get_all_tournaments(rounds)
             return make_response(
                 {
                     "message": "Tournaments fetched successfully",
@@ -128,7 +129,7 @@ class TournamentRouter(Router):
             )
 
     def get_tournament_round(
-            self, tournament_id: PrimaryKey, round_number: int
+        self, tournament_id: PrimaryKey, round_number: int
     ) -> Response:
         try:
             round_id = self.controller.get_round_id(
@@ -143,7 +144,7 @@ class TournamentRouter(Router):
             )
 
     def update_games(
-            self, tournament_id: PrimaryKey, round_number: int, request: Request
+        self, tournament_id: PrimaryKey, round_number: int, request: Request
     ) -> Response:
         try:
             payload = request.json

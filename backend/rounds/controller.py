@@ -10,11 +10,11 @@ class RoundController:
     def __init__(self) -> None:
         self.service: RoundService = RoundService()
 
-    def get_round(self, id: PrimaryKey, eager=False) -> SerializedRound:
-        return self.service.get_round(id, eager)
+    def get_round(self, id: PrimaryKey, rounds=False) -> SerializedRound:
+        return self.service.get_round(id, rounds)
 
-    def get_all_rounds(self, eager=False) -> list[SerializedRound]:
-        return self.service.get_all_rounds(eager)
+    def get_all_rounds(self, games=False) -> list[SerializedRound]:
+        return self.service.get_all_rounds(games)
 
     def create_round(
         self,

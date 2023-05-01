@@ -8,21 +8,21 @@ class PlayerService:
         self.dao: PlayerDAO = PlayerDAO()
         self.serializer: PlayerSerializer = PlayerSerializer()
 
-    def get(self, id: PrimaryKey) -> SerializedPlayer:
+    def get_player(self, id: PrimaryKey) -> SerializedPlayer:
         player = self.dao.get(id)
         return self.serializer.serialize(player)
 
-    def create(self, player_data) -> PrimaryKey:
+    def create_player(self, player_data) -> PrimaryKey:
         player = self.serializer.deserialize(player_data)
         return self.dao.create(player)
 
-    def get_all(self) -> tuple[SerializedPlayer]:
+    def get_all_players(self) -> tuple[SerializedPlayer]:
         players = self.dao.get_all()
         return tuple(self.serializer.serialize(player) for player in players)
 
-    def update(self, player_data: SerializedPlayer) -> None:
+    def update_player(self, player_data: SerializedPlayer) -> None:
         player = self.serializer.deserialize(player_data)
         self.dao.update(player)
 
-    def delete(self, id: PrimaryKey) -> None:
+    def delete_player(self, id: PrimaryKey) -> None:
         self.dao.delete(id)

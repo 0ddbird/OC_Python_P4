@@ -10,7 +10,7 @@ class RoundSerializer:
     def __init__(self, game_serializer=None):
         self.game_serializer: Optional[GameSerializer] = game_serializer
 
-    def serialize(self, round: RoundModel) -> SerializedRound:
+    def serialize(self, round: RoundModel, to_db=False) -> SerializedRound:
         serialized_round = {
             "games_ids": round.games_ids,
             "tournament_id": round.tournament_id,
@@ -20,13 +20,14 @@ class RoundSerializer:
         }
 
         if round.end_datetime:
-            serialized_round["end_datetime"] = (
-                round.end_datetime.strftime("%Y-%m-%d_%H:%M"),
+            serialized_round["end_datetime"] = round.end_datetime.strftime(
+                "%Y-%m-%d_%H:%M"
             )
+
         if round.id:
             serialized_round["id"] = round.id
 
-        if round.games:
+        if round.games and not to_db:
             serialized_round["games"] = [
                 self.game_serializer.serialize(game) for game in round.games
             ]

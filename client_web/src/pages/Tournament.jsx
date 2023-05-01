@@ -2,16 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import APIService from '../api/ApiService.js'
 import Round from '../components/Round.jsx'
+import Leaderboard from '../components/Leaderboard.jsx'
 
 const Tournament = () => {
   const { id } = useParams()
   const [tournament, setTournament] = useState(null)
+  const [players, setPlayers] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
-  const eager = true
+  const rounds = true
 
   useEffect(() => {
     (async() => {
-      const response = await APIService.getTournament(id, eager)
+      const response = await APIService.getTournament(id, rounds)
       if (response.ok) {
         const jsonResponse = await response.json()
         const tournamentData = jsonResponse.payload
@@ -23,14 +25,16 @@ const Tournament = () => {
           maxRounds: tournamentData.max_rounds,
           currentRound: tournamentData.current_round,
           description: tournamentData.description,
-          playersIDs: tournamentData.players_ids,
           location: tournamentData.location,
           status: tournamentData.status,
-          roundsIDs: tournamentData.rounds_ids,
-          rounds: tournamentData.rounds
+          rounds: tournamentData.rounds,
+          leaderboard: tournamentData.leaderboard,
+          players: tournamentData.players
         }
         setTournament(tournament)
+        setPlayers(tournamentData.players)
         setIsLoaded(true)
+        console.log(tournament)
       }
     })()
   }, [])
@@ -38,7 +42,6 @@ const Tournament = () => {
   async function handleCreateRound() {
     try {
       const response = await APIService.createRound(id)
-
       if (response.statusCode === 201) {
         window.location.reload()
       }
@@ -57,6 +60,11 @@ const Tournament = () => {
         <p className="tournament description">Description: {tournament.description}</p>
         <p className="tournament_max_rounds">Max rounds: {tournament.maxRounds}</p>
         <p className="tournament_current_round">Current round: {tournament.currentRound}</p>
+
+        {
+            tournament.leaderboard && <Leaderboard players={players} leaderboardData={tournament.leaderboard}/>
+        }
+
         <div>Players</div>
         {
             tournament.status === 'TO_START' && <button id="tournament_start_button" onClick={handleCreateRound}>Start</button>
@@ -68,7 +76,7 @@ const Tournament = () => {
             tournament.status === 'ROUND_OPEN' && <NavLink to={`/tournaments/${tournament.id}/${tournament.currentRound}`}>Round</NavLink>
         }
         {
-            tournament.rounds && tournament.rounds.map(round => <Round key={round.id} roundData={round}/>
+            tournament.rounds && tournament.rounds.map(round => <Round key={round.id} roundData={round} players={players}/>
             )
         }
       </>

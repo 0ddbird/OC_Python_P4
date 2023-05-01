@@ -21,41 +21,33 @@ class RoundService:
             self.game_serializer
         )
 
-    def get_round(self, id: PrimaryKey, eager=False) -> SerializedRound:
-        round = self.dao.get_round(id)
-        if eager:
+    def get_round(self, id: PrimaryKey, games=False) -> SerializedRound:
+        round = self.dao.get(id)
+        if games:
             self.set_round_games(round)
         return self.serializer.serialize(round)
 
-    def get_all_rounds(self, eager=False) -> list[SerializedRound]:
+    def get_all_rounds(self, games=False) -> list[SerializedRound]:
         rounds = self.dao.get_all_rounds()
 
-        if eager:
-            for round in rounds:
-                self.set_round_games(round)
-        return [self.serializer.serialize(round) for round in rounds]
-
-    def get_multiple_rounds(
-        self, ids: Iterable[ForeignKey], eager=False
-    ) -> list[SerializedRound]:
-        rounds = self.dao.get_multiple_rounds(ids)
-        if eager:
+        if games:
             for round in rounds:
                 self.set_round_games(round)
         return [self.serializer.serialize(round) for round in rounds]
 
     def get_tournament_rounds(
-        self, ids: Iterable[ForeignKey], eager=False
+        self, ids: Iterable[ForeignKey], games=False
     ) -> list[RoundModel]:
-        rounds = self.dao.get_multiple_rounds(ids)
-        if eager:
+        rounds = self.dao.get_multiple(ids)
+        if games:
             for round in rounds:
                 self.set_round_games(round)
         return rounds
 
     def set_round_games(self, round: RoundModel) -> None:
         games = self.game_dao.get_multiple(round.games_ids)
-        round.set_games(games)
+        if games:
+            round.set_games(games)
 
     def create_round(
         self,
@@ -68,4 +60,4 @@ class RoundService:
             tournament_id=tournament_id,
             round_number=round_number,
         )
-        return self.dao.create_round(round)
+        return self.dao.create(round)

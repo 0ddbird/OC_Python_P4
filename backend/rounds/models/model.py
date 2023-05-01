@@ -27,14 +27,19 @@ class RoundModel:
         if self.tournament_id is None:
             raise ValueError("Tournament ID cannot be None")
 
-    def close(self):
-        self.end_datetime = datetime.now()
-        self.status = RoundStatus.CLOSED
-        print(
-            "RoundModel\n"
-            "Round closed\n"
-            f"Round status is now {self.status}"
-        )
-
     def set_games(self, games: Iterable[GameModel]):
         self.games = games
+
+    def end(self):
+        self.end_datetime = datetime.now()
+        self.status = RoundStatus.CLOSED
+
+    def is_over(self) -> bool:
+        if self.games is None:
+            raise ValueError("Games are not set for this round")
+
+        return all(game.is_over() for game in self.games)
+
+    def rank_players(self, ranking, history):
+        for game in self.games:
+            game.rank_players(ranking, history)

@@ -11,10 +11,12 @@ class GameSerializer:
             "p1_score": game.p1_score.value,
             "p2_score": game.p2_score.value,
             "round_id": game.round_id,
+            "tournament_id": game.tournament_id,
             "status": game.status.name,
         }
         if game.id:
             serialized_game["id"] = game.id
+
         return serialized_game
 
     @staticmethod
@@ -25,6 +27,7 @@ class GameSerializer:
         p1_score = PlayerScore(json_data.get("p1_score"))
         p2_score = PlayerScore(json_data.get("p2_score"))
         round_id = json_data.get("round_id")
+        tournament_id = json_data.get("tournament_id")
         status = GameStatus[json_data.get("status")]
 
         return GameModel(
@@ -34,5 +37,6 @@ class GameSerializer:
             p1_score=p1_score,
             p2_score=p2_score,
             round_id=round_id,
+            tournament_id=tournament_id,
             status=status,
         )

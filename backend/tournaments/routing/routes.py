@@ -16,10 +16,10 @@ router = TournamentRouter()
     methods=["GET", "POST"],
 )
 def tournaments() -> Response:
-    eager = request.args.get("eager", "false").lower() == "true"
+    rounds = request.args.get("rounds", "false").lower() == "true"
     match request.method:
         case "GET":
-            return router.get_tournaments(eager=eager)
+            return router.get_tournaments(rounds=rounds)
         case "POST":
             return router.create_tournament(request)
         case _:
@@ -31,10 +31,13 @@ def tournaments() -> Response:
     methods=["GET", "PUT", "DELETE", "POST"],
 )
 def tournament(tournament_id: PrimaryKey) -> Response:
-    eager = request.args.get("eager", "false").lower() == "true"
+    players = request.args.get("players", "false").lower() == "true"
+    rounds = request.args.get("rounds", "false").lower() == "true"
     match request.method:
         case "GET":
-            return router.get_tournament(tournament_id, eager=eager)
+            return router.get_tournament(
+                tournament_id, rounds=rounds, players=players
+            )
         case "POST":
             return router.create_round(tournament_id)
         case "DELETE":

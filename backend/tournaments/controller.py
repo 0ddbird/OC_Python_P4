@@ -28,12 +28,12 @@ class TournamentController:
         )
 
     def get_tournament(
-        self, id: PrimaryKey, eager=False
+        self, id: PrimaryKey, rounds=False, players=False
     ) -> SerializedTournament:
-        return self.service.get_tournament(id, eager)
+        return self.service.get_tournament(id, rounds, players)
 
-    def get_all_tournaments(self, eager=False) -> list[SerializedTournament]:
-        return self.service.get_all_tournaments(eager)
+    def get_all_tournaments(self, rounds=False) -> list[SerializedTournament]:
+        return self.service.get_all_tournaments(rounds)
 
     def create_round(self, tournament_id) -> ForeignKey:
         self.service.create_round(tournament_id)

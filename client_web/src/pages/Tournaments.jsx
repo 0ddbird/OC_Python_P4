@@ -26,9 +26,7 @@ const Tournaments = () => {
               <div className="tournaments_table_header_item">Name</div>
               <div className="tournaments_table_header_item">Date</div>
               <div className="tournaments_table_header_item">Location</div>
-              <div className="tournaments_table_header_item">Players</div>
-
-              <div className="tournaments_table_header_item">Current Round</div>
+              <div className="tournaments_table_header_item">Rounds</div>
               <div className="tournaments_table_header_item">Status</div>
               <div className="tournaments_table_header_item"></div>
             </div>
@@ -41,7 +39,6 @@ const Tournaments = () => {
                           <div className="tournaments_table_body_item">{tournament.name}</div>
                           <div className="tournaments_table_body_item">{tournament.start_datetime}</div>
                           <div className="tournaments_table_body_item">{tournament.location}</div>
-                          <div className="tournaments_table_body_item">{tournament.players_ids.length}</div>
                           <div className="tournaments_table_body_item">{tournament.current_round} / {tournament.max_rounds}</div>
                           <div className="tournaments_table_body_item">{tournament.status}</div>
                           <NavLink to={`/tournaments/${tournament.id}`}>

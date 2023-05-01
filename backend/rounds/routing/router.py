@@ -26,7 +26,7 @@ class RoundRouter(Router):
 
     def get_round(self, round_id: PrimaryKey) -> Response:
         try:
-            round = self.controller.get_round(round_id, eager=True)
+            round = self.controller.get_round(round_id, rounds=True)
             return make_response(
                 {"message": "Round found", "payload": round}, ResCode.OK.value
             )
@@ -38,7 +38,7 @@ class RoundRouter(Router):
 
     def get_all_rounds(self) -> Response:
         try:
-            rounds = self.controller.get_all_rounds(eager=True)
+            rounds = self.controller.get_all_rounds(rounds=True)
             return make_response(
                 {"message": "Round found", "payload": rounds}, ResCode.OK.value
             )

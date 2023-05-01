@@ -1,3 +1,5 @@
+from typing import Iterable
+
 from backend.abstract.typing.model_typing import ForeignKey
 
 
@@ -9,30 +11,25 @@ def validate_tournament_fields(
     name: str,
     location: str,
     description: str,
-    players_ids: tuple[ForeignKey],
+    players_ids: Iterable[ForeignKey],
     max_rounds: int,
-) -> dict:
-    errors = []
-
+) -> None:
     if name is None or name == "":
-        errors.append("Name is required")
-
+        raise ValueError
     try:
         int_max_rounds = int(max_rounds)
         if int_max_rounds < 1:
-            errors.append("Rounds must be greater than 0")
+            raise ValueError
     except ValueError:
-        errors.append("Max rounds must be a number")
+        raise
     except TypeError:
-        errors.append("Max rounds is required")
+        raise
 
     if location is None or location == "":
-        errors.append("Location is required")
+        raise ValueError
 
     if description is None or description == "":
-        errors.append("Description is required")
+        raise ValueError
 
     if players_ids is None or len(players_ids) < 2:
-        errors.append("A tournament must have at least 2 players")
-
-    return {"is_valid": len(errors) == 0, "errors": errors}
+        raise ValueError

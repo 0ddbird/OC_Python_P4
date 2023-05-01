@@ -4,6 +4,7 @@ from enum import Enum
 from typing import Iterable, Optional
 
 from backend.abstract.typing.model_typing import ForeignKey, PrimaryKey
+from backend.players.models.model import PlayerModel
 from backend.rounds.models.model import RoundModel
 from backend.tournaments.utils import (
     sort_and_pair_players,
@@ -36,6 +37,8 @@ class TournamentModel:
     end_datetime: Optional[date] = None
     id: Optional[PrimaryKey] = None
     rounds: Optional[list[RoundModel]] = None
+    leaderboard: Optional[list[(int, ForeignKey)]] = None
+    players: Optional[list[PlayerModel]] = None
 
     def set_rounds(self, rounds: Iterable[RoundModel]) -> None:
         for round in rounds:
@@ -45,34 +48,41 @@ class TournamentModel:
 
     def pair_players(self) -> list[tuple[ForeignKey]]:
         if self.status == TournamentStatus.TO_START:
-            return shuffle_and_pair_players(self.players_ids)
-        elif self.status == TournamentStatus.STARTED:
-            return sort_and_pair_players(self.player_ids)
+            pairs = shuffle_and_pair_players(self.players_ids)
+            return pairs
+
+        if self.status == TournamentStatus.STARTED:
+            player_scores, history = self.get_leaderboard_and_history()
+            pairs = sort_and_pair_players(player_scores, history)
+            return pairs
         raise RoundStartException
 
     def set_rounds_ids(self, rounds_ids: tuple[ForeignKey]) -> None:
         self.rounds_ids = rounds_ids
 
-    def set_round_open(self) -> None:
+    def set_status_open(self) -> None:
         self.status = TournamentStatus.ROUND_OPEN
         self.current_round += 1
 
-    # def start(self) -> None:
-    #     self.status = TournamentStatus.STARTED
-    #
+    def set_status_started(self) -> None:
+        self.status = TournamentStatus.STARTED
 
-    #
-    # def set_status_started(self) -> None:
-    #     self.status = TournamentStatus.STARTED
-    #
-    # def set_to_next_round(self) -> None:
-    #     if self.current_round == self.max_rounds:
-    #         raise ValueError("All the rounds are finished.")
-    #     self.current_round += 1
-    #
-    # def end(self) -> None:
-    #     if self.end_datetime is not None:
-    #         raise ValueError("End date is already defined")
-    #     self.end_datetime = datetime.now()
-    #     self.status = TournamentStatus.ENDED
-    #
+    def has_remaining_rounds(self) -> bool:
+        return self.current_round < self.max_rounds
+
+    def end(self) -> None:
+        if self.end_datetime is not None:
+            raise ValueError("End date is already defined")
+        self.end_datetime = datetime.now()
+        self.status = TournamentStatus.ENDED
+
+    def get_leaderboard_and_history(self):
+        player_scores = {player_id: 0.0 for player_id in self.players_ids}
+        history = {}
+        for round in self.rounds:
+            round.rank_players(player_scores, history)
+        player_scores = [
+            (score, player_id) for player_id, score in player_scores.items()
+        ]
+        self.leaderboard = player_scores
+        return player_scores, history
