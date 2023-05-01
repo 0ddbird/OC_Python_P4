@@ -3,7 +3,12 @@ from datetime import date, datetime
 from enum import Enum
 from typing import Iterable, Optional
 
-from backend.abstract.typing.model_typing import ForeignKey, PrimaryKey
+from backend.abstract.typing.model_typing import (
+    ForeignKey,
+    Key,
+    PrimaryKey,
+    Score,
+)
 from backend.players.model import PlayerModel
 from backend.rounds.model import RoundModel
 from backend.tournaments.utils import (
@@ -37,7 +42,7 @@ class TournamentModel:
     end_datetime: Optional[date] = None
     id: Optional[PrimaryKey] = None
     rounds: Optional[list[RoundModel]] = None
-    leaderboard: Optional[list[(int, ForeignKey)]] = None
+    leaderboard: Optional[list[tuple[float, ForeignKey]]] = None
     players: Optional[list[PlayerModel]] = None
 
     def set_rounds(self, rounds: Iterable[RoundModel]) -> None:
@@ -76,7 +81,9 @@ class TournamentModel:
         self.end_datetime = datetime.now()
         self.status = TournamentStatus.ENDED
 
-    def get_leaderboard_and_history(self):
+    def get_leaderboard_and_history(
+            self,
+    ) -> tuple[list[tuple[Key, Score]], dict[PrimaryKey, list[ForeignKey]]]:
         player_scores = {player_id: 0.0 for player_id in self.players_ids}
         history = {}
         for round in self.rounds:

@@ -49,7 +49,7 @@ class PlayerRouter(Router):
         player = {key: request.json.get(key) for key in keys}
         player["id"] = id
         try:
-            self.controller.update(player)
+            self.controller.update_player(player)
             return make_response(
                 {"message": "Successfully updated player"},
                 ResCode.OK.value,

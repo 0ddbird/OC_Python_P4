@@ -5,16 +5,18 @@ import GameForm from './GameForm'
 
 const Game = ({ gameData, players }) => {
   const [loaded, setIsLoaded] = useState(false)
-  const [p1Score, setP1Score] = useState(gameData.p1_score)
-  const [p2Score, setP2Score] = useState(gameData.p2_score)
+  const [p1Score, setP1Score] = useState('')
+  const [p2Score, setP2Score] = useState('')
   const player1 = players.find((player) => player.id === gameData.p1_id)
   const player2 = players.find((player) => player.id === gameData.p2_id)
 
   useEffect(() => {
-    if (player1 && player2) {
+    if (player1 && player2 && gameData) {
+      setP1Score(gameData.p1_score)
+      setP2Score(gameData.p2_score)
       setIsLoaded(true)
     }
-  }, [player1, player2])
+  }, [player1, player2, gameData])
 
   const playerResults = {
     null: 'TO SET',
@@ -26,12 +28,14 @@ const Game = ({ gameData, players }) => {
   function setPlayersScores(e) {
     e.preventDefault()
     if (e.target.value === '') {
+      setP1Score('')
       setP2Score('')
       return
     }
-    const score = parseFloat(e.target.value)
-    setP1Score(score)
-    setP2Score(1.0 - score)
+    const p1Score = parseFloat(e.target.value)
+    const p2Score = 1.0 - p1Score
+    setP1Score(p1Score)
+    setP2Score(p2Score)
   }
 
   async function handleGameSubmit(e) {
