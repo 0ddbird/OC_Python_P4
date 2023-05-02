@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import APIService from '../api/ApiService.js'
 import GameForm from './GameForm'
 
-const Game = ({ gameData, players }) => {
+const Game = ({ gameData, players, reload, toggleReload }) => {
   const [loaded, setIsLoaded] = useState(false)
   const [p1Score, setP1Score] = useState('')
   const [p2Score, setP2Score] = useState('')
@@ -42,10 +42,7 @@ const Game = ({ gameData, players }) => {
     e.preventDefault()
     try {
       const response = await APIService.updateGame(gameData.id, p1Score, p2Score)
-
-      if (response.statusCode === 201) {
-        window.location.reload()
-      }
+      if (response.ok) toggleReload(!reload)
     } catch (e) {
       console.log(e)
     }
@@ -59,11 +56,9 @@ const Game = ({ gameData, players }) => {
       gameData.status === 'OVER'
       ? (
               <div className="game_results">
-                <h3>Game {gameData.id}</h3>
-                <div>Player 1: {player1.first_name}</div>
-                <div>Player 1 {playerResults[gameData.p1_score]}</div>
-                <div>Player 2: {player2.first_name}</div>
-                <div>Player 2 {playerResults[gameData.p2_score]}</div>
+                <div>{player1.first_name}: {playerResults[gameData.p1_score]}</div>
+                <div>{player2.first_name}: {playerResults[gameData.p2_score]}</div>
+
               </div>
         )
       : (
@@ -82,7 +77,9 @@ const Game = ({ gameData, players }) => {
 
 Game.propTypes = {
   gameData: PropTypes.object,
-  players: PropTypes.array
+  players: PropTypes.array,
+  toggleReload: PropTypes.func,
+  reload: PropTypes.bool
 }
 
 export default Game

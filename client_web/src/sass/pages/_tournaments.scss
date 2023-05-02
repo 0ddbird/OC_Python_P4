@@ -33,3 +33,20 @@
   color: black;
   font-weight: 700;
 }
+
+#leaderboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
+  background-color: rgba(255, 255, 255, .10);
+  backdrop-filter: blur(5px);
+  padding: 1em;
+  border-radius: 5px;
+}
+
+.player_row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}

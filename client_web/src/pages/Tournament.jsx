@@ -9,6 +9,7 @@ const Tournament = () => {
   const [tournament, setTournament] = useState(null)
   const [players, setPlayers] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [reload, toggleReload] = useState(false)
   const rounds = true
 
   useEffect(() => {
@@ -37,13 +38,13 @@ const Tournament = () => {
         console.log(tournament)
       }
     })()
-  }, [])
+  }, [reload])
 
   async function handleCreateRound() {
     try {
       const response = await APIService.createRound(id)
-      if (response.statusCode === 201) {
-        window.location.reload()
+      if (response.ok) {
+        toggleReload(!reload)
       }
     } catch (e) {
       console.log('Error while resuming tournament')
@@ -76,7 +77,7 @@ const Tournament = () => {
             tournament.status === 'ROUND_OPEN' && <NavLink to={`/tournaments/${tournament.id}/${tournament.currentRound}`}>Round</NavLink>
         }
         {
-            tournament.rounds && tournament.rounds.map(round => <Round key={round.id} roundData={round} players={players}/>
+            tournament.rounds && tournament.rounds.map(round => <Round key={round.id} roundData={round} players={players} reload={reload} toggleReload={toggleReload}/>
             )
         }
       </>

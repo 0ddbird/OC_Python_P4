@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Game from './Game.jsx'
 import './_rounds.scss'
 
-const Round = ({ roundData, players }) => {
+const Round = ({ roundData, players, reload, toggleReload }) => {
   return (
       <div>
         <h3>Round {roundData.round_number}</h3>
@@ -17,6 +17,8 @@ const Round = ({ roundData, players }) => {
                       key={`game-${game.id}`}
                       gameData={game}
                       players={players}
+                      reload={reload}
+                      toggleReload={toggleReload}
                   />
               ))
           }
@@ -27,7 +29,9 @@ const Round = ({ roundData, players }) => {
 
 Round.propTypes = {
   roundData: PropTypes.object,
-  players: PropTypes.array
+  players: PropTypes.array,
+  toggleReload: PropTypes.func,
+  reload: PropTypes.bool
 }
 
 export default Round

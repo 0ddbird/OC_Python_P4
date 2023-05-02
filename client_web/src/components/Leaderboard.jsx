@@ -6,21 +6,22 @@ const Leaderboard = ({ players, leaderboardData }) => {
     ? leaderboardData.sort((a, b) => b[0] - a[0])
     : []
 
-  const renderLeaderboardRow = (row) => {
+  const PlayerRow = (row) => {
     const player = players.find((player) => player.id === row[1])
 
     return (
-        <div key={row[1]}>
-          <div>Player name: {player.first_name}</div>
-          <div>Score: {row[0].toFixed(1)}</div>
+        <div className="player_row" key={row[1]}>
+          <div>{row[0].toFixed(1)}</div>
+          <div>{player.first_name} {player.last_name}</div>
         </div>
     )
   }
 
   return (
-      <>
-        {sortedLeaderboardData.map((row) => renderLeaderboardRow(row))}
-      </>
+      <div id="leaderboard">
+        <h2>Leaderboard</h2>
+        {sortedLeaderboardData.map((row) => PlayerRow(row))}
+      </div>
   )
 }
 
