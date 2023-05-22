@@ -16,7 +16,7 @@ class TournamentSerializer:
         self.player_serializer: Optional[PlayerSerializer] = player_serializer
 
     def serialize(
-        self, tournament: TournamentModel, to_db=False
+            self, tournament: TournamentModel, to_db=False
     ) -> SerializedTournament:
         serialized_tournament = {
             "name": tournament.name,
@@ -41,7 +41,7 @@ class TournamentSerializer:
         if tournament.id:
             serialized_tournament["id"] = tournament.id
 
-        if tournament.rounds and not to_db:
+        if tournament.rounds and not to_db and len(tournament.rounds) > 0:
             serialized_tournament["rounds"] = [
                 self.round_serializer.serialize(round)
                 for round in tournament.rounds

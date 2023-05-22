@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_cors import CORS
 from backend.players.routes import players_blueprint
 from backend.games.routes import games_blueprint
@@ -17,6 +17,13 @@ def register_blueprints(app: Flask) -> None:
 
 app = Flask(__name__)
 register_blueprints(app)
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+
 CORS(app)
 
 if __name__ == "__main__":

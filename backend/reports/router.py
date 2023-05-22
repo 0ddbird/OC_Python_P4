@@ -1,6 +1,5 @@
-from flask import make_response
+from flask import render_template, abort
 from backend.abstract.classes.router import Router
-from backend.abstract.response_codes import ResCode
 from backend.reports.controller import ReportController
 
 
@@ -8,64 +7,19 @@ class ReportRouter(Router):
     def __init__(self) -> None:
         self.controller = ReportController()
 
-    def get_reports(self):
-        self.controller.get_reports()
-        return make_response({"message": "Hello"}, ResCode.OK.value)
-
     def get_players(self):
-        try:
-            self.controller.get_players()
-            return make_response({"message": "Hello"}, ResCode.OK.value)
-        except Exception:
-            return make_response(
-                {"message": "bad payload"}, ResCode.BAD_REQUEST
-            )
+        players = self.controller.get_players()
+        return render_template("players.html", players=players)
 
     def get_tournaments(self):
-        try:
-            self.controller.get_tournaments()
-            return make_response({"message": "Hello"}, ResCode.OK.value)
-        except Exception:
-            return make_response(
-                {"message": "bad payload"}, ResCode.BAD_REQUEST
-            )
+        tournaments = self.controller.get_tournaments()
+        return render_template("tournaments.html", tournaments=tournaments)
 
-    def get_tournament(self, tournament_id, base, players, rounds):
+    def get_tournament(self, tournament_id, players=False, rounds=False):
         try:
-            self.controller.get_tournament(
-                tournament_id, base, players, rounds
+            tournament = self.controller.get_tournament(
+                tournament_id=tournament_id, players=players, rounds=rounds
             )
-            return make_response({"message": "Hello"}, ResCode.OK.value)
+            return render_template("tournament.html", tournament=tournament)
         except Exception:
-            return make_response(
-                {"message": "bad payload"}, ResCode.BAD_REQUEST
-            )
-
-    def post_players(self):
-        try:
-            self.controller.post_players()
-            return make_response({"message": "Hello"}, ResCode.OK.value)
-        except Exception:
-            return make_response(
-                {"message": "bad payload"}, ResCode.BAD_REQUEST
-            )
-
-    def post_tournaments(self):
-        try:
-            self.controller.post_tournaments()
-            return make_response({"message": "Hello"}, ResCode.OK.value)
-        except Exception:
-            return make_response(
-                {"message": "bad payload"}, ResCode.BAD_REQUEST
-            )
-
-    def post_tournament(self, tournament_id, base, players, rounds):
-        try:
-            self.controller.post_tournament(
-                tournament_id, base, players, rounds
-            )
-            return make_response({"message": "Hello"}, ResCode.OK.value)
-        except Exception:
-            return make_response(
-                {"message": "bad payload"}, ResCode.BAD_REQUEST
-            )
+            abort(404)

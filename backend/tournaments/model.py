@@ -82,7 +82,7 @@ class TournamentModel:
         self.status = TournamentStatus.ENDED
 
     def get_leaderboard_and_history(
-            self,
+        self,
     ) -> tuple[list[tuple[Key, Score]], dict[PrimaryKey, list[ForeignKey]]]:
         player_scores = {player_id: 0.0 for player_id in self.players_ids}
         history = {}

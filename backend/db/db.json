@@ -78,143 +78,6 @@
         3,
         4
       ],
-      "rounds": [
-        {
-          "games_ids": [
-            1,
-            2
-          ],
-          "tournament_id": 1,
-          "round_number": 1,
-          "start_datetime": "2023-05-01_23:24",
-          "status": "CLOSED",
-          "end_datetime": "2023-05-01_23:25",
-          "id": 1,
-          "games": [
-            {
-              "p1_id": 1,
-              "p2_id": 3,
-              "p1_score": 1.0,
-              "p2_score": 0.0,
-              "round_id": 1,
-              "tournament_id": 1,
-              "status": "OVER",
-              "id": 1
-            },
-            {
-              "p1_id": 2,
-              "p2_id": 4,
-              "p1_score": 0.0,
-              "p2_score": 1.0,
-              "round_id": 1,
-              "tournament_id": 1,
-              "status": "OVER",
-              "id": 2
-            }
-          ]
-        },
-        {
-          "games_ids": [
-            3,
-            4
-          ],
-          "tournament_id": 1,
-          "round_number": 2,
-          "start_datetime": "2023-05-01_23:24",
-          "status": "CLOSED",
-          "end_datetime": "2023-05-01_23:25",
-          "id": 2,
-          "games": [
-            {
-              "p1_id": 1,
-              "p2_id": 4,
-              "p1_score": 0.0,
-              "p2_score": 1.0,
-              "round_id": 2,
-              "tournament_id": 1,
-              "status": "OVER",
-              "id": 3
-            },
-            {
-              "p1_id": 2,
-              "p2_id": 3,
-              "p1_score": 1.0,
-              "p2_score": 0.0,
-              "round_id": 2,
-              "tournament_id": 1,
-              "status": "OVER",
-              "id": 4
-            }
-          ]
-        },
-        {
-          "games_ids": [
-            5,
-            6
-          ],
-          "tournament_id": 1,
-          "round_number": 3,
-          "start_datetime": "2023-05-01_23:24",
-          "status": "CLOSED",
-          "end_datetime": "2023-05-01_23:25",
-          "id": 3,
-          "games": [
-            {
-              "p1_id": 4,
-              "p2_id": 1,
-              "p1_score": 0.5,
-              "p2_score": 0.5,
-              "round_id": 3,
-              "tournament_id": 1,
-              "status": "OVER",
-              "id": 5
-            },
-            {
-              "p1_id": 2,
-              "p2_id": 3,
-              "p1_score": 0.5,
-              "p2_score": 0.5,
-              "round_id": 3,
-              "tournament_id": 1,
-              "status": "OVER",
-              "id": 6
-            }
-          ]
-        },
-        {
-          "games_ids": [
-            7,
-            8
-          ],
-          "tournament_id": 1,
-          "round_number": 4,
-          "start_datetime": "2023-05-01_23:24",
-          "status": "OPEN",
-          "id": 4,
-          "games": [
-            {
-              "p1_id": 4,
-              "p2_id": 1,
-              "p1_score": 1.0,
-              "p2_score": 0.0,
-              "round_id": 4,
-              "tournament_id": 1,
-              "status": "OVER",
-              "id": 7
-            },
-            {
-              "p1_id": 2,
-              "p2_id": 3,
-              "p1_score": 1.0,
-              "p2_score": 0.0,
-              "round_id": 4,
-              "tournament_id": 1,
-              "status": "OVER",
-              "id": 8
-            }
-          ]
-        }
-      ],
       "leaderboard": [
         [
           1.5,
@@ -257,175 +120,6 @@
         6,
         7,
         8
-      ],
-      "rounds": [
-        {
-          "games_ids": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "tournament_id": 2,
-          "round_number": 1,
-          "start_datetime": "2023-05-02_01:10",
-          "status": "CLOSED",
-          "end_datetime": "2023-05-02_01:41",
-          "id": 5,
-          "games": [
-            {
-              "p1_id": 4,
-              "p2_id": 3,
-              "p1_score": 1.0,
-              "p2_score": 0.0,
-              "round_id": 5,
-              "tournament_id": 2,
-              "status": "OVER",
-              "id": 9
-            },
-            {
-              "p1_id": 6,
-              "p2_id": 8,
-              "p1_score": 1.0,
-              "p2_score": 0.0,
-              "round_id": 5,
-              "tournament_id": 2,
-              "status": "OVER",
-              "id": 10
-            },
-            {
-              "p1_id": 1,
-              "p2_id": 5,
-              "p1_score": 0.5,
-              "p2_score": 0.5,
-              "round_id": 5,
-              "tournament_id": 2,
-              "status": "OVER",
-              "id": 11
-            },
-            {
-              "p1_id": 2,
-              "p2_id": 7,
-              "p1_score": 1.0,
-              "p2_score": 0.0,
-              "round_id": 5,
-              "tournament_id": 2,
-              "status": "OVER",
-              "id": 12
-            }
-          ]
-        },
-        {
-          "games_ids": [
-            13,
-            14,
-            15,
-            16
-          ],
-          "tournament_id": 2,
-          "round_number": 2,
-          "start_datetime": "2023-05-02_01:10",
-          "status": "CLOSED",
-          "end_datetime": "2023-05-02_01:46",
-          "id": 6,
-          "games": [
-            {
-              "p1_id": 2,
-              "p2_id": 4,
-              "p1_score": 1.0,
-              "p2_score": 0.0,
-              "round_id": 6,
-              "tournament_id": 2,
-              "status": "OVER",
-              "id": 13
-            },
-            {
-              "p1_id": 6,
-              "p2_id": 1,
-              "p1_score": 0.5,
-              "p2_score": 0.5,
-              "round_id": 6,
-              "tournament_id": 2,
-              "status": "OVER",
-              "id": 14
-            },
-            {
-              "p1_id": 5,
-              "p2_id": 3,
-              "p1_score": 1.0,
-              "p2_score": 0.0,
-              "round_id": 6,
-              "tournament_id": 2,
-              "status": "OVER",
-              "id": 15
-            },
-            {
-              "p1_id": 7,
-              "p2_id": 8,
-              "p1_score": 1.0,
-              "p2_score": 0.0,
-              "round_id": 6,
-              "tournament_id": 2,
-              "status": "OVER",
-              "id": 16
-            }
-          ]
-        },
-        {
-          "games_ids": [
-            17,
-            18,
-            19,
-            20
-          ],
-          "tournament_id": 2,
-          "round_number": 3,
-          "start_datetime": "2023-05-02_01:10",
-          "status": "OPEN",
-          "id": 7,
-          "games": [
-            {
-              "p1_id": 2,
-              "p2_id": 5,
-              "p1_score": 1.0,
-              "p2_score": 0.0,
-              "round_id": 7,
-              "tournament_id": 2,
-              "status": "OVER",
-              "id": 17
-            },
-            {
-              "p1_id": 6,
-              "p2_id": 4,
-              "p1_score": 0.0,
-              "p2_score": 1.0,
-              "round_id": 7,
-              "tournament_id": 2,
-              "status": "OVER",
-              "id": 18
-            },
-            {
-              "p1_id": 1,
-              "p2_id": 7,
-              "p1_score": 1.0,
-              "p2_score": 0.0,
-              "round_id": 7,
-              "tournament_id": 2,
-              "status": "OVER",
-              "id": 19
-            },
-            {
-              "p1_id": 3,
-              "p2_id": 8,
-              "p1_score": 0.5,
-              "p2_score": 0.5,
-              "round_id": 7,
-              "tournament_id": 2,
-              "status": "OVER",
-              "id": 20
-            }
-          ]
-        }
       ],
       "leaderboard": [
         [
@@ -480,75 +174,6 @@
         5,
         6,
         1
-      ],
-      "rounds": [
-        {
-          "games_ids": [
-            21,
-            22
-          ],
-          "tournament_id": 3,
-          "round_number": 1,
-          "start_datetime": "2023-05-02_01:10",
-          "status": "CLOSED",
-          "end_datetime": "2023-05-02_02:01",
-          "id": 8,
-          "games": [
-            {
-              "p1_id": 6,
-              "p2_id": 2,
-              "p1_score": 0.0,
-              "p2_score": 1.0,
-              "round_id": 8,
-              "tournament_id": 3,
-              "status": "OVER",
-              "id": 21
-            },
-            {
-              "p1_id": 5,
-              "p2_id": 1,
-              "p1_score": 1.0,
-              "p2_score": 0.0,
-              "round_id": 8,
-              "tournament_id": 3,
-              "status": "OVER",
-              "id": 22
-            }
-          ]
-        },
-        {
-          "games_ids": [
-            23,
-            24
-          ],
-          "tournament_id": 3,
-          "round_number": 2,
-          "start_datetime": "2023-05-02_01:10",
-          "status": "OPEN",
-          "id": 9,
-          "games": [
-            {
-              "p1_id": 2,
-              "p2_id": 5,
-              "p1_score": 1.0,
-              "p2_score": 0.0,
-              "round_id": 9,
-              "tournament_id": 3,
-              "status": "OVER",
-              "id": 23
-            },
-            {
-              "p1_id": 6,
-              "p2_id": 1,
-              "p1_score": 0.5,
-              "p2_score": 0.5,
-              "round_id": 9,
-              "tournament_id": 3,
-              "status": "OVER",
-              "id": 24
-            }
-          ]
-        }
       ],
       "leaderboard": [
         [
@@ -799,29 +424,7 @@
       "round_number": 1,
       "start_datetime": "2023-05-01_23:24",
       "status": "CLOSED",
-      "end_datetime": "2023-05-01_23:25",
-      "games": [
-        {
-          "p1_id": 1,
-          "p2_id": 3,
-          "p1_score": 1.0,
-          "p2_score": 0.0,
-          "round_id": 1,
-          "tournament_id": 1,
-          "status": "OVER",
-          "id": 1
-        },
-        {
-          "p1_id": 2,
-          "p2_id": 4,
-          "p1_score": 0.0,
-          "p2_score": 1.0,
-          "round_id": 1,
-          "tournament_id": 1,
-          "status": "OVER",
-          "id": 2
-        }
-      ]
+      "end_datetime": "2023-05-01_23:25"
     },
     "2": {
       "games_ids": [
@@ -832,29 +435,7 @@
       "round_number": 2,
       "start_datetime": "2023-05-01_23:24",
       "status": "CLOSED",
-      "end_datetime": "2023-05-01_23:25",
-      "games": [
-        {
-          "p1_id": 1,
-          "p2_id": 4,
-          "p1_score": 0.0,
-          "p2_score": 1.0,
-          "round_id": 2,
-          "tournament_id": 1,
-          "status": "OVER",
-          "id": 3
-        },
-        {
-          "p1_id": 2,
-          "p2_id": 3,
-          "p1_score": 1.0,
-          "p2_score": 0.0,
-          "round_id": 2,
-          "tournament_id": 1,
-          "status": "OVER",
-          "id": 4
-        }
-      ]
+      "end_datetime": "2023-05-01_23:25"
     },
     "3": {
       "games_ids": [
@@ -865,29 +446,7 @@
       "round_number": 3,
       "start_datetime": "2023-05-01_23:24",
       "status": "CLOSED",
-      "end_datetime": "2023-05-01_23:25",
-      "games": [
-        {
-          "p1_id": 4,
-          "p2_id": 1,
-          "p1_score": 0.5,
-          "p2_score": 0.5,
-          "round_id": 3,
-          "tournament_id": 1,
-          "status": "OVER",
-          "id": 5
-        },
-        {
-          "p1_id": 2,
-          "p2_id": 3,
-          "p1_score": 0.5,
-          "p2_score": 0.5,
-          "round_id": 3,
-          "tournament_id": 1,
-          "status": "OVER",
-          "id": 6
-        }
-      ]
+      "end_datetime": "2023-05-01_23:25"
     },
     "4": {
       "games_ids": [
@@ -898,29 +457,7 @@
       "round_number": 4,
       "start_datetime": "2023-05-01_23:24",
       "status": "CLOSED",
-      "end_datetime": "2023-05-01_23:26",
-      "games": [
-        {
-          "p1_id": 4,
-          "p2_id": 1,
-          "p1_score": 1.0,
-          "p2_score": 0.0,
-          "round_id": 4,
-          "tournament_id": 1,
-          "status": "OVER",
-          "id": 7
-        },
-        {
-          "p1_id": 2,
-          "p2_id": 3,
-          "p1_score": 1.0,
-          "p2_score": 0.0,
-          "round_id": 4,
-          "tournament_id": 1,
-          "status": "OVER",
-          "id": 8
-        }
-      ]
+      "end_datetime": "2023-05-01_23:26"
     },
     "5": {
       "games_ids": [
@@ -933,49 +470,7 @@
       "round_number": 1,
       "start_datetime": "2023-05-02_01:10",
       "status": "CLOSED",
-      "end_datetime": "2023-05-02_01:41",
-      "games": [
-        {
-          "p1_id": 4,
-          "p2_id": 3,
-          "p1_score": 1.0,
-          "p2_score": 0.0,
-          "round_id": 5,
-          "tournament_id": 2,
-          "status": "OVER",
-          "id": 9
-        },
-        {
-          "p1_id": 6,
-          "p2_id": 8,
-          "p1_score": 1.0,
-          "p2_score": 0.0,
-          "round_id": 5,
-          "tournament_id": 2,
-          "status": "OVER",
-          "id": 10
-        },
-        {
-          "p1_id": 1,
-          "p2_id": 5,
-          "p1_score": 0.5,
-          "p2_score": 0.5,
-          "round_id": 5,
-          "tournament_id": 2,
-          "status": "OVER",
-          "id": 11
-        },
-        {
-          "p1_id": 2,
-          "p2_id": 7,
-          "p1_score": 1.0,
-          "p2_score": 0.0,
-          "round_id": 5,
-          "tournament_id": 2,
-          "status": "OVER",
-          "id": 12
-        }
-      ]
+      "end_datetime": "2023-05-02_01:41"
     },
     "6": {
       "games_ids": [
@@ -988,49 +483,7 @@
       "round_number": 2,
       "start_datetime": "2023-05-02_01:10",
       "status": "CLOSED",
-      "end_datetime": "2023-05-02_01:46",
-      "games": [
-        {
-          "p1_id": 2,
-          "p2_id": 4,
-          "p1_score": 1.0,
-          "p2_score": 0.0,
-          "round_id": 6,
-          "tournament_id": 2,
-          "status": "OVER",
-          "id": 13
-        },
-        {
-          "p1_id": 6,
-          "p2_id": 1,
-          "p1_score": 0.5,
-          "p2_score": 0.5,
-          "round_id": 6,
-          "tournament_id": 2,
-          "status": "OVER",
-          "id": 14
-        },
-        {
-          "p1_id": 5,
-          "p2_id": 3,
-          "p1_score": 1.0,
-          "p2_score": 0.0,
-          "round_id": 6,
-          "tournament_id": 2,
-          "status": "OVER",
-          "id": 15
-        },
-        {
-          "p1_id": 7,
-          "p2_id": 8,
-          "p1_score": 1.0,
-          "p2_score": 0.0,
-          "round_id": 6,
-          "tournament_id": 2,
-          "status": "OVER",
-          "id": 16
-        }
-      ]
+      "end_datetime": "2023-05-02_01:46"
     },
     "7": {
       "games_ids": [
@@ -1043,49 +496,7 @@
       "round_number": 3,
       "start_datetime": "2023-05-02_01:10",
       "status": "CLOSED",
-      "end_datetime": "2023-05-02_01:52",
-      "games": [
-        {
-          "p1_id": 2,
-          "p2_id": 5,
-          "p1_score": 1.0,
-          "p2_score": 0.0,
-          "round_id": 7,
-          "tournament_id": 2,
-          "status": "OVER",
-          "id": 17
-        },
-        {
-          "p1_id": 6,
-          "p2_id": 4,
-          "p1_score": 0.0,
-          "p2_score": 1.0,
-          "round_id": 7,
-          "tournament_id": 2,
-          "status": "OVER",
-          "id": 18
-        },
-        {
-          "p1_id": 1,
-          "p2_id": 7,
-          "p1_score": 1.0,
-          "p2_score": 0.0,
-          "round_id": 7,
-          "tournament_id": 2,
-          "status": "OVER",
-          "id": 19
-        },
-        {
-          "p1_id": 3,
-          "p2_id": 8,
-          "p1_score": 0.5,
-          "p2_score": 0.5,
-          "round_id": 7,
-          "tournament_id": 2,
-          "status": "OVER",
-          "id": 20
-        }
-      ]
+      "end_datetime": "2023-05-02_01:52"
     },
     "8": {
       "games_ids": [
@@ -1096,29 +507,7 @@
       "round_number": 1,
       "start_datetime": "2023-05-02_01:10",
       "status": "CLOSED",
-      "end_datetime": "2023-05-02_02:01",
-      "games": [
-        {
-          "p1_id": 6,
-          "p2_id": 2,
-          "p1_score": 0.0,
-          "p2_score": 1.0,
-          "round_id": 8,
-          "tournament_id": 3,
-          "status": "OVER",
-          "id": 21
-        },
-        {
-          "p1_id": 5,
-          "p2_id": 1,
-          "p1_score": 1.0,
-          "p2_score": 0.0,
-          "round_id": 8,
-          "tournament_id": 3,
-          "status": "OVER",
-          "id": 22
-        }
-      ]
+      "end_datetime": "2023-05-02_02:01"
     },
     "9": {
       "games_ids": [
@@ -1129,29 +518,7 @@
       "round_number": 2,
       "start_datetime": "2023-05-02_01:10",
       "status": "CLOSED",
-      "end_datetime": "2023-05-02_02:02",
-      "games": [
-        {
-          "p1_id": 2,
-          "p2_id": 5,
-          "p1_score": 1.0,
-          "p2_score": 0.0,
-          "round_id": 9,
-          "tournament_id": 3,
-          "status": "OVER",
-          "id": 23
-        },
-        {
-          "p1_id": 6,
-          "p2_id": 1,
-          "p1_score": 0.5,
-          "p2_score": 0.5,
-          "round_id": 9,
-          "tournament_id": 3,
-          "status": "OVER",
-          "id": 24
-        }
-      ]
+      "end_datetime": "2023-05-02_02:02"
     }
   }
 }

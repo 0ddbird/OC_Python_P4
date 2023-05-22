@@ -7,6 +7,11 @@ class ReportController:
         self.player_service = PlayerService()
         self.tournament_service = TournamentService()
 
+    def get_tournament(self, tournament_id, players=False, rounds=False):
+        return self.tournament_service.get_tournament(
+            tournament_id=tournament_id, players=players, rounds=rounds
+        )
+
     def get_reports(self):
         raise NotImplementedError
 
@@ -21,9 +26,6 @@ class ReportController:
 
     def post_tournaments(self):
         return self.tournament_service.get_all_tournaments(rounds=False)
-
-    def get_tournament(self, tournament_id, base, players, rounds):
-        return self.tournament_service.get_all_tournaments(rounds=rounds)
 
     def post_tournament(self, tournament_id, base, players, rounds):
         return self.tournament_service.get_all_tournaments(rounds=rounds)

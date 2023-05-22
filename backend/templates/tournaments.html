@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tournaments Report</title>
+</head>
+<body>
+<h1>Tournaments Report</h1>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Description</th>
+        <th>Status</th>
+    </tr>
+    {% for tournament in tournaments %}
+    <tr>
+        <td>{{ tournament.name }}</td>
+        <td>{{ tournament.location }}</td>
+        <td>{{ tournament.description }}</td>
+        <td>{{ tournament.status }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
