@@ -35,12 +35,12 @@ class TournamentService:
         )
 
     def create_tournament(
-            self,
-            name: str,
-            location: str,
-            description: str,
-            players_ids: tuple[ForeignKey],
-            max_rounds: int,
+        self,
+        name: str,
+        location: str,
+        description: str,
+        players_ids: tuple[ForeignKey],
+        max_rounds: int,
     ) -> PrimaryKey:
         for player_id in players_ids:
             self.player_dao.get(player_id)
@@ -54,7 +54,7 @@ class TournamentService:
         return self.tournament_dao.create(tournament)
 
     def get_tournament(
-            self, tournament_id, players=False, rounds=False
+        self, tournament_id, players=False, rounds=False
     ) -> SerializedTournament:
         tournament = self.tournament_dao.get(tournament_id)
         if rounds is True:
@@ -69,9 +69,7 @@ class TournamentService:
             for tournament in tournaments:
                 self.set_tournament_round(tournament)
 
-        return [
-            self.serializer.serialize(tournament) for tournament in tournaments
-        ]
+        return [self.serializer.serialize(tournament) for tournament in tournaments]
 
     def set_tournament_round(self, tournament: TournamentModel) -> None:
         rounds = self.round_service.get_tournament_rounds(
@@ -81,9 +79,7 @@ class TournamentService:
             tournament.set_rounds(rounds)
 
     def set_tournament_players(self, tournament: TournamentModel) -> None:
-        tournament.players = self.player_dao.get_multiple(
-            tournament.players_ids
-        )
+        tournament.players = self.player_dao.get_multiple(tournament.players_ids)
 
     def get_round_id(self, tournament_id, round_number):
         tournament = self.tournament_dao.get(tournament_id)
@@ -97,9 +93,7 @@ class TournamentService:
         tournament = self.serializer.deserialize(serialized_tournament)
 
         player_pairs = tournament.pair_players()
-        games_ids = self.game_service.create_multiple_games(
-            player_pairs, tournament_id
-        )
+        games_ids = self.game_service.create_multiple_games(player_pairs, tournament_id)
         round_id = self.round_service.create_round(
             games_ids, tournament.id, tournament.current_round + 1
         )
@@ -125,12 +119,8 @@ class TournamentService:
         game.set_results(p1_score)
         self.game_service.update_game(game)
 
-        serialized_round = self.round_service.get_round(
-            game.round_id, games=True
-        )
-        serialized_tournament = self.get_tournament(
-            game.tournament_id, rounds=True
-        )
+        serialized_round = self.round_service.get_round(game.round_id, games=True)
+        serialized_tournament = self.get_tournament(game.tournament_id, rounds=True)
         round = self.round_serializer.deserialize(serialized_round)
         tournament = self.serializer.deserialize(serialized_tournament)
 

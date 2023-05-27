@@ -8,8 +8,6 @@ from backend.tournaments.serializer import TournamentSerializer
 class TournamentDAO(DAO):
     def __init__(self):
         super().__init__(
-            TournamentSerializer(
-                RoundSerializer(GameSerializer()), PlayerSerializer()
-            ),
+            TournamentSerializer(RoundSerializer(GameSerializer()), PlayerSerializer()),
             "tournaments",
         )
