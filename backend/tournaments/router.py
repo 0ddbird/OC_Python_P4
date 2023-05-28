@@ -46,7 +46,9 @@ class TournamentRouter(Router):
 
     def get_tournament(self, tournament_id, rounds=False, players=False) -> Response:
         try:
-            tournament = self.controller.get_tournament(tournament_id, rounds, players)
+            tournament = self.controller.get_tournament(
+                tournament_id, rounds=rounds, players=players
+            )
             return make_response(
                 {
                     "message": "Tournament found",

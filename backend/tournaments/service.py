@@ -57,9 +57,9 @@ class TournamentService:
         self, tournament_id, players=False, rounds=False
     ) -> SerializedTournament:
         tournament = self.tournament_dao.get(tournament_id)
-        if rounds is True:
+        if rounds:
             self.set_tournament_round(tournament)
-        if players is True:
+        if players:
             self.set_tournament_players(tournament)
         return self.serializer.serialize(tournament)
 

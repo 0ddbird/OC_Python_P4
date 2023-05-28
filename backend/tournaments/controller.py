@@ -30,7 +30,7 @@ class TournamentController:
     def get_tournament(
         self, id: PrimaryKey, rounds=False, players=False
     ) -> SerializedTournament:
-        return self.service.get_tournament(id, rounds, players)
+        return self.service.get_tournament(id, rounds=rounds, players=players)
 
     def get_all_tournaments(self, rounds=False) -> list[SerializedTournament]:
         return self.service.get_all_tournaments(rounds)
