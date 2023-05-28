@@ -1,12 +1,12 @@
 from requests import HTTPError
 
-from cli_client.utils.input_validation import (
+from utils.input_validation import (
     validate_birthdate,
     validate_chess_id,
     validate_elo,
 )
-from cli_client.service.service import API_URL, fetch_data, post_data
-from cli_client.utils.utils import display_data_as_table
+from service.service import API_URL, fetch_data, post_data
+from utils.utils import display_data_as_table
 
 PLAYER_ACCESSORS = [
     "id",

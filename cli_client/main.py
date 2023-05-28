@@ -1,5 +1,5 @@
-from cli_client.menu.menu import display_menu, handle_user_selection
-from cli_client.menu.menu_options import main_menu
+from menu.menu import display_menu, handle_user_selection
+from menu.menu_options import main_menu
 
 
 def main():

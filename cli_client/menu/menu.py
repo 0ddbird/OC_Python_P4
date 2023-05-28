@@ -1,16 +1,15 @@
-from cli_client.handlers.players import create_player, display_players, \
-    get_players
-from cli_client.handlers.reports import (
+from .menu_options import MenuOptions
+from handlers.players import create_player, display_players
+from handlers.reports import (
     get_players_report,
     get_tournament_report,
-    get_tournaments_report
+    get_tournaments_report,
 )
-from cli_client.handlers.tournaments import (
+from handlers.tournaments import (
     create_tournament,
     get_tournament,
     get_tournaments,
 )
-from cli_client.menu.menu_options import main_menu, MenuOptions, submenu_map
 
 
 def display_menu(menu):

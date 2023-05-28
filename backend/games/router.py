@@ -36,6 +36,7 @@ class GameRouter(Router):
     def update_game(self, game_id: PrimaryKey, request: Request) -> Response:
         try:
             p1_score = request.json.get("p1_score")
+            print(game_id, p1_score)
             self.controller.update(game_id, p1_score)
             return make_response({"message": "Game updated"}, ResCode.NO_CONTENT.value)
         except Exception as e:

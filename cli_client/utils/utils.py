@@ -22,3 +22,15 @@ def display_data_as_table(data, column_names):
             print(f"Missing data in item: {item}")
 
     console.print(table)
+
+
+def user_ok(message):
+    while True:
+        user_choice = input(f"{message}\n y/n\n")
+        match user_choice:
+            case "y":
+                return True
+            case "n":
+                return False
+            case _:
+                print("Please enter 'y' or 'n'.")

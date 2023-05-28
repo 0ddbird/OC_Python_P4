@@ -13,10 +13,20 @@ To run the server:
 `cd ./backend ; flask --app main.py run --reload`
 
 To run the web client:
-`cd ./client_web ; yarn start`
+`cd ./web_client ; yarn start`
 
+To run the CLI client:
+
+`cd ./cli_client ; python -m main`
 
 ### Project status
 
-- [x] CRUD for players
-- [ ] CRUD for tournaments - in progress, create only
+v1 is functionnal
+
+### Improvements
+
+- CLI client : UX improvements to update a tournament
+- CLI client : autorun Flask server from client  
+- Web client : UI improvements to the Tournament page  
+- Jinja templates : CSS layout 
+
