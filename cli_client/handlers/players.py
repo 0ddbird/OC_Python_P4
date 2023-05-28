@@ -5,8 +5,9 @@ from utils.input_validation import (
     validate_chess_id,
     validate_elo,
 )
-from service.service import API_URL, fetch_data, post_data
+from service.service import API_URL, post_data, get_data
 from utils.utils import display_data_as_table
+
 
 PLAYER_ACCESSORS = [
     "id",
@@ -26,7 +27,7 @@ def display_players():
 
 def get_players():
     try:
-        return fetch_data(f"{API_URL}/players")
+        return get_data(f"{API_URL}/players")
     except HTTPError:
         print("Could not find players")
         return None
@@ -37,7 +38,8 @@ def create_player():
         chess_id = input("Chess ID: \n")
         if not validate_chess_id(chess_id):
             print(
-                "Invalid Chess ID. Must be 2 uppercase letters followed by 5 digits."
+                "Invalid Chess ID. Must be 2 uppercase "
+                "letters followed by 5 digits."
             )
             continue
 
@@ -47,7 +49,8 @@ def create_player():
         birthdate = input("Birthdate (YYYY-MM-DD): \n")
         if not validate_birthdate(birthdate):
             print(
-                "Invalid birthdate. Format must be YYYY-MM-DD and player must be at least 1 year old."
+                "Invalid birthdate. Format must be YYYY-MM-DD "
+                "and player must be at least 1 year old."
             )
             continue
 

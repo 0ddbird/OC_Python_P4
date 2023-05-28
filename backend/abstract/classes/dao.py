@@ -35,7 +35,9 @@ class DAO(ABC):
         with self.open_db() as table:
             record = table.get(doc_id=id)
             if not record:
-                raise Exception(f"{self.table_name.capitalize()} {id} not found")
+                raise Exception(
+                    f"{self.table_name.capitalize()} {id} not found"
+                )
             record["id"] = record.doc_id
             return self.serializer.deserialize(record)
 

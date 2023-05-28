@@ -22,4 +22,6 @@ class RoundController:
         tournament_id: ForeignKey,
         round_number: int,
     ) -> PrimaryKey:
-        return self.service.create_round(games_ids, tournament_id, round_number)
+        return self.service.create_round(
+            games_ids, tournament_id, round_number
+        )

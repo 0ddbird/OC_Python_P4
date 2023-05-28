@@ -3,7 +3,7 @@ import requests
 API_URL = "http://localhost:5000"
 
 
-def fetch_data(url):
+def get_data(url):
     response = requests.get(url)
     response.raise_for_status()
     data = response.json()["payload"]

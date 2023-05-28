@@ -22,7 +22,9 @@ class TournamentSerializer:
             "name": tournament.name,
             "location": tournament.location,
             "description": tournament.description,
-            "start_datetime": tournament.start_datetime.strftime("%Y-%m-%d_%H:%M"),
+            "start_datetime": tournament.start_datetime.strftime(
+                "%Y-%m-%d_%H:%M"
+            ),
             "max_rounds": tournament.max_rounds,
             "current_round": tournament.current_round,
             "status": tournament.status.name,
@@ -32,16 +34,17 @@ class TournamentSerializer:
         if tournament.leaderboard:
             serialized_tournament["leaderboard"] = tournament.leaderboard
         if tournament.end_datetime:
-            serialized_tournament["end_datetime"] = tournament.end_datetime.strftime(
-                "%Y-%m-%d_%H:%M"
-            )
+            serialized_tournament[
+                "end_datetime"
+            ] = tournament.end_datetime.strftime("%Y-%m-%d_%H:%M")
 
         if tournament.id:
             serialized_tournament["id"] = tournament.id
 
         if tournament.rounds and not to_db and len(tournament.rounds) > 0:
             serialized_tournament["rounds"] = [
-                self.round_serializer.serialize(round) for round in tournament.rounds
+                self.round_serializer.serialize(round)
+                for round in tournament.rounds
             ]
 
         if tournament.players and not to_db:

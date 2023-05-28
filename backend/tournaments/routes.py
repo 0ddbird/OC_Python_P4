@@ -35,7 +35,9 @@ def tournament(tournament_id: PrimaryKey) -> Response:
     rounds = request.args.get("rounds", "false").lower() == "true"
     match request.method:
         case "GET":
-            return router.get_tournament(tournament_id, rounds=rounds, players=players)
+            return router.get_tournament(
+                tournament_id, rounds=rounds, players=players
+            )
         case "POST":
             return router.create_round(tournament_id)
         case "DELETE":

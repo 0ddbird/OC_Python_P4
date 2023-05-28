@@ -17,7 +17,9 @@ class RoundService:
         self.dao: RoundDAO = RoundDAO()
         self.game_dao: GameDAO = GameDAO()
         self.game_serializer: GameSerializer = GameSerializer()
-        self.serializer: RoundSerializer = RoundSerializer(self.game_serializer)
+        self.serializer: RoundSerializer = RoundSerializer(
+            self.game_serializer
+        )
 
     def get_round(self, id: PrimaryKey, games=False) -> SerializedRound:
         round = self.dao.get(id)

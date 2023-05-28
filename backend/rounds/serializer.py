@@ -38,17 +38,24 @@ class RoundSerializer:
         games_ids = json_data.get("games_ids")
         tournament_id = json_data.get("tournament_id")
         start_datetime_str = json_data.get("start_datetime")
-        start_datetime = datetime.strptime(start_datetime_str, "%Y-%m-%d_%H:%M")
+        start_datetime = datetime.strptime(
+            start_datetime_str, "%Y-%m-%d_%H:%M"
+        )
         end_datetime_str = json_data.get("end_datetime")
         end_datetime = None
         if end_datetime_str:
-            end_datetime = datetime.strptime(end_datetime_str, "%Y-%m-%d_%H:%M")
+            end_datetime = datetime.strptime(
+                end_datetime_str, "%Y-%m-%d_%H:%M"
+            )
 
         status = RoundStatus[json_data.get("status")]
         round_number = json_data.get("round_number")
         serialized_games = json_data.get("games")
         games = (
-            [self.game_serializer.deserialize(game) for game in serialized_games]
+            [
+                self.game_serializer.deserialize(game)
+                for game in serialized_games
+            ]
             if serialized_games
             else []
         )

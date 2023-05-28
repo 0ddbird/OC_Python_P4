@@ -24,7 +24,9 @@ class GameController:
         game = self.game_dao.get(game_id)
         return self.serializer.serialize(game)
 
-    def get_multiple(self, games_ids: list[PrimaryKey]) -> list[SerializedGame]:
+    def get_multiple(
+        self, games_ids: list[PrimaryKey]
+    ) -> list[SerializedGame]:
         games = self.game_dao.get_multiple(tuple(games_ids))
         return [self.serializer.serialize(game) for game in games]
 

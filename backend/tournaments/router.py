@@ -25,7 +25,9 @@ class TournamentRouter(Router):
                 name, location, description, player_ids, max_rounds
             )
         except Exception:
-            return make_response({"message": "bad payload"}, ResCode.BAD_REQUEST)
+            return make_response(
+                {"message": "bad payload"}, ResCode.BAD_REQUEST
+            )
         try:
             tournament = self.controller.create_tournament(
                 name, location, description, player_ids, max_rounds
@@ -44,7 +46,9 @@ class TournamentRouter(Router):
                 ResCode.BAD_REQUEST.value,
             )
 
-    def get_tournament(self, tournament_id, rounds=False, players=False) -> Response:
+    def get_tournament(
+        self, tournament_id, rounds=False, players=False
+    ) -> Response:
         try:
             tournament = self.controller.get_tournament(
                 tournament_id, rounds=rounds, players=players

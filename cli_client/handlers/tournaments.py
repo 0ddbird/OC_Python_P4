@@ -1,10 +1,10 @@
-from requests import HTTPError, patch
+from requests import HTTPError
 from rich.console import Console
 from rich.table import Table
 from handlers.players import get_players
 from service.service import (
     API_URL,
-    fetch_data,
+    get_data,
     patch_data,
     post_data,
 )
@@ -23,7 +23,7 @@ TOURNAMENT_ACCESSORS = [
 
 def get_tournaments():
     try:
-        tournaments_data = fetch_data(f"{API_URL}/tournaments")
+        tournaments_data = get_data(f"{API_URL}/tournaments")
         display_data_as_table(tournaments_data, TOURNAMENT_ACCESSORS)
     except HTTPError:
         print("Could not find tournaments")
@@ -32,7 +32,7 @@ def get_tournaments():
 def get_tournament():
     id = input("Please type the ID of the tournament you want to see\n")
     try:
-        tournament = fetch_data(f"{API_URL}/tournaments/{id}")
+        tournament = get_data(f"{API_URL}/tournaments/{id}")
         tournament_view(tournament)
         status = tournament["status"]
         is_to_start = status == "TO_START"
@@ -52,7 +52,7 @@ def get_tournament():
 
 def resume_tournament(tournament_id):
     try:
-        tournament = fetch_data(
+        tournament = get_data(
             f"{API_URL}/tournaments/"
             f"{tournament_id}?players=true&rounds=true"
         )
@@ -66,7 +66,8 @@ def resume_tournament(tournament_id):
             game_status = game.get("status", None)
             if game_status == "OPEN":
                 print(
-                    f"Game {game['id']} between Player {game['p1_id']} and Player {game['p2_id']}"
+                    f"Game {game['id']} between Player {game['p1_id']}"
+                    f"and Player {game['p2_id']}"
                 )
                 update_game(game["id"])
     except HTTPError:
@@ -88,7 +89,7 @@ def update_game(game_id):
             p2_score = float(p2_score)
 
             print(game_id, p1_score, p2_score)
-            response = patch_data(
+            patch_data(
                 f"{API_URL}/games/{game_id}",
                 payload={"p1_score": p1_score, "p2_score": p2_score},
             )
@@ -101,7 +102,8 @@ def update_game(game_id):
                 break
         except ValueError:
             print(
-                "Invalid input. Please enter a valid number (1.0, 0.0, or 0.5)."
+                "Invalid input. Please enter a valid number"
+                "(1.0, 0.0, or 0.5)."
             )
             choice = input("Retry?\n y/n")
             if choice.lower() == "n":
@@ -144,7 +146,7 @@ def start_tournament(tournament_id):
     try:
         post_data(f"{API_URL}/tournaments/{tournament_id}")
         print("Tournament successfully started")
-        tournament = fetch_data(f"{API_URL}/tournaments/{tournament_id}")
+        tournament = get_data(f"{API_URL}/tournaments/{tournament_id}")
         tournament_view(tournament)
     except HTTPError:
         print("Could not start tournament")
@@ -159,7 +161,8 @@ def create_tournament():
             for i, player in enumerate(players, start=1):
                 print(f"{i}. {player['first_name']} {player['last_name']}")
             selected_player_ids = input(
-                "Type the numbers of the players you want to select, separated by comma:\n"
+                "Type the numbers of the players you want to "
+                "select, separated by comma:\n"
             )
             selected_player_ids = [
                 players[int(index) - 1]["id"]

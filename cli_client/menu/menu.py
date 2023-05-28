@@ -1,4 +1,4 @@
-from .menu_options import MenuOptions
+from menu.menu_options import MenuOptions, main_menu, submenu_map
 from handlers.players import create_player, display_players
 from handlers.reports import (
     get_players_report,
