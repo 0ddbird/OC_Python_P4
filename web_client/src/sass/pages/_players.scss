@@ -11,6 +11,13 @@
   border-radius: 5px;
 }
 
+.player_table_header,
+.player_row {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 5px;
+}
+
 .player_table_header_cell {
   font-weight: 700;
   color: a.$clr-main;

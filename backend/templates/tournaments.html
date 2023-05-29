@@ -2,22 +2,23 @@
 <html>
 <head>
     <title>Tournaments Report</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='tournaments.css') }}">
 </head>
 <body>
 <h1>Tournaments Report</h1>
 <table>
     <tr>
-        <th>Name</th>
-        <th>Location</th>
-        <th>Description</th>
-        <th>Status</th>
+        <th class="name">Name</th>
+        <th class="location">Location</th>
+        <th class="description">Description</th>
+        <th class="status">Status</th>
     </tr>
     {% for tournament in tournaments %}
     <tr>
-        <td>{{ tournament.name }}</td>
-        <td>{{ tournament.location }}</td>
-        <td>{{ tournament.description }}</td>
-        <td>{{ tournament.status }}</td>
+        <td class="name">{{ tournament.name }}</td>
+        <td class="location">{{ tournament.location }}</td>
+        <td class="description">{{ tournament.description }}</td>
+        <td class="status">{{ tournament.status }}</td>
     </tr>
     {% endfor %}
 </table>

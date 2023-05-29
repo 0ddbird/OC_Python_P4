@@ -5,6 +5,7 @@ from backend.games.routes import games_blueprint
 from backend.reports.routes import reports_blueprint
 from backend.rounds.routes import rounds_blueprint
 from backend.tournaments.routes import tournaments_blueprint
+from backend.utils.utils import datetime_format
 
 
 def register_blueprints(app: Flask) -> None:
@@ -17,6 +18,8 @@ def register_blueprints(app: Flask) -> None:
 
 app = Flask(__name__)
 register_blueprints(app)
+
+app.add_template_filter(datetime_format)
 
 
 @app.errorhandler(404)

@@ -9,7 +9,8 @@ class TournamentDAO(DAO):
     def __init__(self):
         super().__init__(
             TournamentSerializer(
-                RoundSerializer(GameSerializer()), PlayerSerializer()
+                RoundSerializer(GameSerializer()),
+                PlayerSerializer(),
             ),
             "tournaments",
         )
@@ -22,8 +23,9 @@ class TournamentDAO(DAO):
             pass
 
     def update(self, model):
-        serialized_model = self.serializer.serialize(model)
+        serialized_model = self.serializer.serialize(model, to_db=True)
         self.pop_id(serialized_model)
         self.pop_rounds(serialized_model)
+
         with self.open_db() as table:
             table.update(serialized_model, doc_ids=[model.id])

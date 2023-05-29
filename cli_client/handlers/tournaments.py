@@ -78,17 +78,16 @@ def update_game(game_id):
     while True:
         try:
             p1_score = input(
-                "Enter score for Player 1 (WIN = 1.0, LOSE = 0.0, TIE = 0.5):"
+                "Enter score for Player 1 (WIN = 1, LOSE = 0, TIE = 0.5):"
             )
             p2_score = input(
-                "Enter score for Player 2 (WIN = 1.0, LOSE = 0.0, TIE = 0.5):"
+                "Enter score for Player 2 (WIN = 1, LOSE = 0, TIE = 0.5):"
             )
 
             # Convert input strings to float
             p1_score = float(p1_score)
             p2_score = float(p2_score)
 
-            print(game_id, p1_score, p2_score)
             patch_data(
                 f"{API_URL}/games/{game_id}",
                 payload={"p1_score": p1_score, "p2_score": p2_score},

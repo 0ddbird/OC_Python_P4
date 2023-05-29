@@ -2,40 +2,56 @@
 <html>
 <head>
     <title>Tournament Report</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='tournament.css') }}">
 </head>
 <body>
-<h1>Tournament: {{ tournament.name }}</h1>
-<p>Start date: {{ tournament.start_datetime }}</p>
-<p>End date: {{ tournament.end_datetime if tournament.end_datetime is not none else 'N/A' }}</p>
+<h1 class="tournament-name">Tournament: {{ tournament.name }}</h1>
+<p>Start date: {{ tournament.start_datetime|datetime_format }}</p>
+{% if tournament.end_datetime %}
+<p>End date: {{ tournament.end_datetime|datetime_format }}</p>
+{% else %}
+<p>End date: N/A</p>
+{% endif %}
 
 {% if tournament.players|length > 0 %}
-<h2>Players:</h2>
-<ul>
+<h2 class="section-heading">Players:</h2>
+<table class="player-list">
+    <tr>
+        <th>Name</th>
+        <th>Chess ID</th>
+        <th>Elo</th>
+    </tr>
     {% for player in tournament.players|sort(attribute='last_name') %}
-    <li>
-        <p>Name: {{ player.first_name }} {{ player.last_name }}</p>
-        <p>Chess ID: {{ player.chess_id }}</p>
-        <p>Elo: {{ player.elo }}</p>
-    </li>
+    <tr class="player-item">
+        <td>{{ player.first_name }} {{ player.last_name }}</td>
+        <td>{{ player.chess_id }}</td>
+        <td>{{ player.elo }}</td>
+    </tr>
     {% endfor %}
-</ul>
+</table>
 {% endif %}
 
 {% if tournament.rounds|length > 0 %}
-<h2>Rounds:</h2>
-<ul>
+<h2 class="section-heading">Rounds:</h2>
+<ul class="round-list">
     {% for round in tournament.rounds %}
-    <li>
-        <p>Round number: {{ round.round_number }}</p>
+    <li class="round-item">
+        <p class="round-number">Round number: {{ round.round_number }}</p>
         <p>Status: {{ round.status }}</p>
-        <p>Start datetime: {{ round.start_datetime }}</p>
-        <p>End datetime: {{ round.end_datetime if round.end_datetime is not none else 'N/A' }}</p>
+        <p>Start date: {{ round.start_datetime|datetime_format }}</p>
+
+        {% if round.end_datetime %}
+        <p>End date: {{ round.end_datetime|datetime_format }}</p>
+        {% else %}
+        <p>End date: N/A</p>
+        {% endif %}
+
 
         {% if round.games %}
-        <h3>Games:</h3>
-        <ul>
+        <h3 class="sub-heading">Games:</h3>
+        <ul class="game-list">
             {% for game in round.games %}
-            <li>
+            <li class="game-item">
                 <p>Game ID: {{ game.id }}</p>
                 <p>
                     Player 1: {{ game.p1_id }}:

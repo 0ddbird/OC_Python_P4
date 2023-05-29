@@ -35,12 +35,12 @@ class TournamentService:
         )
 
     def create_tournament(
-        self,
-        name: str,
-        location: str,
-        description: str,
-        players_ids: tuple[ForeignKey],
-        max_rounds: int,
+            self,
+            name: str,
+            location: str,
+            description: str,
+            players_ids: tuple[ForeignKey],
+            max_rounds: int,
     ) -> PrimaryKey:
         for player_id in players_ids:
             self.player_dao.get(player_id)
@@ -54,7 +54,7 @@ class TournamentService:
         return self.tournament_dao.create(tournament)
 
     def get_tournament(
-        self, tournament_id, players=False, rounds=False
+            self, tournament_id, players=False, rounds=False
     ) -> SerializedTournament:
         tournament = self.tournament_dao.get(tournament_id)
         if rounds:
@@ -92,7 +92,7 @@ class TournamentService:
 
     def create_round(self, tournament_id: PrimaryKey) -> None:
         serialized_tournament = self.get_tournament(
-            tournament_id, rounds=False, players=False
+            tournament_id, players=True, rounds=True
         )
         tournament = self.serializer.deserialize(serialized_tournament)
 

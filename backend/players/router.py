@@ -14,6 +14,7 @@ class PlayerRouter(Router):
     def create_player(self, request: Request) -> Response:
         keys = ["chess_id", "first_name", "last_name", "birthdate", "elo"]
         player = {key: request.json.get(key) for key in keys}
+        # Implémenter une validation des champs
         try:
             player_id = self.controller.create_player(player)
             return make_response(
