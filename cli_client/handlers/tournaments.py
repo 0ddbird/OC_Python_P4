@@ -23,7 +23,7 @@ TOURNAMENT_ACCESSORS = [
 
 def get_tournaments():
     try:
-        tournaments_data = get_data(f"{API_URL}/tournaments")
+        tournaments_data = get_data(f"{API_URL}/api/tournaments")
         display_data_as_table(tournaments_data, TOURNAMENT_ACCESSORS)
     except HTTPError:
         print("Could not find tournaments")
@@ -32,7 +32,7 @@ def get_tournaments():
 def get_tournament():
     id = input("Please type the ID of the tournament you want to see\n")
     try:
-        tournament = get_data(f"{API_URL}/tournaments/{id}")
+        tournament = get_data(f"{API_URL}/api/tournaments/{id}")
         tournament_view(tournament)
         status = tournament["status"]
         is_to_start = status == "TO_START"
@@ -53,7 +53,7 @@ def get_tournament():
 def resume_tournament(tournament_id):
     try:
         tournament = get_data(
-            f"{API_URL}/tournaments/"
+            f"{API_URL}/api/tournaments/"
             f"{tournament_id}?players=true&rounds=true"
         )
         rounds = tournament.get("rounds", None)
@@ -143,7 +143,7 @@ def tournament_view(tournament):
 
 def start_tournament(tournament_id):
     try:
-        post_data(f"{API_URL}/tournaments/{tournament_id}")
+        post_data(f"{API_URL}/api/tournaments/{tournament_id}")
         print("Tournament successfully started")
         tournament = get_data(f"{API_URL}/tournaments/{tournament_id}")
         tournament_view(tournament)

@@ -47,7 +47,7 @@ class TournamentRouter(Router):
             )
 
     def get_tournament(
-            self, tournament_id, rounds=False, players=False
+        self, tournament_id, rounds=False, players=False
     ) -> Response:
         try:
             tournament = self.controller.get_tournament(
@@ -129,7 +129,7 @@ class TournamentRouter(Router):
             )
 
     def get_tournament_round(
-            self, tournament_id: PrimaryKey, round_number: int
+        self, tournament_id: PrimaryKey, round_number: int
     ) -> Response:
         try:
             round_id = self.controller.get_round_id(
@@ -144,7 +144,7 @@ class TournamentRouter(Router):
             )
 
     def update_games(
-            self, tournament_id: PrimaryKey, round_number: int, request: Request
+        self, tournament_id: PrimaryKey, round_number: int, request: Request
     ) -> Response:
         try:
             payload = request.json

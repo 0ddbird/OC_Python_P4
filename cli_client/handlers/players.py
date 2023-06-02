@@ -27,7 +27,7 @@ def display_players():
 
 def get_players():
     try:
-        return get_data(f"{API_URL}/players")
+        return get_data(f"{API_URL}/api/players")
     except HTTPError:
         print("Could not find players")
         return None
@@ -69,7 +69,7 @@ def create_player():
             "chess_id": chess_id,
         }
 
-        url = f"{API_URL}/players"
+        url = f"{API_URL}/api/players"
 
         try:
             post_data(url, player)

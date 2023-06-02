@@ -25,22 +25,20 @@ CORS(app)
 app.add_template_filter(datetime_format)
 
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
 def serve(path):
     if path != "" and os.path.exists("static/build/" + path):
         mimetype = mimetypes.guess_type(path)[0]
-        print(f'Serving {path} with MIME type {mimetype}')
-        return send_from_directory('static/build', path)
+        print(f"Serving {path} with MIME type {mimetype}")
+        return send_from_directory("static/build", path)
     else:
-        return send_from_directory('static/build', 'index.html')
+        return send_from_directory("static/build", "index.html")
 
 
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template("404.html"), 404
-
-
 
 
 if __name__ == "__main__":
