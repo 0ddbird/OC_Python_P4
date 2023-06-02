@@ -10,23 +10,9 @@
 ### Usage
 
 To run the server:
-`cd ./backend ; flask --app main.py run --reload`
-TODO: servir l'app react dans un dossier statique web/ par Flask
-To run the web client:
-`cd ./web_client ; yarn start`
+`cd ./backend ; flask --app main.py run`  
+Once the server is started, you can access this page from your browser:
+http://localhost:5000/
 
 To run the CLI client:
-
 `cd ./cli_client ; python -m main`
-
-### Project status
-
-v1 is functionnal
-
-### Improvements
-
-- CLI client : UX improvements to update a tournament
-- CLI client : autorun Flask server from client
-- Web client : UI improvements to the Tournament page
-- Jinja templates : CSS layout 
-
