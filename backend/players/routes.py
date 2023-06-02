@@ -1,7 +1,7 @@
 from flask import Blueprint, request, Response
 from backend.players.router import PlayerRouter
 
-players_blueprint = Blueprint("players", __name__, url_prefix="/players")
+players_blueprint = Blueprint("players", __name__, url_prefix="/api/players")
 player_router = PlayerRouter()
 
 

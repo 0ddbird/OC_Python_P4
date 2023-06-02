@@ -3,3 +3,6 @@ flask
 flask_cors
 black
 flake8
+requests
+rich
+click

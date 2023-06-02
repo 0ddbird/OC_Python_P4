@@ -1,5 +1,5 @@
 class ApiService {
-  static basePath = 'http://127.0.0.1:5000'
+  static basePath = 'http://127.0.0.1:5000/api'
   static headers = {
     'Content-Type': 'application/json',
     Accept: 'application/json'

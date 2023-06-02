@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a40e0635.css",
+    "main.js": "/static/js/main.411c5260.js",
+    "static/media/chess-solid.svg": "/static/media/chess-solid.df430f566607efa3365fa811d471cd3e.svg",
+    "static/media/pen.svg": "/static/media/pen.eb48593ab5d357970f5fbd25995394a9.svg",
+    "index.html": "/index.html",
+    "static/media/user-pen-solid.svg": "/static/media/user-pen-solid.78bccc84ce1aa8eac537938f9808e2b3.svg",
+    "static/media/user-xmark-solid.svg": "/static/media/user-xmark-solid.233ccebe5eb5a90b426f82db46645973.svg",
+    "main.a40e0635.css.map": "/static/css/main.a40e0635.css.map",
+    "main.411c5260.js.map": "/static/js/main.411c5260.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a40e0635.css",
+    "static/js/main.411c5260.js"
+  ]
+}

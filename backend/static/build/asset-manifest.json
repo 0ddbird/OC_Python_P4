@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "./static/build/static/css/main.a40e0635.css",
+    "main.js": "./static/build/static/js/main.b14da58a.js",
+    "static/media/chess-solid.svg": "./static/build/static/media/chess-solid.df430f566607efa3365fa811d471cd3e.svg",
+    "static/media/pen.svg": "./static/build/static/media/pen.eb48593ab5d357970f5fbd25995394a9.svg",
+    "index.html": "./static/build/index.html",
+    "static/media/user-pen-solid.svg": "./static/build/static/media/user-pen-solid.78bccc84ce1aa8eac537938f9808e2b3.svg",
+    "static/media/user-xmark-solid.svg": "./static/build/static/media/user-xmark-solid.233ccebe5eb5a90b426f82db46645973.svg",
+    "main.a40e0635.css.map": "./static/build/static/css/main.a40e0635.css.map",
+    "main.b14da58a.js.map": "./static/build/static/js/main.b14da58a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a40e0635.css",
+    "static/js/main.b14da58a.js"
+  ]
+}

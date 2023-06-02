@@ -3,7 +3,7 @@ from flask import Blueprint, request, Response
 from backend.abstract.typing.model_typing import PrimaryKey
 from backend.games.router import GameRouter
 
-games_blueprint = Blueprint("games", __name__, url_prefix="/games")
+games_blueprint = Blueprint("games", __name__, url_prefix="/api/games")
 router = GameRouter()
 
 

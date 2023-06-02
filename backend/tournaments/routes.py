@@ -6,7 +6,7 @@ from backend.tournaments.router import TournamentRouter
 tournaments_blueprint = Blueprint(
     "tournaments",
     __name__,
-    url_prefix="/tournaments",
+    url_prefix="/api/tournaments",
 )
 router = TournamentRouter()
 

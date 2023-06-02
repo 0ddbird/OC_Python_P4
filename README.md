@@ -3,15 +3,15 @@
 ### Installation
 
 - Clone the project
-- Go to the backend directory
+- Create a virtual environment with `python3 -m venv venv`
+- Activate the virtual environment with `source ./venv/bin/activate`
 - Install the dependencies with `pip install -r requirements.txt`
-- Go to the client_web directory
-- Install the dependencies with `yarn install`
 
 ### Usage
+
 To run the server:
 `cd ./backend ; flask --app main.py run --reload`
-
+TODO: servir l'app react dans un dossier statique web/ par Flask
 To run the web client:
 `cd ./web_client ; yarn start`
 
@@ -26,7 +26,7 @@ v1 is functionnal
 ### Improvements
 
 - CLI client : UX improvements to update a tournament
-- CLI client : autorun Flask server from client  
-- Web client : UI improvements to the Tournament page  
+- CLI client : autorun Flask server from client
+- Web client : UI improvements to the Tournament page
 - Jinja templates : CSS layout 
 
