@@ -1,5 +1,4 @@
 import os
-import mimetypes
 
 from flask import Flask, render_template, send_from_directory
 from flask_cors import CORS
@@ -29,8 +28,6 @@ app.add_template_filter(datetime_format)
 @app.route("/<path:path>")
 def serve(path):
     if path != "" and os.path.exists("static/build/" + path):
-        mimetype = mimetypes.guess_type(path)[0]
-        print(f"Serving {path} with MIME type {mimetype}")
         return send_from_directory("static/build", path)
     else:
         return send_from_directory("static/build", "index.html")
