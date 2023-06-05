@@ -3,6 +3,7 @@ flask
 flask_cors
 black
 flake8
+flake8-html
 requests
 rich
 click
