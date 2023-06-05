@@ -30,8 +30,5 @@ def patch_data(url, payload=None):
     else:
         response = requests.patch(url, headers=headers)
 
-    print(f"Response status code: {response.status_code}")
-    print(f"Response content: {response.content}")
-
     response.raise_for_status()
     return response.ok

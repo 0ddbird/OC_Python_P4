@@ -5,6 +5,7 @@ from backend.players.controller import PlayerController
 from backend.abstract.exceptions.dao_exceptions import PlayerCreationException
 from backend.abstract.typing.model_typing import PrimaryKey
 from backend.abstract.response_codes import ResCode
+from backend.players.validate_player_payload import validate_player_fields
 
 
 class PlayerRouter(Router):
@@ -14,7 +15,20 @@ class PlayerRouter(Router):
     def create_player(self, request: Request) -> Response:
         keys = ["chess_id", "first_name", "last_name", "birthdate", "elo"]
         player = {key: request.json.get(key) for key in keys}
-        # Implémenter une validation des champs
+
+        try:
+            chess_id = player.get("chess_id", None)
+            birthdate = player.get("birthdate", None)
+            elo = player.get("elo", None)
+
+            validate_player_fields(chess_id, birthdate, elo)
+        except ValueError as e:
+            print(str(e))
+            return make_response(
+                {"message": "Error while creating player"},
+                ResCode.BAD_REQUEST.value,
+            )
+
         try:
             player_id = self.controller.create_player(player)
             return make_response(
@@ -65,7 +79,7 @@ class PlayerRouter(Router):
 
     def delete_player(self, player_id: PrimaryKey) -> Response:
         try:
-            self.controller.delete(int(player_id))
+            self.controller.delete_player(int(player_id))
             return make_response(
                 {"message": "Successfully deleted player"},
                 ResCode.OK.value,

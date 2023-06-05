@@ -59,15 +59,20 @@ def resume_tournament(tournament_id):
         rounds = tournament.get("rounds", None)
         if not rounds:
             print("This tournament has no rounds")
-
+        players = tournament.get("players", None)
+        players_dict = {
+            player["id"]: f"{player['first_name']} {player['last_name']}"
+            for player in players
+        }
         current_round = rounds[-1]
 
         for game in current_round.get("games", []):
             game_status = game.get("status", None)
             if game_status == "OPEN":
                 print(
-                    f"Game {game['id']} between Player {game['p1_id']}"
-                    f"and Player {game['p2_id']}"
+                    f"Game {game['id']} between\n"
+                    f"1. {players_dict[game['p1_id']]}\nand\n"
+                    f"2. {players_dict[game['p2_id']]}"
                 )
                 update_game(game["id"])
     except HTTPError:
@@ -89,7 +94,7 @@ def update_game(game_id):
             p2_score = float(p2_score)
 
             patch_data(
-                f"{API_URL}/games/{game_id}",
+                f"{API_URL}/api/games/{game_id}",
                 payload={"p1_score": p1_score, "p2_score": p2_score},
             )
             print(f"Successfully updated game {game_id}")
@@ -145,7 +150,7 @@ def start_tournament(tournament_id):
     try:
         post_data(f"{API_URL}/api/tournaments/{tournament_id}")
         print("Tournament successfully started")
-        tournament = get_data(f"{API_URL}/tournaments/{tournament_id}")
+        tournament = get_data(f"{API_URL}/api/tournaments/{tournament_id}")
         tournament_view(tournament)
     except HTTPError:
         print("Could not start tournament")
@@ -184,7 +189,7 @@ def create_tournament():
             "players_ids": selected_player_ids,
         }
 
-        url = f"{API_URL}/tournaments"
+        url = f"{API_URL}/api/tournaments"
 
         try:
             post_data(url, tournament)
