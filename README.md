@@ -16,3 +16,7 @@ http://localhost:5000/
 
 To run the CLI client:
 `cd ./cli_client ; python -m main`
+
+To generate the flake8 report:  
+`flake8 --format=html --htmldir=<name_of_the_output_directory> --exclude <name_of_the_venv_directory>`  
+ex: `flake8 --format=html --htmldir=flake8_output --exclude venv`
